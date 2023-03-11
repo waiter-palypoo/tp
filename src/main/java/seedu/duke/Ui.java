@@ -2,11 +2,11 @@ package seedu.duke;
 
 public class Ui {
     /**
-     * Print the Input guidelines for the reader 
+     * Print the Input guidelines for the reader
      */
     public static void printInstructions() {
         System.out.println("LIST OF ALL COMMANDS:");
-        System.out.println("add expense +  $/\"amount\" + d/\"yyyymmdd\" to add an expense");
+        System.out.println("add expense + name + $/\"amount\" + d/\"yyyymmdd\" to add an expense");
         System.out.println("edit expense +  id/\"expense id\" + in/\"amount/date/category\" to edit an expense");
         System.out.println("delete expense +  id/\"expense id\" to delete an expense");
         System.out.println("set balance +  $/\"amount\" to set your balance");
@@ -40,10 +40,10 @@ public class Ui {
      */
     public static void printGreeting() {
         String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                      + "|  _ \\ _   _| | _____ \n"
+                      + "| | | | | | | |/ / _ \\\n"
+                      + "| |_| | |_| |   <  __/\n"
+                      + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you ?");
@@ -76,5 +76,4 @@ public class Ui {
         System.out.println("7. Others");
         printHorizontalLine();
     }
-
 }

@@ -35,14 +35,16 @@ public class Parser {
         }
     }
 
-    private static void executeAddExpense(String userCmd, ExpenseManager expenseManager, int choice) throws DukeException {
+    private static void executeAddExpense(String userCmd, ExpenseManager expenseManager, int choice)
+        throws DukeException {
         double amount = extractAmount(userCmd);
         LocalDate date = extractDate(userCmd);
+        String name = extractName(userCmd);
         String category = getCategory(choice);
         if (category.equals("wrong input")) {
             Ui.printfalseInput();
         } else {
-            expenseManager.addExpense(amount, date, category);
+            expenseManager.addExpense(name, amount, date, category);
         }
     }
 
@@ -66,6 +68,11 @@ public class Parser {
             Ui.printfalseInput();
             return "wrong input";
         }
+    }
+
+    private static String extractName(String userCmd) {
+        int endIndex = userCmd.indexOf("$/");
+        return userCmd.substring(12, endIndex);
     }
 
     private static double extractAmount(String userCmd) throws DukeException {

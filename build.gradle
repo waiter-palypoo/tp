@@ -48,3 +48,13 @@ checkstyle {
 run{
     standardInput = System.in
 }
+
+jar {
+  manifest {
+    attributes("Main-Class": "seedu.duke.Duke")
+  }
+
+  from {
+    configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+  }
+}
