@@ -14,12 +14,17 @@ public class Parser {
         } else if (userCmd.startsWith("edit expense")) {
             System.out.println(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
             executeEditExpense(expenseManager, userCmd);
+        } else if(userCmd.startsWith("delete expense")) {
+            //System.out.println(userCmd.substring(userCmd.indexOf("id/") + 3));
+            executeDeleteExpense(expenseManager, userCmd);
         } else if (userCmd.startsWith("set balance")) {
             executeSetBudget(expenseManager, userCmd);
         } else if (userCmd.startsWith("list expenses")) {
             expenseManager.printExpense();
         } else if (userCmd.startsWith("check balance")) {
+            Ui.printHorizontalLine();
             System.out.println("Your current balance is: $" + expenseManager.getTotalBalance());
+            Ui.printHorizontalLine();
         } else {
             Ui.printfalseInput();
         }
@@ -77,7 +82,9 @@ public class Parser {
     private static void executeSetBudget(ExpenseManager expenseManager, String userCmd) {
         int startIndex = userCmd.indexOf("$/");
         double balance = Double.parseDouble(userCmd.substring(startIndex + 2));
+        Ui.printHorizontalLine();
         System.out.println("Your budget has been set to $" + balance);
+        Ui.printHorizontalLine();
         expenseManager.setTotalBalance(balance);
     }
 
@@ -112,5 +119,14 @@ public class Parser {
             default:
                 Ui.printfalseInput();
         }
+    }
+    private static void executeDeleteExpense(ExpenseManager expenseManager, String userCmd) {
+        int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3));
+        Ui.printHorizontalLine();
+        Expense deletedExpense = expenseManager.get(id-1);
+        expenseManager.remove(id-1);
+        System.out.println("Noted. I've removed this expense:");
+        System.out.println(deletedExpense);
+        Ui.printHorizontalLine();
     }
 }

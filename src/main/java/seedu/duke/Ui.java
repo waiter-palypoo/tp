@@ -8,6 +8,7 @@ public class Ui {
         System.out.println("LIST OF ALL COMMANDS:");
         System.out.println("add expense +  $/\"amount\" + d/\"yyyymmdd\" to add an expense");
         System.out.println("edit expense +  id/\"expense id\" + in/\"amount/date/category\" to edit an expense");
+        System.out.println("delete expense +  id/\"expense id\" to delete an expense");
         System.out.println("set balance +  $/\"amount\" to set your balance");
         System.out.println("list expenses to list all past expenses");
         System.out.println("check balance to check the remaining balance");
@@ -17,7 +18,7 @@ public class Ui {
      * Print the Horizontal Line that seperates between different user Inputs
      */
     public static void printHorizontalLine() {
-        for (int i = 0; i <= 30; i++) {
+        for (int i = 0; i <= 80; i++) {
             System.out.print("_");
         }
         System.out.println();
@@ -27,8 +28,10 @@ public class Ui {
      * Print the message for user to signal that Duke cannot understand the input
      */
     public static void printfalseInput() {
+        printHorizontalLine();
         System.out.println("Sorry Duke could not understand your input :> please follow the instructions");
         printInstructions();
+        printHorizontalLine();
     }
 
     /**
@@ -52,13 +55,16 @@ public class Ui {
      * Print the Goodbye message when user exits Duke
      */
     public static void printGoodbye() {
+        printHorizontalLine();
         System.out.println("Thanks for using Duke! See ya!");
         System.out.println(" /\\_/\\  ");
         System.out.println("( o.o ) ");
         System.out.println(" > ^ <  ");
+        printHorizontalLine();
     }
 
     public static void printChoice() {
+        printHorizontalLine();
         System.out.println("Which of the following category is this expense? Input a single number!");
         System.out.println("1. Food & Drinks");
         System.out.println("2. Shopping");
@@ -67,6 +73,7 @@ public class Ui {
         System.out.println("5. Investments");
         System.out.println("6. Communication & Technology");
         System.out.println("7. Others");
+        printHorizontalLine();
     }
 
 }
