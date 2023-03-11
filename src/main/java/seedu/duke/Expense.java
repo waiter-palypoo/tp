@@ -6,11 +6,13 @@ public class Expense {
     private double amount;
     private LocalDate date;
     private String category;
+    private String name;
 
-    public Expense(double amount, LocalDate date, String category) {
+    public Expense(String name, double amount, LocalDate date, String category) {
         this.amount = amount;
         this.date = date;
         this.category = category;
+        this.name = name;
     }
 
     public void setAmount(double amount) {
@@ -19,6 +21,10 @@ public class Expense {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public void setCategory(String category) {
@@ -38,6 +44,7 @@ public class Expense {
     }
 
     public String toString() {
-        return this.amount + " spent on: " + this.category + " on the date of: " + this.date;
+        return String.format("Spent $%s on %s in the %s category on %s", this.amount, this.name, this.category,
+                             this.date);
     }
 }
