@@ -30,15 +30,19 @@ public class ExpenseManager extends Expense {
         return totalBalance;
     }
 
-    public void printExpense() {
-        int count = 1;
-        Ui.printHorizontalLine();
-        System.out.println("Here are the list of your expenses !");
-        for(Expense e : expenses) {
-            System.out.println(count + ". $" + e.toString());
-            count++;
+    public void printExpense() throws DukeException {
+        if(expenses.size()==0) {
+            throw new DukeException("Sorry, there are no expenses in the list currently.");
+        } else {
+            int count = 1;
+            Ui.printHorizontalLine();
+            System.out.println("Here are the list of your expenses !");
+            for (Expense e : expenses) {
+                System.out.println(count + ". $" + e.toString());
+                count++;
+            }
+            Ui.printHorizontalLine();
         }
-        Ui.printHorizontalLine();
     }
 
     public Expense get(int id) {
@@ -47,6 +51,11 @@ public class ExpenseManager extends Expense {
 
     public Expense remove(int id) {
         return expenses.remove(id);
+    }
+
+    public int getSize()
+    {
+        return expenses.size();
     }
 }
 
