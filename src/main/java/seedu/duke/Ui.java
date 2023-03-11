@@ -30,6 +30,7 @@ public class Ui {
     public static void printfalseInput() {
         printHorizontalLine();
         System.out.println("Sorry Duke could not understand your input :> please follow the instructions");
+        System.out.println();
         printInstructions();
         printHorizontalLine();
     }
