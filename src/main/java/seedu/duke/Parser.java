@@ -35,7 +35,7 @@ public class Parser {
         }
     }
 
-    private static void executeAddExpense(String userCmd, ExpenseManager expenseManager, int choice)
+    public static void executeAddExpense(String userCmd, ExpenseManager expenseManager, int choice)
         throws DukeException {
         double amount = extractAmount(userCmd);
         LocalDate date = extractDate(userCmd);
@@ -143,7 +143,7 @@ public class Parser {
         }
     }
 
-    private static void executeDeleteExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
+    public static void executeDeleteExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
         int startIndex = userCmd.indexOf("id/");
         if (startIndex < 0) {
             throw new DukeException("Expense id cannot be empty.");
