@@ -44,7 +44,7 @@ class ParserTest {
         Expense toAdd = new Expense("Movie", 200, date, "Life & Entertainment");
         ExpenseManager expenseManager = new ExpenseManager(0);
         Parser.executeAddExpense("add expense Movie $/200 d/20220101", expenseManager, 4);
-        InputStream sysInBackup = System.in; // backup System.in to restore it later
+        InputStream sysInBackup = System.in;
         ByteArrayInputStream in = new ByteArrayInputStream("50".getBytes());
         System.setIn(in);
         Parser.executeEditExpense(expenseManager, "edit expense Movie id/1 in/amount");
@@ -76,5 +76,51 @@ class ParserTest {
         ExpenseManager expenseManager = new ExpenseManager(5000);
         Parser.executeSetBudget(expenseManager, "set balance $/5000");
         assertEquals(5000, expenseManager.getTotalBalance());
+    }
+
+    @Test
+    public void addFutureExpense_successful() throws DukeException {
+        ArrayList<FutureExpense> testExpenses = new ArrayList<FutureExpense>();
+        LocalDate date = LocalDate.of(2022, 01, 01);
+        FutureExpense toAdd = new FutureExpense("Movie", 200, date, "Life & Entertainment");
+        testExpenses.add(toAdd);
+        ExpenseManager expenseManager = new ExpenseManager(0);
+        Parser.executeAddFutureExpense("add future expense Movie $/200 d/20220101", expenseManager, 4);
+        String expectedOutput = testExpenses.get(0).toString();
+        String actualOutput = expenseManager.getFutureExpense(0).toString();
+        assertEquals(expectedOutput, actualOutput);
+    }
+    
+    @Test
+    public void deleteFutureExpense_successful() throws DukeException {
+        ArrayList<FutureExpense> testExpenses = new ArrayList<FutureExpense>();
+        LocalDate date = LocalDate.of(2022, 01, 01);
+        FutureExpense toAdd = new FutureExpense("Movie", 200, date, "Life & Entertainment");
+        testExpenses.add(toAdd);
+        ExpenseManager expenseManager = new ExpenseManager(0);
+        Parser.executeAddFutureExpense("add future expense Movie $/200 d/20220101", expenseManager, 4);
+        testExpenses.remove(0);
+        Parser.executeDeleteFutureExpense(expenseManager, "delete future expense id/1");
+        assertEquals(testExpenses.size(), expenseManager.getSize());
+    }
+
+    @Test
+    public void editFutureExpense_successful() throws DukeException {
+        ArrayList<FutureExpense> testExpenses = new ArrayList<FutureExpense>();
+        LocalDate date = LocalDate.of(2022, 01, 01);
+        FutureExpense toAdd = new FutureExpense("Movie", 200, date, "Life & Entertainment");
+        ExpenseManager expenseManager = new ExpenseManager(0);
+        Parser.executeAddFutureExpense("add future expense Movie $/200 d/20220101", expenseManager, 4);
+        InputStream sysInBackup = System.in;
+        ByteArrayInputStream in = new ByteArrayInputStream("50".getBytes());
+        System.setIn(in);
+        Parser.executeEditFutureExpense(expenseManager, "edit future expense Movie id/1 in/amount");
+        System.setIn(sysInBackup);
+        toAdd.setAmount(50);
+        testExpenses.add(toAdd);
+        String expectedOutput = testExpenses.get(0).toString();
+        String actualOutput = expenseManager.getFutureExpense(0).toString();
+
+        assertEquals(expectedOutput, actualOutput);
     }
 }
