@@ -97,7 +97,7 @@ public class Parser {
         return LocalDate.of(year, month, day);
     }
 
-    private static void executeSetBudget(ExpenseManager expenseManager, String userCmd) throws DukeException {
+    public static void executeSetBudget(ExpenseManager expenseManager, String userCmd) throws DukeException {
         int startIndex = userCmd.indexOf("$/");
         if (startIndex < 0) {
             throw new DukeException("Budget amount cannot be empty.");
@@ -110,7 +110,7 @@ public class Parser {
         }
     }
 
-    private static void executeEditExpense(ExpenseManager expenseManager, String userCmd) {
+    public static void executeEditExpense(ExpenseManager expenseManager, String userCmd) {
         int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
         Scanner in = new Scanner(System.in);
         switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
