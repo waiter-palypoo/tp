@@ -190,7 +190,7 @@ public class Parser {
             expenseManager.addFutureExpense(name, amount, dueDate, category);
         }
     }
-    private static void executeEditFutureExpense(ExpenseManager expenseManager, String userCmd) {
+    public static void executeEditFutureExpense(ExpenseManager expenseManager, String userCmd) {
         int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
         Scanner in = new Scanner(System.in);
         switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
