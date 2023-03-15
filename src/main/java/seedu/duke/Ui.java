@@ -13,8 +13,8 @@ public class Ui {
         System.out.println("list expenses to list all past expenses");
         System.out.println("check balance to check the remaining balance");
         System.out.println("add future expense + name + $/\"amount\" + d/\"yyyymmdd\" to add a future expense");
-        System.out.println("edit future expense + id/\"expense id\" + in/\"amount/date/category\" " +
-                "to edit a future expense");
+        System.out.println("edit future expense + id/\"expense id\" + in/\"amount/date/category\" "
+                           + "to edit a future expense");
         System.out.println("delete future expense + id/\"expense id\" to delete a future expense");
         System.out.println("list future expenses to list all future expenses");
         System.out.println("check upcoming expenses to list all future expenses within an upcoming time period");
@@ -47,11 +47,14 @@ public class Ui {
      * Print the Greeting when Duke is started
      */
     public static void printGreeting() {
-        String logo = " ____        _        \n"
-                      + "|  _ \\ _   _| | _____ \n"
-                      + "| | | | | | | |/ / _ \\\n"
-                      + "| |_| | |_| |   <  __/\n"
-                      + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "___  ___                      ___  ___          _\n"
+                      + "|  \\/  |                      |  \\/  |         | |\n"
+                      + "| .  . | ___  _ __   ___ _   _| .  . | __ _ ___| |_ ___ _ __\n"
+                      + "| |\\/| |/ _ \\| '_ \\ / _ \\ | | | |\\/| |/ _` / __| __/ _ \\ '__|\n"
+                      + "| |  | | (_) | | | |  __/ |_| | |  | | (_| \\__ \\ ||  __/ |\n"
+                      + "\\_|  |_/\\___/|_| |_|\\___|\\__, \\_|  |_/\\__,_|___/\\__\\___|_|\n"
+                      + "                         __/ |\n"
+                      + "                        |___/";
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you ?");
