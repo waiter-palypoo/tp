@@ -1,13 +1,13 @@
 package seedu.duke;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class ParserTest {
 
@@ -90,7 +90,7 @@ class ParserTest {
         String actualOutput = expenseManager.getFutureExpense(0).toString();
         assertEquals(expectedOutput, actualOutput);
     }
-    
+
     @Test
     public void deleteFutureExpense_successful() throws DukeException {
         ArrayList<FutureExpense> testExpenses = new ArrayList<FutureExpense>();

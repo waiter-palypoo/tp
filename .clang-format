@@ -5,3 +5,4 @@ ColumnLimit: 120
 SeparateDefinitionBlocks: Always
 AllowShortFunctionsOnASingleLine: None
 JavaImportGroups: ['java', 'org.junit','seedu']
+ContinuationIndentWidth: 8

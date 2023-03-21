@@ -1,9 +1,36 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
-What is your name?
-Hello James Gosling
+___  ___                      ___  ___          _
+|  \/  |                      |  \/  |         | |
+| .  . | ___  _ __   ___ _   _| .  . | __ _ ___| |_ ___ _ __
+| |\/| |/ _ \| '_ \ / _ \ | | | |\/| |/ _` / __| __/ _ \ '__|
+| |  | | (_) | | | |  __/ |_| | |  | | (_| \__ \ ||  __/ |
+\_|  |_/\___/|_| |_|\___|\__, \_|  |_/\__,_|___/\__\___|_|
+                         __/ |
+                        |___/
+Hello! I'm Duke
+What can I do for you ?
+_________________________________________________________________________________
+LIST OF ALL COMMANDS:
+add expense + name + $/"amount" + d/"yyyymmdd" to add an expense
+edit expense +  id/"expense id" + in/"amount/date/category" to edit an expense
+delete expense +  id/"expense id" to delete an expense
+set balance +  $/"amount" to set your balance
+list expenses to list all past expenses
+check balance to check the remaining balance
+add future expense + name + $/"amount" + d/"yyyymmdd" to add a future expense
+edit future expense + id/"expense id" + in/"amount/date/category" to edit a future expense
+delete future expense + id/"expense id" to delete a future expense
+list future expenses to list all future expenses
+check upcoming expenses to list all future expenses within an upcoming time period
+pay "id" to pay for a future expense and move it to the list of past expenses
+bye to exit the program
+_________________________________________________________________________________
+_________________________________________________________________________________
+Sorry, there are no expenses in the list currently.
+_________________________________________________________________________________
+_________________________________________________________________________________
+Thanks for using Duke! See ya!
+ /\_/\  
+( o.o ) 
+ > ^ <  
+_________________________________________________________________________________
