@@ -115,6 +115,7 @@ public class ExpenseManager {
         }
         return "Warning: Insufficient Balance!";
     }
+
     public void printFutureExpenses() throws DukeException {
         if (futureExpenses.size() == 0) {
             throw new DukeException("Sorry, there are no future expenses.");
@@ -155,13 +156,15 @@ public class ExpenseManager {
         case 3:
             endDate = today.plusMonths(3);
             break;
+        default:
+            endDate = today;
         }
         int count = 0;
         int totalAmountDue = 0;
         for (FutureExpense futureExpense : futureExpenses) {
             if (futureExpense.getDueDate().isBefore(endDate)) {
-                System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". "
-                        + checkSufficientBalance(futureExpense));
+                System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " +
+                                   checkSufficientBalance(futureExpense));
                 count++;
                 totalAmountDue += futureExpense.getAmount();
             }
@@ -179,7 +182,7 @@ public class ExpenseManager {
         Ui.printHorizontalLine();
     }
 
-    public void payFutureExpense (int id) throws DukeException {
+    public void payFutureExpense(int id) throws DukeException {
         Ui.printHorizontalLine();
         if (id >= futureExpenses.size()) {
             throw new DukeException("That item does not exist in the list of future expenses!");
@@ -210,6 +213,7 @@ public class ExpenseManager {
     public int getSize() {
         return expenses.size();
     }
+
     public int getFutureSize() {
         return futureExpenses.size();
     }

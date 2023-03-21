@@ -52,7 +52,7 @@ public class Parser {
     }
 
     public static void executeAddExpense(String userCmd, ExpenseManager expenseManager, int choice)
-        throws DukeException {
+            throws DukeException {
         double amount = extractAmount(userCmd);
         LocalDate date = extractDate(userCmd);
         String name = extractName(userCmd);
@@ -190,6 +190,7 @@ public class Parser {
             expenseManager.addFutureExpense(name, amount, dueDate, category);
         }
     }
+
     public static void executeEditFutureExpense(ExpenseManager expenseManager, String userCmd) {
         int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
         Scanner in = new Scanner(System.in);
@@ -220,6 +221,7 @@ public class Parser {
             Ui.printFalseInput();
         }
     }
+
     public static void executeDeleteFutureExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
         int startIndex = userCmd.indexOf("id/");
         if (startIndex < 0) {
@@ -269,8 +271,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 System.out.println("Please input a valid number!");
             }
-        }
-        else {
+        } else {
             System.out.println("Please input a valid number!");
         }
     }
