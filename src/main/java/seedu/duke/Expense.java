@@ -47,4 +47,14 @@ public class Expense {
         return String.format("Spent $%s on %s in the %s category on %s", this.amount, this.name, this.category,
                              this.date);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Expense) {
+            Expense o = (Expense)obj;
+            return o.name.equals(this.name) && o.amount == this.amount && o.date.equals(this.date) &&
+                    o.category.equals(this.category);
+        }
+        return false;
+    }
 }

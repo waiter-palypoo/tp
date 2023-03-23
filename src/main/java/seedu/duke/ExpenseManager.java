@@ -63,6 +63,7 @@ public class ExpenseManager {
     }
 
     public ArrayList<Expense> getSortedExpenses(final int sortBy) {
+        assert sortBy == SORT_BY_NAME || sortBy == SORT_BY_PRICE : "Expenses can either be sort by named or price";
         switch (sortBy) {
         case SORT_BY_NAME:
             return getSortedExpensesByName();
