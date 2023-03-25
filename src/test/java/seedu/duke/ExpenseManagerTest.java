@@ -16,7 +16,8 @@ public class ExpenseManagerTest {
     @BeforeEach
     public void setUp() {
         LocalDate date = LocalDate.of(2022, 01, 01);
-        ArrayList<Expense> expenses = new ArrayList<>();
+        ArrayList<Expense> expenses = new ArrayList<Expense>();
+        ArrayList<FutureExpense> testFutureExpenses = new ArrayList<FutureExpense>();
         expenses.add(new Expense("Movie", 20, date, "Life & Entertainment"));
         expenses.add(new Expense("Trip", 200.1, date, "Life & Entertainment"));
         expenses.add(new Expense("Food", 10.4, date, "Life & Entertainment"));
@@ -24,7 +25,7 @@ public class ExpenseManagerTest {
         expenses.add(new Expense("Bag", 50.2, date, "Life & Entertainment"));
         this.testExpenses = expenses;
 
-        ExpenseManager expenseManager = new ExpenseManager(0);
+        ExpenseManager expenseManager = new ExpenseManager(0, expenses, testFutureExpenses);
         expenseManager.addExpense("Movie", 20, date, "Life & Entertainment");
         expenseManager.addExpense("Trip", 200.1, date, "Life & Entertainment");
         expenseManager.addExpense("Food", 10.4, date, "Life & Entertainment");
