@@ -1,10 +1,11 @@
 package seedu.duke;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
-    public static void handleCmd(String userCmd, ExpenseManager expenseManager) throws DukeException {
+    public static void handleCmd(String userCmd, ExpenseManager expenseManager, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses) throws DukeException {
         try {
             if (userCmd.startsWith("add expense")) {
                 Ui.printChoice();
@@ -14,7 +15,7 @@ public class Parser {
                 executeAddExpense(userCmd, expenseManager, choiceNum);
             } else if (userCmd.startsWith("edit expense")) {
                 System.out.println(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
-                executeEditExpense(expenseManager, userCmd);
+                executeEditExpense(expenseManager, userCmd, expenses);
             } else if (userCmd.startsWith("delete expense")) {
                 executeDeleteExpense(expenseManager, userCmd);
             } else if (userCmd.startsWith("set balance")) {
@@ -32,7 +33,7 @@ public class Parser {
                 int choiceNum = Integer.parseInt(choice);
                 executeAddFutureExpense(userCmd, expenseManager, choiceNum);
             } else if (userCmd.startsWith("edit future expense")) {
-                executeEditFutureExpense(expenseManager, userCmd);
+                executeEditFutureExpense(expenseManager, userCmd, futureExpenses);
             } else if (userCmd.startsWith("delete future expense")) {
                 executeDeleteFutureExpense(expenseManager, userCmd);
             } else if (userCmd.startsWith("list future expenses")) {
@@ -126,36 +127,42 @@ public class Parser {
         }
     }
 
-    public static void executeEditExpense(ExpenseManager expenseManager, String userCmd) {
+    public static void executeEditExpense(ExpenseManager expenseManager, String userCmd, ArrayList<Expense> expenses) throws DukeException{
         int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
-        Scanner in = new Scanner(System.in);
-        switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
-        case "amount":
-            System.out.println("Enter a new amount spent! Just enter a number!");
-            Double newAmount = Double.parseDouble(in.nextLine());
-            Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
-            expenseManager.get(id - 1).setAmount(newAmount);
-            expenseManager.setTotalBalance(newBalance);
-            System.out.println("Change in amount successful! Balance has also been recalculated");
-            break;
-        case "date":
-            System.out.println("Enter a new date in the form of YYYYMMDD!");
-            String newDate = in.nextLine();
-            int year = Integer.parseInt(newDate.substring(0, 4));
-            int month = Integer.parseInt(newDate.substring(4, 6));
-            int day = Integer.parseInt(newDate.substring(6));
-            expenseManager.get(id - 1).setDate(LocalDate.of(year, month, day));
-            System.out.println("Change in date successful!");
-            break;
-        case "category":
-            Ui.printChoice();
-            int choice = Integer.parseInt(in.nextLine());
-            String newCategory = getCategory(choice);
-            expenseManager.get(id - 1).setCategory(newCategory);
-            System.out.println("Change in category successful!");
-            break;
-        default:
-            Ui.printFalseInput();
+        if (id > expenseManager.getSize() || id < 0) {
+            throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
+        }
+        else {
+            Scanner in = new Scanner(System.in);
+            switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
+            case "amount":
+                System.out.println("Enter a new amount spent! Just enter a number!");
+                Double newAmount = Double.parseDouble(in.nextLine());
+                Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
+                expenseManager.get(id - 1).setAmount(newAmount);
+                expenseManager.setTotalBalance(newBalance);
+                System.out.println("Change in amount successful! Balance has also been recalculated");
+                break;
+            case "date":
+                System.out.println("Enter a new date in the form of YYYYMMDD!");
+                String newDate = in.nextLine();
+                int year = Integer.parseInt(newDate.substring(0, 4));
+                int month = Integer.parseInt(newDate.substring(4, 6));
+                int day = Integer.parseInt(newDate.substring(6));
+                expenseManager.get(id - 1).setDate(LocalDate.of(year, month, day));
+                System.out.println("Change in date successful!");
+                break;
+            case "category":
+                Ui.printChoice();
+                int choice = Integer.parseInt(in.nextLine());
+                String newCategory = getCategory(choice);
+                expenseManager.get(id - 1).setCategory(newCategory);
+                System.out.println("Change in category successful!");
+                break;
+            default:
+                Ui.printFalseInput();
+            }
+            Storage.saveExpenses(expenses);
         }
     }
 
@@ -191,34 +198,40 @@ public class Parser {
         }
     }
 
-    public static void executeEditFutureExpense(ExpenseManager expenseManager, String userCmd) {
+    public static void executeEditFutureExpense(ExpenseManager expenseManager, String userCmd, ArrayList<FutureExpense> futureExpenses) throws DukeException{
         int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
-        Scanner in = new Scanner(System.in);
-        switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
-        case "amount":
-            System.out.println("Enter a new amount spent! Just enter a number!");
-            Double newAmount = Double.parseDouble(in.nextLine());
-            expenseManager.getFutureExpense(id - 1).setAmount(newAmount);
-            System.out.println("Change in amount successful!");
-            break;
-        case "date":
-            System.out.println("Enter a new date in the form of YYYYMMDD!");
-            String newDate = in.nextLine();
-            int year = Integer.parseInt(newDate.substring(0, 4));
-            int month = Integer.parseInt(newDate.substring(4, 6));
-            int day = Integer.parseInt(newDate.substring(6));
-            expenseManager.getFutureExpense(id - 1).setDate(LocalDate.of(year, month, day));
-            System.out.println("Change in date successful!");
-            break;
-        case "category":
-            Ui.printChoice();
-            int choice = Integer.parseInt(in.nextLine());
-            String newCategory = getCategory(choice);
-            expenseManager.getFutureExpense(id - 1).setCategory(newCategory);
-            System.out.println("Change in category successful!");
-            break;
-        default:
-            Ui.printFalseInput();
+        if (id > expenseManager.getSize() || id < 0) {
+            throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
+        }
+        else {
+            Scanner in = new Scanner(System.in);
+            switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
+            case "amount":
+                System.out.println("Enter a new amount spent! Just enter a number!");
+                Double newAmount = Double.parseDouble(in.nextLine());
+                expenseManager.getFutureExpense(id - 1).setAmount(newAmount);
+                System.out.println("Change in amount successful!");
+                break;
+            case "date":
+                System.out.println("Enter a new date in the form of YYYYMMDD!");
+                String newDate = in.nextLine();
+                int year = Integer.parseInt(newDate.substring(0, 4));
+                int month = Integer.parseInt(newDate.substring(4, 6));
+                int day = Integer.parseInt(newDate.substring(6));
+                expenseManager.getFutureExpense(id - 1).setDate(LocalDate.of(year, month, day));
+                System.out.println("Change in date successful!");
+                break;
+            case "category":
+                Ui.printChoice();
+                int choice = Integer.parseInt(in.nextLine());
+                String newCategory = getCategory(choice);
+                expenseManager.getFutureExpense(id - 1).setCategory(newCategory);
+                System.out.println("Change in category successful!");
+                break;
+            default:
+                Ui.printFalseInput();
+            }
+            Storage.saveFutureExpenses(futureExpenses);
         }
     }
 

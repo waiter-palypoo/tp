@@ -13,10 +13,10 @@ public class ExpenseManager {
     private ArrayList<FutureExpense> futureExpenses;
     private double totalBalance;
 
-    public ExpenseManager(double totalBalance) {
+    public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses) {
         this.totalBalance = totalBalance;
-        this.expenses = new ArrayList<Expense>();
-        this.futureExpenses = new ArrayList<FutureExpense>();
+        this.expenses = expenses;
+        this.futureExpenses = futureExpenses;
     }
 
     public void addExpense(String name, double amount, LocalDate date, String category) {
@@ -27,6 +27,7 @@ public class ExpenseManager {
         Ui.printHorizontalLine();
         expenses.add(toAdd);
         totalBalance -= amount;
+        Storage.saveExpenses(expenses);
     }
 
     public void addFutureExpense(String name, double amount, LocalDate dueDate, String category) {
@@ -36,6 +37,7 @@ public class ExpenseManager {
         System.out.println(toAdd);
         Ui.printHorizontalLine();
         futureExpenses.add(toAdd);
+        Storage.saveFutureExpenses(futureExpenses);
     }
 
     public FutureExpense getFutureExpense(int id) {
@@ -162,7 +164,7 @@ public class ExpenseManager {
         int count = 0;
         int totalAmountDue = 0;
         for (FutureExpense futureExpense : futureExpenses) {
-            if (futureExpense.getDueDate().isBefore(endDate)) {
+            if (futureExpense.getDueDate().isBefore(endDate)) { //change
                 System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " +
                                    checkSufficientBalance(futureExpense));
                 count++;
@@ -204,10 +206,12 @@ public class ExpenseManager {
 
     public void remove(int id) {
         expenses.remove(id);
+        Storage.saveExpenses(expenses);
     }
 
     public void removeFutureExpense(int id) {
         futureExpenses.remove(id);
+        Storage.saveFutureExpenses(futureExpenses);
     }
 
     public int getSize() {
