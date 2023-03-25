@@ -10,6 +10,9 @@ public class FutureExpense extends Expense {
         this.dueDate = dueDate;
     }
 
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
     public LocalDate getDueDate() {
         return dueDate;
     }
