@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
-    public static void handleCmd(String userCmd, ExpenseManager expenseManager, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses) throws DukeException {
+    public static void handleCmd(String userCmd, ExpenseManager expenseManager) throws DukeException {
+        ArrayList<Expense> expenses = expenseManager.getExpenses();
+        ArrayList<FutureExpense> futureExpenses = expenseManager.getFutureExpenses();
         try {
             if (userCmd.startsWith("add expense")) {
                 Ui.printChoice();
@@ -127,7 +129,8 @@ public class Parser {
         }
     }
 
-    public static void executeEditExpense(ExpenseManager expenseManager, String userCmd, ArrayList<Expense> expenses) throws DukeException {
+    public static void executeEditExpense(ExpenseManager expenseManager, String userCmd, ArrayList<Expense> expenses)
+            throws DukeException {
         int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
         if (id > expenseManager.getSize() || id < 0) {
             throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
@@ -137,7 +140,8 @@ public class Parser {
             case "amount":
                 System.out.println("Enter a new amount spent! Just enter a number!");
                 Double newAmount = Double.parseDouble(in.nextLine());
-                Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
+                Double newBalance =
+                        expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
                 expenseManager.get(id - 1).setAmount(newAmount);
                 expenseManager.setTotalBalance(newBalance);
                 System.out.println("Change in amount successful! Balance has also been recalculated");
@@ -161,7 +165,6 @@ public class Parser {
             default:
                 Ui.printFalseInput();
             }
-            Storage.saveExpenses(expenses);
         }
     }
 
@@ -197,7 +200,8 @@ public class Parser {
         }
     }
 
-    public static void executeEditFutureExpense(ExpenseManager expenseManager, String userCmd, ArrayList<FutureExpense> futureExpenses) throws DukeException {
+    public static void executeEditFutureExpense(ExpenseManager expenseManager, String userCmd,
+                                                ArrayList<FutureExpense> futureExpenses) throws DukeException {
         int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
         Scanner in = new Scanner(System.in);
         switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
@@ -226,7 +230,6 @@ public class Parser {
         default:
             Ui.printFalseInput();
         }
-        Storage.saveFutureExpenses(futureExpenses);
     }
 
     public static void executeDeleteFutureExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {

@@ -45,13 +45,18 @@ public class Expense {
 
     public String toString() {
         return String.format("Spent $%s on %s in the %s category on %s", this.amount, this.name, this.category,
-                this.date);
+                             this.date);
+    }
+
+    public String serialize() {
+        return String.format("%s|%s|%s|%s|%s", this.getClass().getSimpleName(), this.getName(), this.getAmount(),
+                             this.getCategory(), this.getDate());
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Expense) {
-            Expense o = (Expense) obj;
+            Expense o = (Expense)obj;
             return o.name.equals(this.name) && o.amount == this.amount && o.date.equals(this.date) &&
                     o.category.equals(this.category);
         }

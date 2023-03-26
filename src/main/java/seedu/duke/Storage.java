@@ -1,120 +1,80 @@
 package seedu.duke;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_PATH_1 = "expenses.txt";
-    private static final String FILE_PATH_2 = "future_expenses.txt";
-    private ArrayList<Expense> expenses;
-    private ArrayList<FutureExpense> futureExpenses;
 
-    public Storage(ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses) {
-        this.expenses = expenses;
-        this.futureExpenses = futureExpenses;
-    }
+    public static final String DATA_DIR_NAME = "data";
+    public static final String DATA_FILE_NAME = "duke_data.txt";
+    private Path dataFilePath;
 
-    public static void loadDataExpenses(ArrayList<Expense> expenses) {
-        Ui ui = new Ui();
+    public Storage() {
+        Path dataDirPath = Path.of("").resolve(DATA_DIR_NAME).toAbsolutePath();
         try {
-            File file = new File(FILE_PATH_1);
-            Scanner in = new Scanner(file);
-            while (in.hasNext()) {
-                loadExpenses(in.nextLine(), expenses);
+            if (!Files.exists(dataDirPath)) {
+                Files.createDirectory(dataDirPath);
             }
-        } catch (FileNotFoundException e) {
-            File file = new File(FILE_PATH_1);
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-                ui.printHorizontalLine();
-                System.out.println("New file cannot be created");
-                ui.printHorizontalLine();
+            this.dataFilePath = dataDirPath.resolve(DATA_FILE_NAME);
+            if (!Files.exists(this.dataFilePath)) {
+                Files.createFile(this.dataFilePath);
             }
+        } catch (IOException e) {
+            System.out.println(e);
         }
     }
 
-    public static void loadDataFutureExpenses(ArrayList<FutureExpense> futureExpenses) {
-        Ui ui = new Ui();
+    public ExpenseManager loadDataExpenses() {
+        ArrayList<Expense> expenses = new ArrayList<>();
+        ArrayList<FutureExpense> futureExpenses = new ArrayList<>();
+        String data;
+        Double balance = 0.0;
         try {
-            File file = new File(FILE_PATH_2);
-            Scanner in = new Scanner(file);
-            while (in.hasNext()) {
-                try {
-                    loadFutureExpenses(in.nextLine(), futureExpenses);
-                } catch (DateTimeParseException e) {
-                    System.out.println("Error");
+            data = Files.readString(this.dataFilePath);
+            if (data.isBlank()) {
+                return new ExpenseManager(balance, expenses, futureExpenses);
+            }
+            for (String line : data.lines().toArray(String[] ::new)) {
+                if (line.startsWith("balance")) {
+                    balance = Double.parseDouble(line.split(":")[1]);
+                    continue;
+                }
+                String[] tokens = line.split("\\|");
+                String type = tokens[0];
+                String name = tokens[1];
+                Double amount = Double.parseDouble(tokens[2]);
+                String category = tokens[3];
+                LocalDate date = LocalDate.parse(tokens[4]);
+                if (type.equals("Expense")) {
+                    expenses.add(new Expense(name, amount, date, category));
+                } else {
+                    LocalDate dueDate = LocalDate.parse(tokens[5]);
+                    futureExpenses.add(new FutureExpense(name, amount, dueDate, category));
                 }
             }
-        } catch (FileNotFoundException e) {
-            File file = new File(FILE_PATH_2);
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-                ui.printHorizontalLine();
-                System.out.println("New file cannot be created");
-                ui.printHorizontalLine();
-            }
-        }
-    }
-
-    public static void loadExpenses(String input, ArrayList<Expense> expenses) {
-        String[] splitInput = input.split("\\|");
-        double amount = Double.parseDouble(splitInput[0].trim());
-        String name = splitInput[1].trim();
-        String category = splitInput[2].trim();
-        LocalDate date = LocalDate.parse(splitInput[3].trim());
-        expenses.add(new Expense(name, amount, date, category));
-    }
-
-    public static void loadFutureExpenses(String input, ArrayList<FutureExpense> futureExpenses) {
-        String[] splitInput = input.split("\\|");
-        double amount = Double.parseDouble(splitInput[0].trim());
-        String name = splitInput[1].trim();
-        String category = splitInput[2].trim();
-        LocalDate dueDate = LocalDate.parse(splitInput[3].trim());
-        futureExpenses.add(new FutureExpense(name, amount, dueDate, category));
-    }
-
-    public static void saveExpenses(ArrayList<Expense> expenses) {
-        Ui ui = new Ui();
-        try {
-            FileWriter fw = new FileWriter(FILE_PATH_1);
-            for (Expense expense : expenses) {
-                String lineToAdd = "";
-                lineToAdd = expense.getAmount() + " | " + expense.getName() + " | "
-                        + expense.getCategory() + " | " + expense.getDate() + "\n";
-                fw.write(lineToAdd);
-            }
-            fw.close();
+            return new ExpenseManager(balance, expenses, futureExpenses);
         } catch (IOException e) {
-            ui.printHorizontalLine();
-            System.out.println("Unable to save data");
-            ui.printHorizontalLine();
+            e.printStackTrace();
         }
+        return new ExpenseManager(balance, expenses, futureExpenses);
     }
 
-    public static void saveFutureExpenses(ArrayList<FutureExpense> futureExpenses) {
-        Ui ui = new Ui();
+    public void saveExpenses(ExpenseManager manager) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("balance:%f\n", manager.getTotalBalance()));
+        for (Expense expense : manager.getExpenses()) {
+            sb.append(expense.serialize() + "\n");
+        }
+        for (FutureExpense expense : manager.getFutureExpenses()) {
+            sb.append(expense.serialize() + "\n");
+        }
         try {
-            FileWriter fw = new FileWriter(FILE_PATH_2);
-            for (FutureExpense futureExpense : futureExpenses) {
-                String lineToAdd = "";
-                lineToAdd = futureExpense.getAmount() + " | " + futureExpense.getName() + " | "
-                        + futureExpense.getCategory() + " | " + futureExpense.getDueDate() + "\n";
-                fw.write(lineToAdd);
-            }
-            fw.close();
+            Files.writeString(this.dataFilePath, sb.toString());
         } catch (IOException e) {
-            ui.printHorizontalLine();
-            System.out.println("Unable to save data");
-            ui.printHorizontalLine();
+            e.printStackTrace();
         }
     }
 }

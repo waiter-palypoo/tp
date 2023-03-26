@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import java.util.ArrayList;
+
 public class Ui {
     /**
      * Print the Input guidelines for the reader
@@ -26,10 +28,24 @@ public class Ui {
      * Print the Horizontal Line that seperates between different user Inputs
      */
     public static void printHorizontalLine() {
-        for (int i = 0; i <= 80; i++) {
-            System.out.print("_");
+        System.out.println("-".repeat(80));
+    }
+
+    public static String[] getFormattedList(ArrayList<Expense> expenses) {
+        String[] ret = new String[expenses.size() + 1];
+        ret[0] = "Here are the list of your expenses !\n";
+        for (int i = 0; i < expenses.size(); ++i) {
+            ret[i + 1] = String.format("%d. %s\n", i + 1, expenses.get(i));
         }
-        System.out.println();
+        return ret;
+    }
+
+    public static void printLines(String... lines) {
+        printHorizontalLine();
+        for (String line : lines) {
+            System.out.println(line);
+        }
+        printHorizontalLine();
     }
 
     /**
