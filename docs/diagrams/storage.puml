@@ -1,0 +1,21 @@
+@startuml
+
+actor User
+
+activate Storage
+Duke -> Storage: loadDataExpenses()
+Storage -> Storage: retrieve data from file
+Storage --> Duke: ExpenseManager
+deactivate Storage
+
+loop while userCmd != "bye"
+    User -> Duke: userCmd
+    Duke -> Parser: handleCmd()
+    activate Storage
+    Duke -> Storage: saveExpenses()
+    Storage -> Storage: write data to file
+    Storage --> Duke
+    deactivate Storage
+end
+
+@enduml
