@@ -35,7 +35,7 @@ public class Ui {
         String[] ret = new String[expenses.size() + 1];
         ret[0] = "Here are the list of your expenses !\n";
         for (int i = 0; i < expenses.size(); ++i) {
-            ret[i + 1] = String.format("%d. %s\n", i + 1, expenses.get(i));
+            ret[i + 1] = String.format("%d. %s", i + 1, expenses.get(i));
         }
         return ret;
     }
