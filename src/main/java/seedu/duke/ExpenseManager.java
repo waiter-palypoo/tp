@@ -19,25 +19,25 @@ public class ExpenseManager {
         this.futureExpenses = futureExpenses;
     }
 
+    public ArrayList<Expense> getExpenses() {
+        return this.expenses;
+    }
+
+    public ArrayList<FutureExpense> getFutureExpenses() {
+        return this.futureExpenses;
+    }
+
     public void addExpense(String name, double amount, LocalDate date, String category) {
         Expense toAdd = new Expense(name.strip(), amount, date, category.strip());
-        Ui.printHorizontalLine();
-        System.out.println("Roger, the following expense has been added!");
-        System.out.println(toAdd);
-        Ui.printHorizontalLine();
+        Ui.printLines("Roger, the following expense has been added!", toAdd.toString());
         expenses.add(toAdd);
         totalBalance -= amount;
-        Storage.saveExpenses(expenses);
     }
 
     public void addFutureExpense(String name, double amount, LocalDate dueDate, String category) {
         FutureExpense toAdd = new FutureExpense(name.strip(), amount, dueDate, category);
-        Ui.printHorizontalLine();
-        System.out.println("Roger, the following expense has been added!");
-        System.out.println(toAdd);
-        Ui.printHorizontalLine();
+        Ui.printLines("Roger, the following expense has been added!", toAdd.toString());
         futureExpenses.add(toAdd);
-        Storage.saveFutureExpenses(futureExpenses);
     }
 
     public FutureExpense getFutureExpense(int id) {
@@ -80,13 +80,9 @@ public class ExpenseManager {
         if (expenses.size() == 0) {
             throw new DukeException("Sorry, there are no expenses in the list currently.");
         }
-        Ui.printHorizontalLine();
+        Ui.printLines("How would you like your expenses to be sorted?", "  1. By date added", "  2. By Name",
+                      "  3. By Amount");
         Scanner sc = new Scanner(System.in);
-        System.out.println("How would you like your expenses to be sorted?");
-        System.out.println("  1. By date added");
-        System.out.println("  2. By Name");
-        System.out.println("  3. By Amount");
-        Ui.printHorizontalLine();
         int sortBy = sc.nextInt();
         ArrayList<Expense> toList;
         switch (sortBy) {
@@ -102,14 +98,7 @@ public class ExpenseManager {
         default:
             toList = this.expenses;
         }
-        int count = 1;
-        Ui.printHorizontalLine();
-        System.out.println("Here are the list of your expenses !");
-        for (Expense e : toList) {
-            System.out.println(count + ". " + e);
-            count++;
-        }
-        Ui.printHorizontalLine();
+        Ui.printLines(Ui.getFormattedList(toList));
     }
 
     private String checkSufficientBalance(FutureExpense futureExpense) {
@@ -165,7 +154,7 @@ public class ExpenseManager {
         int count = 0;
         int totalAmountDue = 0;
         for (FutureExpense futureExpense : futureExpenses) {
-            if (futureExpense.getDueDate().isBefore(endDate)) { //change
+            if (futureExpense.getDueDate().isBefore(endDate)) { // change
                 System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " +
                                    checkSufficientBalance(futureExpense));
                 count++;
@@ -207,12 +196,10 @@ public class ExpenseManager {
 
     public void remove(int id) {
         expenses.remove(id);
-        Storage.saveExpenses(expenses);
     }
 
     public void removeFutureExpense(int id) {
         futureExpenses.remove(id);
-        Storage.saveFutureExpenses(futureExpenses);
     }
 
     public int getSize() {
