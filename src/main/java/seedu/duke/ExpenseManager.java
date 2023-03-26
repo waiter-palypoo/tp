@@ -86,10 +86,7 @@ public class ExpenseManager {
         int sortBy = sc.nextInt();
         ArrayList<Expense> toList;
         switch (sortBy) {
-        case 1:
-            toList = this.expenses;
-            break;
-        case 2:
+            case 2:
             toList = getSortedExpenses(SORT_BY_NAME);
             break;
         case 3:

@@ -6,8 +6,20 @@
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+## Storage Component
 
+<img src="diagrams/storage.puml" width="280" />
+
+The `Storage` class handles the validation and creation of the `duke_data.txt` file, which contains all the necessary 
+data regarding the user's budget and expenses.
+### Sequence Explanation
+* Upon creation of the `Storage` object, the constructor first checks whether the directory and file
+`${CWD}/data/duke_data.txt` exists, and creates them otherwise.
+* Before entering the main loop, `Duke` will first call `Storage::loadDataExpenses()`, which reads from `duke_data.txt`
+and initializes and *returns* a `ExpenseManager` object containing the budget, `Expenses` and `FutureExpenses` from the data file.
+* Duke then uses the returned `ExpenseManager` object for the current session
+* After every command, `Duke` will then call `Storage::saveExpenses(ExpenseManager)`, which serializes the current state of
+the `ExpenseManager` and writes the serialized data into `duke_data.txt`, making sure that the latest state of the app is always saved.
 
 ## Product scope
 ### Target user profile
