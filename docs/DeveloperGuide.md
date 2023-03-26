@@ -8,7 +8,7 @@
 
 ## Storage Component
 
-<img src="diagrams/storage.puml" width="280" />
+<img alt="storage sequence diagram" src="diagrams/storage.png" width="280" />
 
 The `Storage` class handles the validation and creation of the `duke_data.txt` file, which contains all the necessary 
 data regarding the user's budget and expenses.
