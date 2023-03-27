@@ -2,32 +2,62 @@
 
 ## Introduction
 
-{Give a product intro}
+Money Master is a Command Line Interface (CLI) based desktop application which will help the user track and manage their expenses quickly and effectively.  
+
++ [Quick Start](#quick-start)
++ [Features](#features)
+    + [Add Expense: `add expense`](#add-expense--add-expense)
+    + [Edit Expense: `edit expense`](#edit-expense--edit-expense)
+    + [Delete Expense: `delete expense`](#delete-expense--delete-expense)
+    + [Set Balance: `set balance`](#set-balance--set-balance)
+    + [List Expenses `list expenses`](#list-expenses--list-expenses)
+    + [Check Balance `check balance`](#check-balance--check-balance)
+    + [Add Future Expense: `add future expense`](#add-expense--add-future-expense)
+    + [Edit Future Expense: `edit future expense`](#edit-expense--edit-future-expense)
+    + [Delete Future Expense: `delete future expense`](#delete-future-expense--delete-future-expense)
+    + [List Future Expenses `list future expenses`](#list-expenses--list-future-expenses)
+    + [Check Upcoming Expenses: `check upcoming expenses`](#check-upcoming-expenses--check-upcoming-expenses)
+    + [Pay Future Expenses: `pay`](#pay-future-expenses--pay)
+    + [Exit the Application: `bye`](#exit-application--bye)
++ [FAQ](#faq)
++ [Command Summary](#command-summary)
 
 ## Quick Start
-
-{Give steps to get started quickly}
-
 1. Ensure that you have Java 11 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Download the latest version of Money Master from [here](https://github.com/AY2223S2-CS2113-W13-4/tp/releases).
+3. Put the JAR file into an empty folder.
+4. Open a command window and change the current working directory to the directory that the JAR file is located in using the following command:
+```
+cd [PATH_TO_JAR_DIRECTORY]
+```
+5. Run Money Master Applicatiom
+```
+java -jar tp.jar
+```
 
-## Features 
+## Features
 
-{Give detailed description of each feature}
+### Delete Expense: `delete expense`
+Deletes an expense from the current list of expenses.
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
+**Format:** `delete expense id/EXPENSE_ID`
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+* Deletes the expense according to its id in the expense list.
+* 'EXPENSE_ID' must be an integer starting from 1.
+* Out of bounds 'EXPENSE_ID' will result in an error message
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+**Example:**
 
-Example of usage: 
+`delete expense id/1`
 
-`todo n/Write the rest of the User Guide d/next week`
+**Expected outcome:**
+```
+--------------------------------------------------------------------------------
+Noted. I've removed this expense:
+Spent $150.0 on book in the Others category on 2023-02-01
+--------------------------------------------------------------------------------
+```
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
 
 ## FAQ
 
@@ -37,6 +67,16 @@ Example of usage:
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
-
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+* Add expense `add expense NAME $/AMOUNT d/DATE`
+* Edit expense `edit expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY"`
+* Delete expense `delete expense id/EXPENSE_ID`
+* Set balance `set balance $/AMOUNT`
+* List expenses `list expenses`
+* Check balance `check balance`
+* Add future expense `add future expense NAME $/AMOUNT d/DATE`
+* Edit future expense `edit future expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY"`
+* Delete future expense `delete future expense id/EXPENSE_ID`
+* List future expenses `list future expenses`
+* Check upcoming expenses `check upcoming expenses`
+* Pay future expense `pay EXPENSE_ID`
+* Exit application `bye`

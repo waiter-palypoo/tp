@@ -64,13 +64,13 @@ Money master provides a fast and streamlined way for users to manage their finan
 ## Instructions for Manual Testing
 ### Launch
 1. Download the JAR file and move it into an empty folder.
-2. On a command line application, change the current working directory to the same folder as the JAR file and run the app using:
+2. On a command line application, change the current working directory to the same folder as the JAR file and run the app using:\
    `java -jar tp.jar`
 3. Expected: The app's welcome message is printed onto the terminal along with list of all commands.
 
 ### Add 
 #### Add past expense
-1. Prerequisites
+1. Prerequisites:
    - Ensure that a valid date is entered
    - Date is entered in the format: yyyymmdd
    - Ensure all fields are entered
@@ -79,7 +79,7 @@ Money master provides a fast and streamlined way for users to manage their finan
    Expected: Terminal shows choose category message. Enter a category number. Expense entry is added. Terminal shows successful message along with expenditure details (name, amount, date, category).
    
 #### Add future expense
-1. Prerequisites
+1. Prerequisites:
    - Ensure that a valid date is entered
    - Date is entered in the format: yyyymmdd
    - Ensure all fields are entered
@@ -93,7 +93,7 @@ Expected: Terminal shows error message.
 
 ### Delete
 #### Delete past expense
-1. Prerequisites
+1. Prerequisites:
    - Ensure that a valid expense id is entered
    - Ensure all fields are entered
 2. Test case:
@@ -101,7 +101,7 @@ Expected: Terminal shows error message.
    Expected: Expense entry is deleted. Terminal shows successful message along with expenditure details (name, amount, date, category).
 
 #### Delete future expense
-1. Prerequisites
+1. Prerequisites:
    - Ensure that a valid future expense id is entered
    - Ensure all fields are entered
 2. Test case:
@@ -114,7 +114,7 @@ Expected: Terminal shows error message.
 
 ### Edit
 #### Edit past expense
-1. Prerequisites
+1. Prerequisites:
    - Ensure that a valid expense id is entered
    - Ensure that a valid date is entered
    - Date is entered in the format: yyyymmdd
@@ -126,7 +126,7 @@ Expected: Terminal shows error message.
    Expected: Terminal shows message to enter the information for the chosen field to edit. Successful message is shown on entering the information.
 
 #### Edit future expense
-1. Prerequisites
+1. Prerequisites:
    - Ensure that a valid expense id is entered
    - Ensure that a valid date is entered
    - Date is entered in the format: yyyymmdd
@@ -150,7 +150,7 @@ Expected: Terminal shows list of upcoming payments with the total amount due and
 
 ### Balance
 #### Set balance
-1. Prerequisites
+1. Prerequisites:
    - Ensure all fields are entered
    
 2. Test case:
@@ -173,7 +173,7 @@ Test case:
 Expected: Terminal shows message to choose period of upcoming expenses. Upcoming payments for the entered time period are displayed with the total amount due and current balance. A warning message is displayed if the balance is insufficient.
 
 #### Pay upcoming expenses
-1. Prerequisites
+1. Prerequisites:
    - Ensure that a valid future expense id is entered
    - Ensure all fields are entered
 2. Test case:
