@@ -22,6 +22,8 @@ public class Parser {
                 executeDeleteExpense(expenseManager, userCmd);
             } else if (userCmd.startsWith("set balance")) {
                 executeSetBudget(expenseManager, userCmd);
+            } else if (userCmd.startsWith("get currency")) {
+                Ui.printLines(String.format("Your currency is currently set to: %s", expenseManager.getCurrency()));
             } else if (userCmd.startsWith("list expenses")) {
                 expenseManager.printExpense();
             } else if (userCmd.startsWith("check balance")) {
@@ -136,9 +138,10 @@ public class Parser {
         } else {
             double balance = Double.parseDouble(userCmd.substring(startIndex + 2));
             Ui.printHorizontalLine();
-            System.out.println("Your budget has been set to $" + balance);
+            System.out.println(
+                    String.format("Your budget has been set to %.2f %s", balance, expenseManager.getCurrency()));
             Ui.printHorizontalLine();
-            expenseManager.setTotalBalance(balance);
+            expenseManager.setTotalBalance(balance / expenseManager.getRate());
         }
     }
 
