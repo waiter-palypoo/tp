@@ -17,19 +17,21 @@ class ParserTest {
     public void addExpense_successful() throws DukeException {
         ArrayList<Expense> testExpenses = new ArrayList<Expense>();
         ArrayList<FutureExpense> testFutureExpenses = new ArrayList<FutureExpense>();
-        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {{
-            put("Food & Drinks", 0.0);
-            put("Shopping", 0.0);
-            put("Transportation", 0.0);
-            put("Life & Entertainment", 0.0);
-            put("Investments", 0.0);
-            put("Communication & Technology", 0.0);
-            put("Others", 0.0);
-        }};
+        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {
+            {
+                put("Food & Drinks", 0.0);
+                put("Shopping", 0.0);
+                put("Transportation", 0.0);
+                put("Life & Entertainment", 0.0);
+                put("Investments", 0.0);
+                put("Communication & Technology", 0.0);
+                put("Others", 0.0);
+            }
+        };
         LocalDate date = LocalDate.of(2022, 01, 01);
         Expense toAdd = new Expense("Movie", 200, date, "Life & Entertainment");
         testExpenses.add(toAdd);
-        ExpenseManager expenseManager = new ExpenseManager(0, testExpenses, testFutureExpenses,expenseByCategory);
+        ExpenseManager expenseManager = new ExpenseManager(0, testExpenses, testFutureExpenses, expenseByCategory);
         Parser.executeAddExpense("add expense Movie $/200 d/20220101", expenseManager, 4);
         String expectedOutput = testExpenses.get(0).toString();
         String actualOutput = expenseManager.get(0).toString();
@@ -40,15 +42,17 @@ class ParserTest {
     public void deleteExpense_successful() throws DukeException {
         ArrayList<Expense> testExpenses = new ArrayList<Expense>();
         ArrayList<FutureExpense> testFutureExpenses = new ArrayList<FutureExpense>();
-        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {{
-            put("Food & Drinks", 0.0);
-            put("Shopping", 0.0);
-            put("Transportation", 0.0);
-            put("Life & Entertainment", 0.0);
-            put("Investments", 0.0);
-            put("Communication & Technology", 0.0);
-            put("Others", 0.0);
-        }};
+        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {
+            {
+                put("Food & Drinks", 0.0);
+                put("Shopping", 0.0);
+                put("Transportation", 0.0);
+                put("Life & Entertainment", 0.0);
+                put("Investments", 0.0);
+                put("Communication & Technology", 0.0);
+                put("Others", 0.0);
+            }
+        };
         LocalDate date = LocalDate.of(2022, 01, 01);
         Expense toAdd = new Expense("Movie", 200, date, "Life & Entertainment");
         testExpenses.add(toAdd);
@@ -63,15 +67,17 @@ class ParserTest {
     public void editExpense_successful() throws DukeException {
         ArrayList<Expense> testExpenses = new ArrayList<Expense>();
         ArrayList<FutureExpense> testFutureExpenses = new ArrayList<FutureExpense>();
-        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {{
-            put("Food & Drinks", 0.0);
-            put("Shopping", 0.0);
-            put("Transportation", 0.0);
-            put("Life & Entertainment", 0.0);
-            put("Investments", 0.0);
-            put("Communication & Technology", 0.0);
-            put("Others", 0.0);
-        }};
+        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {
+            {
+                put("Food & Drinks", 0.0);
+                put("Shopping", 0.0);
+                put("Transportation", 0.0);
+                put("Life & Entertainment", 0.0);
+                put("Investments", 0.0);
+                put("Communication & Technology", 0.0);
+                put("Others", 0.0);
+            }
+        };
         LocalDate date = LocalDate.of(2022, 01, 01);
         Expense toAdd = new Expense("Movie", 200, date, "Life & Entertainment");
         ExpenseManager expenseManager = new ExpenseManager(0, testExpenses, testFutureExpenses, expenseByCategory);
@@ -93,15 +99,17 @@ class ParserTest {
     public void listExpense_successful() throws DukeException {
         ArrayList<Expense> testExpenses = new ArrayList<Expense>();
         ArrayList<FutureExpense> testFutureExpenses = new ArrayList<FutureExpense>();
-        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {{
-            put("Food & Drinks", 0.0);
-            put("Shopping", 0.0);
-            put("Transportation", 0.0);
-            put("Life & Entertainment", 0.0);
-            put("Investments", 0.0);
-            put("Communication & Technology", 0.0);
-            put("Others", 0.0);
-        }};
+        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {
+            {
+                put("Food & Drinks", 0.0);
+                put("Shopping", 0.0);
+                put("Transportation", 0.0);
+                put("Life & Entertainment", 0.0);
+                put("Investments", 0.0);
+                put("Communication & Technology", 0.0);
+                put("Others", 0.0);
+            }
+        };
         LocalDate date = LocalDate.of(2022, 01, 01);
         Expense toAddFirst = new Expense("Movie", 200, date, "Life & Entertainment");
         Expense toAddSecond = new Expense("Chicken", 10, date, "Food & Drinks");
@@ -117,15 +125,17 @@ class ParserTest {
     public void listExpenseByCategory_successful() throws DukeException {
         ArrayList<Expense> testExpenses = new ArrayList<Expense>();
         ArrayList<FutureExpense> testFutureExpenses = new ArrayList<FutureExpense>();
-        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {{
-            put("Food & Drinks", 0.0);
-            put("Shopping", 0.0);
-            put("Transportation", 0.0);
-            put("Life & Entertainment", 0.0);
-            put("Investments", 0.0);
-            put("Communication & Technology", 0.0);
-            put("Others", 0.0);
-        }};
+        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {
+            {
+                put("Food & Drinks", 0.0);
+                put("Shopping", 0.0);
+                put("Transportation", 0.0);
+                put("Life & Entertainment", 0.0);
+                put("Investments", 0.0);
+                put("Communication & Technology", 0.0);
+                put("Others", 0.0);
+            }
+        };
         LocalDate date = LocalDate.of(2022, 01, 01);
         double amount = 200;
         String category = "Life & Entertainment";

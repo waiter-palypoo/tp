@@ -14,6 +14,7 @@ public class Ui {
         System.out.println("set balance +  $/\"amount\" to set your balance");
         System.out.println("list expenses to list all past expenses");
         System.out.println("check balance to check the remaining balance");
+        System.out.println("set currency {CURRENCY_SYMBOL} to set the app to your desired currency");
         System.out.println("add future expense + name + $/\"amount\" + d/\"yyyymmdd\" to add a future expense");
         System.out.println("edit future expense + id/\"expense id\" + in/\"amount/date/category\" "
                            + "to edit a future expense");

@@ -20,15 +20,17 @@ public class ExpenseManagerTest {
         LocalDate date = LocalDate.of(2022, 01, 01);
         ArrayList<Expense> expenses = new ArrayList<Expense>();
         ArrayList<FutureExpense> testFutureExpenses = new ArrayList<FutureExpense>();
-        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {{
-            put("Food & Drinks", 0.0);
-            put("Shopping", 0.0);
-            put("Transportation", 0.0);
-            put("Life & Entertainment", 0.0);
-            put("Investments", 0.0);
-            put("Communication & Technology", 0.0);
-            put("Others", 0.0);
-        }};
+        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {
+            {
+                put("Food & Drinks", 0.0);
+                put("Shopping", 0.0);
+                put("Transportation", 0.0);
+                put("Life & Entertainment", 0.0);
+                put("Investments", 0.0);
+                put("Communication & Technology", 0.0);
+                put("Others", 0.0);
+            }
+        };
         expenses.add(new Expense("Movie", 20, date, "Life & Entertainment"));
         expenses.add(new Expense("Trip", 200.1, date, "Life & Entertainment"));
         expenses.add(new Expense("Food", 10.4, date, "Life & Entertainment"));

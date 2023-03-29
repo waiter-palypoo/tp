@@ -2,8 +2,6 @@ package seedu.duke;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Parser {
@@ -28,7 +26,9 @@ public class Parser {
                 expenseManager.printExpense();
             } else if (userCmd.startsWith("check balance")) {
                 Ui.printHorizontalLine();
-                System.out.println("Your current balance is: $" + expenseManager.getTotalBalance());
+                System.out.println(String.format("Your current balance is: %.2f %s",
+                                                 expenseManager.getTotalBalance() * expenseManager.getRate(),
+                                                 expenseManager.getCurrency()));
                 Ui.printHorizontalLine();
             } else if (userCmd.startsWith("add future expense")) {
                 Ui.printChoice();
@@ -38,6 +38,15 @@ public class Parser {
                 executeAddFutureExpense(userCmd, expenseManager, choiceNum);
             } else if (userCmd.startsWith("edit future expense")) {
                 executeEditFutureExpense(expenseManager, userCmd, futureExpenses);
+            } else if (userCmd.startsWith("set currency")) {
+                String currency = userCmd.split(" ")[2];
+                if (!CurrencyLoader.getCurrencyLoader().currencyExists(currency)) {
+                    Ui.printLines(String.format(
+                            "The currency %s is not valid. Please try again with a valid currency symbol", currency));
+                } else {
+                    expenseManager.setCurrency(currency);
+                    Ui.printLines(String.format("Your currency has been successfully set to: %s", currency));
+                }
             } else if (userCmd.startsWith("delete future expense")) {
                 executeDeleteFutureExpense(expenseManager, userCmd);
             } else if (userCmd.startsWith("list future expenses")) {
@@ -48,8 +57,7 @@ public class Parser {
                 executePayFutureExpense(expenseManager, userCmd);
             } else if (userCmd.startsWith("list expenditure by category")) {
                 expenseManager.printExpenditureByCategory();
-            }
-            else {
+            } else {
                 Ui.printFalseInput();
             }
         } catch (DukeException e) {

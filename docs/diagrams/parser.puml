@@ -1,0 +1,26 @@
+@startuml
+
+actor User
+
+User -> Duke
+Duke -> Parser: handleCmd()
+activate Parser
+alt edit expense
+    Parser -> Parser: Execute edit expense
+else add expense
+    Parser -> Parser: Execute add expense
+else delete expense
+    Parser -> Parser: Execute delete expense
+else set balance
+    Parser -> Parser: Execute set balance
+else get balance
+    Parser -> ExpenseManager: getTotalBalance()
+    ExpenseManager --> Parser: totalBalance
+else print expenses
+    Parser -> ExpenseManager: printExpenses()
+end
+Parser --> Duke
+deactivate Parser
+Duke --> User
+
+@enduml
