@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Storage {
 
@@ -32,23 +31,30 @@ public class Storage {
     public ExpenseManager loadDataExpenses() {
         ArrayList<Expense> expenses = new ArrayList<>();
         ArrayList<FutureExpense> futureExpenses = new ArrayList<>();
-        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {{
-            put("Food & Drinks", 0.0);
-            put("Shopping", 0.0);
-            put("Transportation", 0.0);
-            put("Life & Entertainment", 0.0);
-            put("Investments", 0.0);
-            put("Communication & Technology", 0.0);
-            put("Others", 0.0);
-        }};
+        HashMap<String, Double> expenseByCategory = new HashMap<String, Double>() {
+            {
+                put("Food & Drinks", 0.0);
+                put("Shopping", 0.0);
+                put("Transportation", 0.0);
+                put("Life & Entertainment", 0.0);
+                put("Investments", 0.0);
+                put("Communication & Technology", 0.0);
+                put("Others", 0.0);
+            }
+        };
         String data;
         Double balance = 0.0;
+        String currency = "SGD";
         try {
             data = Files.readString(this.dataFilePath);
             if (data.isBlank()) {
-                return new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory); //changed
+                return new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory); // changed
             }
             for (String line : data.lines().toArray(String[] ::new)) {
+                if (line.startsWith("currency")) {
+                    currency = line.split(":")[1];
+                    continue;
+                }
                 if (line.startsWith("balance")) {
                     balance = Double.parseDouble(line.split(":")[1]);
                     continue;
@@ -66,13 +72,13 @@ public class Storage {
                     futureExpenses.add(new FutureExpense(name, amount, dueDate, category));
                 }
             }
-            for(Expense expense: expenses) {
-                //adding saved data to calculation
+            for (Expense expense : expenses) {
+                // adding saved data to calculation
                 String category = expense.getCategory();
                 Double amount = expense.getAmount();
-                expenseByCategory.put(category, expenseByCategory.get(category.strip())+amount);
+                expenseByCategory.put(category, expenseByCategory.get(category.strip()) + amount);
             }
-            return new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory);
+            return new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory, currency);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,6 +87,7 @@ public class Storage {
 
     public void saveExpenses(ExpenseManager manager) {
         StringBuilder sb = new StringBuilder();
+        sb.append(String.format("currency:%s\n", manager.getCurrency()));
         sb.append(String.format("balance:%f\n", manager.getTotalBalance()));
         for (Expense expense : manager.getExpenses()) {
             sb.append(expense.serialize() + "\n");

@@ -5,8 +5,13 @@ import java.time.LocalDate;
 public class FutureExpense extends Expense {
     private LocalDate dueDate;
 
+    public FutureExpense(String name, double amount, LocalDate dueDate, String category, String currency) {
+        super(name, amount, LocalDate.now(), category, currency);
+        this.dueDate = dueDate;
+    }
+
     public FutureExpense(String name, double amount, LocalDate dueDate, String category) {
-        super(name, amount, LocalDate.now(), category);
+        super(name, amount, LocalDate.now(), category, "SGD");
         this.dueDate = dueDate;
     }
 

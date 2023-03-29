@@ -2,7 +2,6 @@ package seedu.duke;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -13,11 +12,31 @@ public class ExpenseManager {
 
     private ArrayList<Expense> expenses;
     private ArrayList<FutureExpense> futureExpenses;
+    private Map<String, Double> expenseByCategory;
     private double totalBalance;
+    private String currency;
+    private CurrencyLoader currencyLoader = CurrencyLoader.getCurrencyLoader();
 
-    Map<String, Double> expenseByCategory;
+    public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses,
+                          String currency) {
+        this.currency = currency;
+        this.totalBalance = totalBalance;
+        this.expenses = expenses;
+        this.futureExpenses = futureExpenses;
+    }
 
-    public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses, Map<String, Double> expenseByCategory) {
+    public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses,
+                          Map<String, Double> expenseByCategory, String currency) {
+        this.currency = currency;
+        this.totalBalance = totalBalance;
+        this.expenses = expenses;
+        this.futureExpenses = futureExpenses;
+        this.expenseByCategory = expenseByCategory;
+    }
+
+    public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses,
+                          Map<String, Double> expenseByCategory) {
+        this.currency = "SGD";
         this.totalBalance = totalBalance;
         this.expenses = expenses;
         this.futureExpenses = futureExpenses;
@@ -32,16 +51,32 @@ public class ExpenseManager {
         return this.futureExpenses;
     }
 
+    public String getCurrency() {
+        return this.currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+        for (Expense expense : expenses) {
+            expense.setCurrency(currency);
+        }
+        for (FutureExpense expense : futureExpenses) {
+            expense.setCurrency(currency);
+        }
+    }
+
     public void addExpense(String name, double amount, LocalDate date, String category) {
-        Expense toAdd = new Expense(name.strip(), amount, date, category.strip());
+        double normalizedAmount = amount / currencyLoader.getRate(this.currency);
+        Expense toAdd = new Expense(name.strip(), normalizedAmount, date, category.strip(), this.currency);
         Ui.printLines("Roger, the following expense has been added!", toAdd.toString());
         expenses.add(toAdd);
         totalBalance -= amount;
-        expenseByCategory.put(category.strip(), expenseByCategory.get(category.strip())+amount);
+        expenseByCategory.put(category.strip(), expenseByCategory.get(category.strip()) + amount);
     }
 
     public void addFutureExpense(String name, double amount, LocalDate dueDate, String category) {
-        FutureExpense toAdd = new FutureExpense(name.strip(), amount, dueDate, category);
+        double normalizedAmount = amount / currencyLoader.getRate(this.currency);
+        FutureExpense toAdd = new FutureExpense(name.strip(), normalizedAmount, dueDate, category, this.currency);
         Ui.printLines("Roger, the following expense has been added!", toAdd.toString());
         futureExpenses.add(toAdd);
     }
@@ -56,6 +91,10 @@ public class ExpenseManager {
 
     public double getTotalBalance() {
         return totalBalance;
+    }
+
+    public double getRate() {
+        return this.currencyLoader.getRate(currency);
     }
 
     private ArrayList<Expense> getSortedExpensesByAmount() {
@@ -92,7 +131,7 @@ public class ExpenseManager {
         int sortBy = sc.nextInt();
         ArrayList<Expense> toList;
         switch (sortBy) {
-            case 2:
+        case 2:
             toList = getSortedExpenses(SORT_BY_NAME);
             break;
         case 3:
@@ -126,8 +165,8 @@ public class ExpenseManager {
         }
         Ui.printHorizontalLine();
         System.out.println("You have " + futureExpenses.size() + " future expenses in total.");
-        System.out.println("Total amount due: " + totalAmountDue);
-        System.out.println("Total balance: " + getTotalBalance());
+        System.out.println(String.format("Total amount due: %.2f %s", totalAmountDue * this.getRate(), this.currency));
+        System.out.println(String.format("Total balance: %.2f %s", getTotalBalance() * this.getRate(), this.currency));
         Ui.printHorizontalLine();
         if (totalAmountDue > totalBalance) {
             System.out.println("Warning: You have insufficient balance to pay for all future expenses!");
@@ -195,8 +234,9 @@ public class ExpenseManager {
 
     public void printExpenditureByCategory() {
         Ui.printHorizontalLine();
-        for(String i: expenseByCategory.keySet()) {
-            System.out.println(i + " - " + "$" + expenseByCategory.get(i));
+        for (String i : expenseByCategory.keySet()) {
+            System.out.println(i + " - "
+                               + "$" + expenseByCategory.get(i));
         }
         Ui.printHorizontalLine();
     }
