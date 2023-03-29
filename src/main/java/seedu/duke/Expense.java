@@ -7,12 +7,23 @@ public class Expense {
     private LocalDate date;
     private String category;
     private String name;
+    private String currency;
+    private CurrencyLoader currencyLoader = CurrencyLoader.getCurrencyLoader();
+
+    public Expense(String name, double amount, LocalDate date, String category, String currency) {
+        this.amount = amount;
+        this.date = date;
+        this.category = category;
+        this.name = name;
+        this.currency = currency;
+    }
 
     public Expense(String name, double amount, LocalDate date, String category) {
         this.amount = amount;
         this.date = date;
         this.category = category;
         this.name = name;
+        this.currency = "SGD";
     }
 
     public void setAmount(double amount) {
@@ -35,6 +46,14 @@ public class Expense {
         return amount;
     }
 
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getCurrency() {
+        return this.currency;
+    }
+
     public LocalDate getDate() {
         return date;
     }
@@ -44,19 +63,20 @@ public class Expense {
     }
 
     public String toString() {
-        return String.format("Spent $%s on %s in the %s category on %s", this.amount, this.name, this.category,
-                             this.date);
+        return String.format("Spent %.2f %s on %s in the %s category on %s",
+                this.amount * currencyLoader.getRate(this.currency), this.currency, this.name,
+                this.category, this.date);
     }
 
     public String serialize() {
         return String.format("%s|%s|%s|%s|%s", this.getClass().getSimpleName(), this.getName(), this.getAmount(),
-                             this.getCategory(), this.getDate());
+                this.getCategory(), this.getDate());
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Expense) {
-            Expense o = (Expense)obj;
+            Expense o = (Expense) obj;
             return o.name.equals(this.name) && o.amount == this.amount && o.date.equals(this.date) &&
                     o.category.equals(this.category);
         }

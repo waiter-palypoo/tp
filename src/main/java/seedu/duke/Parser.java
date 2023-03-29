@@ -22,11 +22,15 @@ public class Parser {
                 executeDeleteExpense(expenseManager, userCmd);
             } else if (userCmd.startsWith("set balance")) {
                 executeSetBudget(expenseManager, userCmd);
+            } else if (userCmd.startsWith("get currency")) {
+                Ui.printLines(String.format("Your currency is currently set to: %s", expenseManager.getCurrency()));
             } else if (userCmd.startsWith("list expenses")) {
                 expenseManager.printExpense();
             } else if (userCmd.startsWith("check balance")) {
                 Ui.printHorizontalLine();
-                System.out.println("Your current balance is: $" + expenseManager.getTotalBalance());
+                System.out.println(String.format("Your current balance is: %.2f %s",
+                        expenseManager.getTotalBalance() * expenseManager.getRate(),
+                        expenseManager.getCurrency()));
                 Ui.printHorizontalLine();
             } else if (userCmd.startsWith("add future expense")) {
                 Ui.printChoice();
@@ -36,6 +40,15 @@ public class Parser {
                 executeAddFutureExpense(userCmd, expenseManager, choiceNum);
             } else if (userCmd.startsWith("edit future expense")) {
                 executeEditFutureExpense(expenseManager, userCmd, futureExpenses);
+            } else if (userCmd.startsWith("set currency")) {
+                String currency = userCmd.split(" ")[2];
+                if (!CurrencyLoader.getCurrencyLoader().currencyExists(currency)) {
+                    Ui.printLines(String.format(
+                            "The currency %s is not valid. Please try again with a valid currency symbol", currency));
+                } else {
+                    expenseManager.setCurrency(currency);
+                    Ui.printLines(String.format("Your currency has been successfully set to: %s", currency));
+                }
             } else if (userCmd.startsWith("delete future expense")) {
                 executeDeleteFutureExpense(expenseManager, userCmd);
             } else if (userCmd.startsWith("list future expenses")) {
@@ -50,6 +63,8 @@ public class Parser {
             } else if (userCmd.startsWith("expenses below $/")) {
                 double amount = Double.parseDouble(userCmd.substring(userCmd.indexOf("$/") + 2));
                 executeGetExpenseBelow(amount, expenseManager);
+            } else if (userCmd.startsWith("list expenditure by category")) {
+                expenseManager.printExpenditureByCategory();
             } else {
                 Ui.printFalseInput();
             }
@@ -129,9 +144,10 @@ public class Parser {
         } else {
             double balance = Double.parseDouble(userCmd.substring(startIndex + 2));
             Ui.printHorizontalLine();
-            System.out.println("Your budget has been set to $" + balance);
+            System.out.println(
+                    String.format("Your budget has been set to %.2f %s", balance, expenseManager.getCurrency()));
             Ui.printHorizontalLine();
-            expenseManager.setTotalBalance(balance);
+            expenseManager.setTotalBalance(balance / expenseManager.getRate());
         }
     }
 
@@ -146,8 +162,8 @@ public class Parser {
                 case "amount":
                     System.out.println("Enter a new amount spent! Just enter a number!");
                     Double newAmount = Double.parseDouble(in.nextLine());
-                    Double newBalance =
-                            expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
+                    Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount()
+                            - newAmount;
                     expenseManager.get(id - 1).setAmount(newAmount);
                     expenseManager.setTotalBalance(newBalance);
                     System.out.println("Change in amount successful! Balance has also been recalculated");
@@ -207,7 +223,7 @@ public class Parser {
     }
 
     public static void executeEditFutureExpense(ExpenseManager expenseManager, String userCmd,
-                                                ArrayList<FutureExpense> futureExpenses) throws DukeException {
+            ArrayList<FutureExpense> futureExpenses) throws DukeException {
         int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
         Scanner in = new Scanner(System.in);
         switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
