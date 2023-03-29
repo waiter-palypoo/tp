@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Storage {
 
@@ -30,12 +32,21 @@ public class Storage {
     public ExpenseManager loadDataExpenses() {
         ArrayList<Expense> expenses = new ArrayList<>();
         ArrayList<FutureExpense> futureExpenses = new ArrayList<>();
+        Map<String, Double> expenseByCategory = new HashMap<String, Double>() {{
+            put("Food & Drinks", 0.0);
+            put("Shopping", 0.0);
+            put("Transportation", 0.0);
+            put("Life & Entertainment", 0.0);
+            put("Investments", 0.0);
+            put("Communication & Technology", 0.0);
+            put("Others", 0.0);
+        }};
         String data;
         Double balance = 0.0;
         try {
             data = Files.readString(this.dataFilePath);
             if (data.isBlank()) {
-                return new ExpenseManager(balance, expenses, futureExpenses);
+                return new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory); //changed
             }
             for (String line : data.lines().toArray(String[] ::new)) {
                 if (line.startsWith("balance")) {
@@ -55,11 +66,17 @@ public class Storage {
                     futureExpenses.add(new FutureExpense(name, amount, dueDate, category));
                 }
             }
-            return new ExpenseManager(balance, expenses, futureExpenses);
+            for(Expense expense: expenses) {
+                //adding saved data to calculation
+                String category = expense.getCategory();
+                Double amount = expense.getAmount();
+                expenseByCategory.put(category, expenseByCategory.get(category.strip())+amount);
+            }
+            return new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ExpenseManager(balance, expenses, futureExpenses);
+        return new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory);
     }
 
     public void saveExpenses(ExpenseManager manager) {

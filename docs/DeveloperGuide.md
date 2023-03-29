@@ -1,12 +1,29 @@
 # Developer Guide
 
+## Table of Contents
++ [Acknowledgements](#acknowledgements)
++ [Design & Implementation](#design--implementation)
+   * [Architecture](#architecture)
+   * [Help Command](#help-command)
+   * [Delete Command](#delete-command)
++ [Implementation](#implementation)
++ [Product Scope](#product-scope)
+   * [Target User Profile](#target-user-profile)
+   * [Value Proposition](#value-proposition)
++ [User Stories](#user-stories)
++ [Non-Functional Requirements](#non-functional-requirements)
++ [Glossary](#glossary)
++ [Instructions for Manual Testing](#instructions-for-manual-testing)
+
+
+
 ## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-## Design & implementation
 
-## Storage Component
+## Design & Implementation
+### Storage Component
 
 <img alt="storage sequence diagram" src="diagrams/storage.png" width="280" />
 
@@ -20,6 +37,7 @@ and initializes and *returns* a `ExpenseManager` object containing the budget, `
 * Duke then uses the returned `ExpenseManager` object for the current session
 * After every command, `Duke` will then call `Storage::saveExpenses(ExpenseManager)`, which serializes the current state of
 the `ExpenseManager` and writes the serialized data into `duke_data.txt`, making sure that the latest state of the app is always saved.
+
 
 ## Product scope
 ### Target user profile
@@ -88,7 +106,7 @@ Money master provides a fast and streamlined way for users to manage their finan
    Expected: Terminal shows choose category message. Enter a category number. Expense entry is added. Terminal shows successful message along with expenditure details (name, date, category).
 
 #### Entering incomplete information
-Test case: `add expense book $/100` or `add expense book d/20220101` or `add expense book`
+Test case: `add expense book $/100` or `add expense book d/20220101` or `add expense book`\
 Expected: Terminal shows error message.
 
 ### Delete

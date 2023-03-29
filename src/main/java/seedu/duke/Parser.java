@@ -2,6 +2,8 @@ package seedu.duke;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Parser {
@@ -44,7 +46,10 @@ public class Parser {
                 executeCheckUpcomingExpenses(expenseManager);
             } else if (userCmd.startsWith("pay")) {
                 executePayFutureExpense(expenseManager, userCmd);
-            } else {
+            } else if (userCmd.startsWith("list expenditure by category")) {
+                expenseManager.printExpenditureByCategory();
+            }
+            else {
                 Ui.printFalseInput();
             }
         } catch (DukeException e) {
