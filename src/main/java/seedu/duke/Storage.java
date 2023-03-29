@@ -78,7 +78,9 @@ public class Storage {
                 Double amount = expense.getAmount();
                 expenseByCategory.put(category, expenseByCategory.get(category.strip()) + amount);
             }
-            return new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory, currency);
+            ExpenseManager manager = new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory, currency);
+            manager.setCurrency(currency);
+            return manager;
         } catch (IOException e) {
             e.printStackTrace();
         }
