@@ -58,6 +58,26 @@ public class ExpenseManager {
         return sortedExpenses;
     }
 
+    public ArrayList<Expense> getExpensesAbove(double amount) { // return an ArrayList of expenses above a threshold
+        ArrayList<Expense> sortedExpenses = new ArrayList<>();
+        for (Expense expense : this.expenses) {
+            if (expense.getAmount() >= amount) {
+                sortedExpenses.add(expense);
+            }
+        }
+        return sortedExpenses;
+    }
+
+    public ArrayList<Expense> getExpensesBelow(double amount) { // return an ArrayList of expenses below a threshold
+        ArrayList<Expense> sortedExpenses = new ArrayList<>();
+        for (Expense expense : this.expenses) {
+            if (expense.getAmount() <= amount) {
+                sortedExpenses.add(expense);
+            }
+        }
+        return sortedExpenses;
+    }
+
     private ArrayList<Expense> getSortedExpensesByName() {
         ArrayList<Expense> sortedExpenses = new ArrayList<>(this.expenses);
         sortedExpenses.sort((e1, e2) -> e1.getName().compareTo(e2.getName()));
@@ -67,12 +87,12 @@ public class ExpenseManager {
     public ArrayList<Expense> getSortedExpenses(final int sortBy) {
         assert sortBy == SORT_BY_NAME || sortBy == SORT_BY_PRICE : "Expenses can either be sort by named or price";
         switch (sortBy) {
-        case SORT_BY_NAME:
-            return getSortedExpensesByName();
-        case SORT_BY_PRICE:
-            return getSortedExpensesByAmount();
-        default:
-            return getSortedExpensesByName();
+            case SORT_BY_NAME:
+                return getSortedExpensesByName();
+            case SORT_BY_PRICE:
+                return getSortedExpensesByAmount();
+            default:
+                return getSortedExpensesByName();
         }
     }
 
@@ -81,22 +101,22 @@ public class ExpenseManager {
             throw new DukeException("Sorry, there are no expenses in the list currently.");
         }
         Ui.printLines("How would you like your expenses to be sorted?", "  1. By date added", "  2. By Name",
-                      "  3. By Amount");
+                "  3. By Amount");
         Scanner sc = new Scanner(System.in);
         int sortBy = sc.nextInt();
         ArrayList<Expense> toList;
         switch (sortBy) {
-        case 1:
-            toList = this.expenses;
-            break;
-        case 2:
-            toList = getSortedExpenses(SORT_BY_NAME);
-            break;
-        case 3:
-            toList = getSortedExpenses(SORT_BY_PRICE);
-            break;
-        default:
-            toList = this.expenses;
+            case 1:
+                toList = this.expenses;
+                break;
+            case 2:
+                toList = getSortedExpenses(SORT_BY_NAME);
+                break;
+            case 3:
+                toList = getSortedExpenses(SORT_BY_PRICE);
+                break;
+            default:
+                toList = this.expenses;
         }
         Ui.printLines(Ui.getFormattedList(toList));
     }
@@ -139,24 +159,24 @@ public class ExpenseManager {
         LocalDate today = LocalDate.now();
         LocalDate endDate = null;
         switch (timePeriod) {
-        case 1:
-            endDate = today.plusWeeks(1);
-            break;
-        case 2:
-            endDate = today.plusMonths(1);
-            break;
-        case 3:
-            endDate = today.plusMonths(3);
-            break;
-        default:
-            endDate = today;
+            case 1:
+                endDate = today.plusWeeks(1);
+                break;
+            case 2:
+                endDate = today.plusMonths(1);
+                break;
+            case 3:
+                endDate = today.plusMonths(3);
+                break;
+            default:
+                endDate = today;
         }
         int count = 0;
         int totalAmountDue = 0;
         for (FutureExpense futureExpense : futureExpenses) {
             if (futureExpense.getDueDate().isBefore(endDate)) { // change
                 System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " +
-                                   checkSufficientBalance(futureExpense));
+                        checkSufficientBalance(futureExpense));
                 count++;
                 totalAmountDue += futureExpense.getAmount();
             }

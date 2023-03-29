@@ -13,6 +13,8 @@ public class Ui {
         System.out.println("delete expense +  id/\"expense id\" to delete an expense");
         System.out.println("set balance +  $/\"amount\" to set your balance");
         System.out.println("list expenses to list all past expenses");
+        System.out.println("expenses above + $/\"amount\" to see all expenses above amount");
+        System.out.println("expenses above + $/\"amount\" to see all expenses below amount");
         System.out.println("check balance to check the remaining balance");
         System.out.println("add future expense + name + $/\"amount\" + d/\"yyyymmdd\" to add a future expense");
         System.out.println("edit future expense + id/\"expense id\" + in/\"amount/date/category\" "
@@ -84,7 +86,7 @@ public class Ui {
      */
     public static void printGoodbye() {
         printHorizontalLine();
-        System.out.println("Thanks for using Duke! See ya!");
+        System.out.println("Thanks for using MoneyMaster! See ya!");
         System.out.println(" /\\_/\\  ");
         System.out.println("( o.o ) ");
         System.out.println(" > ^ <  ");
