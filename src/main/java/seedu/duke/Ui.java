@@ -21,6 +21,7 @@ public class Ui {
         System.out.println("list future expenses to list all future expenses");
         System.out.println("check upcoming expenses to list all future expenses within an upcoming time period");
         System.out.println("pay \"id\" to pay for a future expense and move it to the list of past expenses");
+        System.out.println("list expenditure by category to list total expenditure on each category");
         System.out.println("bye to exit the program");
     }
 

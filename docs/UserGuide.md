@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Money Master is a Command Line Interface (CLI) based desktop application which will help the user track and manage their expenses quickly and effectively.  
+Money Master is a Command Line Interface (CLI) based desktop application which will help the user track and manage their expenses quickly and effectively.
 
 + [Quick Start](#quick-start)
 + [Features](#features)

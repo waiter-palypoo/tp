@@ -2,6 +2,8 @@ package seedu.duke;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ExpenseManager {
@@ -13,10 +15,13 @@ public class ExpenseManager {
     private ArrayList<FutureExpense> futureExpenses;
     private double totalBalance;
 
-    public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses) {
+    Map<String, Double> expenseByCategory;
+
+    public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses, Map<String, Double> expenseByCategory) {
         this.totalBalance = totalBalance;
         this.expenses = expenses;
         this.futureExpenses = futureExpenses;
+        this.expenseByCategory = expenseByCategory;
     }
 
     public ArrayList<Expense> getExpenses() {
@@ -32,6 +37,7 @@ public class ExpenseManager {
         Ui.printLines("Roger, the following expense has been added!", toAdd.toString());
         expenses.add(toAdd);
         totalBalance -= amount;
+        expenseByCategory.put(category.strip(), expenseByCategory.get(category.strip())+amount);
     }
 
     public void addFutureExpense(String name, double amount, LocalDate dueDate, String category) {
@@ -184,6 +190,14 @@ public class ExpenseManager {
         String category = futureExpenses.get(id).getCategory();
         addExpense(name, amt, LocalDate.now(), category);
         futureExpenses.remove(id);
+        Ui.printHorizontalLine();
+    }
+
+    public void printExpenditureByCategory() {
+        Ui.printHorizontalLine();
+        for(String i: expenseByCategory.keySet()) {
+            System.out.println(i + " - " + "$" + expenseByCategory.get(i));
+        }
         Ui.printHorizontalLine();
     }
 
