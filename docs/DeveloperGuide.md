@@ -2,10 +2,10 @@
 
 ## Table of Contents
 + [Acknowledgements](#acknowledgements)
-+ [Design & Implementation](#design--implementation)
++ [Design](#design)
    * [Architecture](#architecture)
-   * [Help Command](#help-command)
-   * [Delete Command](#delete-command)
+   * [UI Component](#ui-component)
+   * [Storage Component](#storage-component)
 + [Implementation](#implementation)
 + [Product Scope](#product-scope)
    * [Target User Profile](#target-user-profile)
@@ -22,7 +22,22 @@
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 
-## Design & Implementation
+
+## Design 
+### Architecture
+
+### UI Component
+The API of this component is specified in Ui.java \
+The Ui class contains several static methods which display messages to the user when the user interacts with program.\
+Types of messages displayed:
++ Instructions: Information message that describes the list of all commands of the application.
++ Greeting Messages: Messages shown to greet the user and acknowledge their exit.
++ Error Messages: Messages shown to inform the user that their input is invalid.
++ Category Choice: Displays category choices of expense to the user. \
+The class also prints text such as lines and the formatted list.
+  
+<img alt="ui class diagram" src="diagrams/UiComponentClassDiagram.png" width="280" />
+
 ### Storage Component
 
 <img alt="storage sequence diagram" src="diagrams/storage.png" width="280" />
@@ -38,6 +53,7 @@ and initializes and *returns* a `ExpenseManager` object containing the budget, `
 * After every command, `Duke` will then call `Storage::saveExpenses(ExpenseManager)`, which serializes the current state of
 the `ExpenseManager` and writes the serialized data into `duke_data.txt`, making sure that the latest state of the app is always saved.
 
+## Implementation
 
 ## Product scope
 ### Target user profile
