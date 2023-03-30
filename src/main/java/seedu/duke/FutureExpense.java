@@ -31,6 +31,6 @@ public class FutureExpense extends Expense {
     @Override
     public String toString() {
         return String.format("Upcoming payment %s in the %s category due on %s.", this.getName(), this.getCategory(),
-                             this.dueDate);
+                this.dueDate);
     }
 }

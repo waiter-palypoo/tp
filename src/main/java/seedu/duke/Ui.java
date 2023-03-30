@@ -13,12 +13,14 @@ public class Ui {
         System.out.println("delete expense +  id/\"expense id\" to delete an expense");
         System.out.println("set balance +  $/\"amount\" to set your balance");
         System.out.println("list expenses to list all past expenses");
+        System.out.println("expenses above + $/\"amount\" to see all expenses above amount");
+        System.out.println("expenses above + $/\"amount\" to see all expenses below amount");
         System.out.println("check balance to check the remaining balance");
         System.out.println("set currency {CURRENCY_SYMBOL} to set the app to your desired currency");
         System.out.println("get currency to get the currently set currency");
         System.out.println("add future expense + name + $/\"amount\" + d/\"yyyymmdd\" to add a future expense");
         System.out.println("edit future expense + id/\"expense id\" + in/\"amount/date/category\" "
-                           + "to edit a future expense");
+                + "to edit a future expense");
         System.out.println("delete future expense + id/\"expense id\" to delete a future expense");
         System.out.println("list future expenses to list all future expenses");
         System.out.println("check upcoming expenses to list all future expenses within an upcoming time period");
@@ -67,13 +69,13 @@ public class Ui {
      */
     public static void printGreeting() {
         String logo = "___  ___                      ___  ___          _\n"
-                      + "|  \\/  |                      |  \\/  |         | |\n"
-                      + "| .  . | ___  _ __   ___ _   _| .  . | __ _ ___| |_ ___ _ __\n"
-                      + "| |\\/| |/ _ \\| '_ \\ / _ \\ | | | |\\/| |/ _` / __| __/ _ \\ '__|\n"
-                      + "| |  | | (_) | | | |  __/ |_| | |  | | (_| \\__ \\ ||  __/ |\n"
-                      + "\\_|  |_/\\___/|_| |_|\\___|\\__, \\_|  |_/\\__,_|___/\\__\\___|_|\n"
-                      + "                         __/ |\n"
-                      + "                        |___/";
+                + "|  \\/  |                      |  \\/  |         | |\n"
+                + "| .  . | ___  _ __   ___ _   _| .  . | __ _ ___| |_ ___ _ __\n"
+                + "| |\\/| |/ _ \\| '_ \\ / _ \\ | | | |\\/| |/ _` / __| __/ _ \\ '__|\n"
+                + "| |  | | (_) | | | |  __/ |_| | |  | | (_| \\__ \\ ||  __/ |\n"
+                + "\\_|  |_/\\___/|_| |_|\\___|\\__, \\_|  |_/\\__,_|___/\\__\\___|_|\n"
+                + "                         __/ |\n"
+                + "                        |___/";
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you ?");
@@ -87,7 +89,7 @@ public class Ui {
      */
     public static void printGoodbye() {
         printHorizontalLine();
-        System.out.println("Thanks for using Duke! See ya!");
+        System.out.println("Thanks for using MoneyMaster! See ya!");
         System.out.println(" /\\_/\\  ");
         System.out.println("( o.o ) ");
         System.out.println(" > ^ <  ");

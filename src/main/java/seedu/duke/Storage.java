@@ -50,7 +50,7 @@ public class Storage {
             if (data.isBlank()) {
                 return new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory); // changed
             }
-            for (String line : data.lines().toArray(String[] ::new)) {
+            for (String line : data.lines().toArray(String[]::new)) {
                 if (line.startsWith("currency")) {
                     currency = line.split(":")[1];
                     continue;

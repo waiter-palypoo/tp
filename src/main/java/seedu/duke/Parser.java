@@ -29,8 +29,8 @@ public class Parser {
             } else if (userCmd.startsWith("check balance")) {
                 Ui.printHorizontalLine();
                 System.out.println(String.format("Your current balance is: %.2f %s",
-                                                 expenseManager.getTotalBalance() * expenseManager.getRate(),
-                                                 expenseManager.getCurrency()));
+                        expenseManager.getTotalBalance() * expenseManager.getRate(),
+                        expenseManager.getCurrency()));
                 Ui.printHorizontalLine();
             } else if (userCmd.startsWith("add future expense")) {
                 Ui.printChoice();
@@ -57,6 +57,12 @@ public class Parser {
                 executeCheckUpcomingExpenses(expenseManager);
             } else if (userCmd.startsWith("pay")) {
                 executePayFutureExpense(expenseManager, userCmd);
+            } else if (userCmd.startsWith("expenses above $/")) {
+                double amount = Double.parseDouble(userCmd.substring(userCmd.indexOf("$/") + 2));
+                executeGetExpenseAbove(amount, expenseManager);
+            } else if (userCmd.startsWith("expenses below $/")) {
+                double amount = Double.parseDouble(userCmd.substring(userCmd.indexOf("$/") + 2));
+                executeGetExpenseBelow(amount, expenseManager);
             } else if (userCmd.startsWith("list expenditure by category")) {
                 expenseManager.printExpenditureByCategory();
             } else {
@@ -156,8 +162,8 @@ public class Parser {
             case "amount":
                 System.out.println("Enter a new amount spent! Just enter a number!");
                 Double newAmount = Double.parseDouble(in.nextLine());
-                Double newBalance =
-                        expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
+                Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() 
+                    - newAmount;
                 expenseManager.get(id - 1).setAmount(newAmount);
                 expenseManager.setTotalBalance(newBalance);
                 System.out.println("Change in amount successful! Balance has also been recalculated");
@@ -301,4 +307,29 @@ public class Parser {
             System.out.println("Please input a valid number!");
         }
     }
+
+    private static void executeGetExpenseAbove(double amount, ExpenseManager expenseManager) throws DukeException {
+        System.out.println(amount);
+        ArrayList<Expense> sortedExpenses = new ArrayList<>();
+        sortedExpenses = expenseManager.getExpensesAbove(amount);
+        if (sortedExpenses.isEmpty()) {
+            System.out.println("There is no expense matching your request !");
+            Ui.printHorizontalLine();
+        } else {
+            Ui.printLines(Ui.getFormattedList(sortedExpenses));
+        }
+    }
+
+    private static void executeGetExpenseBelow(double amount, ExpenseManager expenseManager) throws DukeException {
+        System.out.println(amount);
+        ArrayList<Expense> sortedExpenses = new ArrayList<>();
+        sortedExpenses = expenseManager.getExpensesBelow(amount);
+        if (sortedExpenses.isEmpty()) {
+            System.out.println("There is no expense matching your request !");
+            Ui.printHorizontalLine();
+        } else {
+            Ui.printLines(Ui.getFormattedList(sortedExpenses));
+        }
+    }
+
 }

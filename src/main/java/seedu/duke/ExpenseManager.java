@@ -18,7 +18,7 @@ public class ExpenseManager {
     private CurrencyLoader currencyLoader = CurrencyLoader.getCurrencyLoader();
 
     public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses,
-                          String currency) {
+            String currency) {
         this.currency = currency;
         this.totalBalance = totalBalance;
         this.expenses = expenses;
@@ -26,7 +26,7 @@ public class ExpenseManager {
     }
 
     public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses,
-                          Map<String, Double> expenseByCategory, String currency) {
+            Map<String, Double> expenseByCategory, String currency) {
         this.currency = currency;
         this.totalBalance = totalBalance;
         this.expenses = expenses;
@@ -35,7 +35,7 @@ public class ExpenseManager {
     }
 
     public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses,
-                          Map<String, Double> expenseByCategory) {
+            Map<String, Double> expenseByCategory) {
         this.currency = "SGD";
         this.totalBalance = totalBalance;
         this.expenses = expenses;
@@ -103,6 +103,26 @@ public class ExpenseManager {
         return sortedExpenses;
     }
 
+    public ArrayList<Expense> getExpensesAbove(double amount) { // return an ArrayList of expenses above a threshold
+        ArrayList<Expense> sortedExpenses = new ArrayList<>();
+        for (Expense expense : this.expenses) {
+            if (expense.getAmount() >= amount) {
+                sortedExpenses.add(expense);
+            }
+        }
+        return sortedExpenses;
+    }
+
+    public ArrayList<Expense> getExpensesBelow(double amount) { // return an ArrayList of expenses below a threshold
+        ArrayList<Expense> sortedExpenses = new ArrayList<>();
+        for (Expense expense : this.expenses) {
+            if (expense.getAmount() <= amount) {
+                sortedExpenses.add(expense);
+            }
+        }
+        return sortedExpenses;
+    }
+
     private ArrayList<Expense> getSortedExpensesByName() {
         ArrayList<Expense> sortedExpenses = new ArrayList<>(this.expenses);
         sortedExpenses.sort((e1, e2) -> e1.getName().compareTo(e2.getName()));
@@ -126,11 +146,14 @@ public class ExpenseManager {
             throw new DukeException("Sorry, there are no expenses in the list currently.");
         }
         Ui.printLines("How would you like your expenses to be sorted?", "  1. By date added", "  2. By Name",
-                      "  3. By Amount");
+                "  3. By Amount");
         Scanner sc = new Scanner(System.in);
         int sortBy = sc.nextInt();
         ArrayList<Expense> toList;
         switch (sortBy) {
+        case 1:
+            toList = this.expenses;
+            break;
         case 2:
             toList = getSortedExpenses(SORT_BY_NAME);
             break;
@@ -198,7 +221,7 @@ public class ExpenseManager {
         for (FutureExpense futureExpense : futureExpenses) {
             if (futureExpense.getDueDate().isBefore(endDate)) { // change
                 System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " +
-                                   checkSufficientBalance(futureExpense));
+                        checkSufficientBalance(futureExpense));
                 count++;
                 totalAmountDue += futureExpense.getAmount();
             }
@@ -236,7 +259,7 @@ public class ExpenseManager {
         Ui.printHorizontalLine();
         for (String i : expenseByCategory.keySet()) {
             System.out.println(i + " - "
-                               + "$" + expenseByCategory.get(i));
+                    + "$" + expenseByCategory.get(i));
         }
         Ui.printHorizontalLine();
     }
