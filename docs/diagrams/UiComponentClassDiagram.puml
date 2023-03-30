@@ -1,6 +1,9 @@
 @startuml
 !pragma layout smetana
 
+hide circle
+skinparam classAttributeIconSize 0
+
 class Duke {
     + main(args: String[])
 }
