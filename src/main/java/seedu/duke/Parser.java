@@ -90,23 +90,23 @@ public class Parser {
 
     private static String getCategory(int choice) {
         switch (choice) {
-            case 1:
-                return "Food & Drinks";
-            case 2:
-                return "Shopping";
-            case 3:
-                return "Transportation";
-            case 4:
-                return "Life & Entertainment";
-            case 5:
-                return "Investments";
-            case 6:
-                return "Communication & Technology";
-            case 7:
-                return "Others";
-            default:
-                Ui.printFalseInput();
-                return "wrong input";
+        case 1:
+            return "Food & Drinks";
+        case 2:
+            return "Shopping";
+        case 3:
+            return "Transportation";
+        case 4:
+            return "Life & Entertainment";
+        case 5:
+            return "Investments";
+        case 6:
+            return "Communication & Technology";
+        case 7:
+            return "Others";
+        default:
+            Ui.printFalseInput();
+            return "wrong input";
         }
     }
 
@@ -162,7 +162,8 @@ public class Parser {
             case "amount":
                 System.out.println("Enter a new amount spent! Just enter a number!");
                 Double newAmount = Double.parseDouble(in.nextLine());
-                Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
+                Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() 
+                    - newAmount;
                 expenseManager.get(id - 1).setAmount(newAmount);
                 expenseManager.setTotalBalance(newBalance);
                 System.out.println("Change in amount successful! Balance has also been recalculated");
