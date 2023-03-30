@@ -132,12 +132,12 @@ public class ExpenseManager {
     public ArrayList<Expense> getSortedExpenses(final int sortBy) {
         assert sortBy == SORT_BY_NAME || sortBy == SORT_BY_PRICE : "Expenses can either be sort by named or price";
         switch (sortBy) {
-            case SORT_BY_NAME:
-                return getSortedExpensesByName();
-            case SORT_BY_PRICE:
-                return getSortedExpensesByAmount();
-            default:
-                return getSortedExpensesByName();
+        case SORT_BY_NAME:
+            return getSortedExpensesByName();
+        case SORT_BY_PRICE:
+            return getSortedExpensesByAmount();
+        default:
+            return getSortedExpensesByName();
         }
     }
 
@@ -151,17 +151,17 @@ public class ExpenseManager {
         int sortBy = sc.nextInt();
         ArrayList<Expense> toList;
         switch (sortBy) {
-            case 1:
-                toList = this.expenses;
-                break;
-            case 2:
-                toList = getSortedExpenses(SORT_BY_NAME);
-                break;
-            case 3:
-                toList = getSortedExpenses(SORT_BY_PRICE);
-                break;
-            default:
-                toList = this.expenses;
+        case 1:
+            toList = this.expenses;
+            break;
+        case 2:
+            toList = getSortedExpenses(SORT_BY_NAME);
+            break;
+        case 3:
+            toList = getSortedExpenses(SORT_BY_PRICE);
+            break;
+        default:
+            toList = this.expenses;
         }
         Ui.printLines(Ui.getFormattedList(toList));
     }
@@ -204,17 +204,17 @@ public class ExpenseManager {
         LocalDate today = LocalDate.now();
         LocalDate endDate = null;
         switch (timePeriod) {
-            case 1:
-                endDate = today.plusWeeks(1);
-                break;
-            case 2:
-                endDate = today.plusMonths(1);
-                break;
-            case 3:
-                endDate = today.plusMonths(3);
-                break;
-            default:
-                endDate = today;
+        case 1:
+            endDate = today.plusWeeks(1);
+            break;
+        case 2:
+            endDate = today.plusMonths(1);
+            break;
+        case 3:
+            endDate = today.plusMonths(3);
+            break;
+        default:
+            endDate = today;
         }
         int count = 0;
         int totalAmountDue = 0;
