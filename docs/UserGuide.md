@@ -12,11 +12,9 @@ Money Master is a Command Line Interface (CLI) based desktop application which w
     + [Set Balance: `set balance`](#set-balance--set-balance)
     + [List Expenses: `list expenses`](#list-expenses--list-expenses)
     + [List Expenditure by Category: `list expenditure by category`](#list-expenditure-by-category--list-expenditure-by-category)
-    + [Filter Expenses above an amount `expenses above`](#)
-    + [Filter Expenses below an amount `expenses below`](#)
+    + [Filter Expenses `expenses above` / `expenses below`](#)
     + [Check Balance: `check balance`](#check-balance--check-balance)
-    + [Set Currency: `set currency`](#set-currency--set-currency)
-    + [Get Currency: `get currency`](#get-currency--get-currency)
+    + [Currency: `set currency` / `get currency`](#currency--set-currency--get-currency)
     + [Add Future Expense: `add future expense`](#add-expense--add-future-expense)
     + [Edit Future Expense: `edit future expense`](#edit-expense--edit-future-expense)
     + [Delete Future Expense: `delete future expense`](#delete-future-expense--delete-future-expense)
@@ -49,7 +47,7 @@ Run the command followed by choosing what to sort the expenses by
 * By Name
 * By Price
 ---
-### `set currency` / `get currency`
+### Currency: `set currency` / `get currency`
 Set/get the currency used by the app
 #### Usage:
 ```
@@ -112,8 +110,7 @@ Life & Entertainment - $0.0
 * Set balance `set balance $/AMOUNT`
 * List expenses `list expenses`
 * List expenditure across categories `list expenditure by category`
-* Filter expenses to see expenses above the amount `expenses above $/AMOUNT`
-* Filter expenses to see expenses below the amount `expenses below $/AMOUNT`
+* Filter expenses by amount `expenses above $/AMOUNT` / `expenses below $/AMOUNT`
 * Check balance `check balance`
 * Set currency `set currency CURRENCY_SYMBOL`
 * Get currency `get currency`
