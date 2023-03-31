@@ -10,8 +10,13 @@ Money Master is a Command Line Interface (CLI) based desktop application which w
     + [Edit Expense: `edit expense`](#edit-expense--edit-expense)
     + [Delete Expense: `delete expense`](#delete-expense--delete-expense)
     + [Set Balance: `set balance`](#set-balance--set-balance)
-    + [List Expenses `list expenses`](#list-expenses--list-expenses)
-    + [Check Balance `check balance`](#check-balance--check-balance)
+    + [List Expenses: `list expenses`](#list-expenses--list-expenses)
+    + [List Expenditure by Category: `list expenditure by category`](#list-expenditure-by-category--list-expenditure-by-category)
+    + [Filter Expenses above an amount `expenses above`](#)
+    + [Filter Expenses below an amount `expenses below`](#)
+    + [Check Balance: `check balance`](#check-balance--check-balance)
+    + [Set Currency: `set currency`](#set-currency--set-currency)
+    + [Get Currency: `get currency`](#get-currency--get-currency)
     + [Add Future Expense: `add future expense`](#add-expense--add-future-expense)
     + [Edit Future Expense: `edit future expense`](#edit-expense--edit-future-expense)
     + [Delete Future Expense: `delete future expense`](#delete-future-expense--delete-future-expense)
@@ -57,7 +62,27 @@ Noted. I've removed this expense:
 Spent $150.0 on book in the Others category on 2023-02-01
 --------------------------------------------------------------------------------
 ```
+### List Expenditure by Category: `list expenditure by category`
+Lists the total expenditure across different categories.
 
+**Format:** `list expenditure by category`
+
+**Example:**
+
+`list expenditure by category`
+
+**Expected outcome:**
+```
+--------------------------------------------------------------------------------
+Food & Drinks - $100.0
+Others - $0.0
+Investments - $0.0
+Transportation - $0.0
+Communication & Technology - $2000.0
+Shopping - $0.0
+Life & Entertainment - $0.0
+--------------------------------------------------------------------------------
+```
 
 ## FAQ
 
@@ -72,7 +97,12 @@ Spent $150.0 on book in the Others category on 2023-02-01
 * Delete expense `delete expense id/EXPENSE_ID`
 * Set balance `set balance $/AMOUNT`
 * List expenses `list expenses`
+* List expenditure across categories `list expenditure by category`
+* Filter expenses to see expenses above the amount `expenses above $/AMOUNT`
+* Filter expenses to see expenses below the amount `expenses below $/AMOUNT`
 * Check balance `check balance`
+* Set currency `set currency CURRENCY_SYMBOL`
+* Get currency `get currency`
 * Add future expense `add future expense NAME $/AMOUNT d/DATE`
 * Edit future expense `edit future expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY"`
 * Delete future expense `delete future expense id/EXPENSE_ID`
