@@ -25,6 +25,14 @@ original source as well}
 
 ### Architecture
 
+### Parser Component
+The `Parser` class handles the parsing of user input, executing the appropriate tasks
+or throwing relevant errors.
+* `Parser` first receives user input from `Duke` through `Parser::handleCmd`
+* Depending on the command given, `Parser` will then execute the command on the `ExpenseManager`instance, or throw a `DukeException`, which will be caught by `Duke`
+### **Sequence Diagram**
+<img alt="parser sequence diagram" src="diagrams/parser.png" width="280" />
+
 ### UI Component
 
 The API of this component is specified in Ui.java \

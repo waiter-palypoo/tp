@@ -15,9 +15,14 @@ else set balance
     Parser -> Parser: Execute set balance
 else get balance
     Parser -> ExpenseManager: getTotalBalance()
+    activate ExpenseManager
     ExpenseManager --> Parser: totalBalance
+    deactivate ExpenseManager
 else print expenses
     Parser -> ExpenseManager: printExpenses()
+else set currency
+    Parser -> ExpenseManager: setCurrency()
+else other commands
 end
 Parser --> Duke
 deactivate Parser
