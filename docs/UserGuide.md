@@ -42,6 +42,20 @@ java -jar tp.jar
 
 ## Features
 
+### List Expenses: `list expenses`
+Run the command followed by choosing what to sort the expenses by
+#### Sort the listed expenses:
+* By Date Added
+* By Name
+* By Price
+---
+### `set currency` / `get currency`
+Set/get the currency used by the app
+#### Usage:
+```
+set currency {USD/MYR/CAD etc.}
+```
+---
 ### Delete Expense: `delete expense`
 Deletes an expense from the current list of expenses.
 
