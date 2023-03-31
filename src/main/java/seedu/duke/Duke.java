@@ -8,6 +8,7 @@ public class Duke {
         Storage storage = new Storage();
         ExpenseManager expenseManager = storage.loadDataExpenses();
         Ui.printGreeting();
+        expenseManager.startupDueDateCheck();
         Scanner in = new Scanner(System.in);
         String userCmd = in.nextLine();
         while (!userCmd.equals("bye")) {

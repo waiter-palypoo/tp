@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.Future;
 
 public class ExpenseManager {
 
@@ -220,7 +221,7 @@ public class ExpenseManager {
         int totalAmountDue = 0;
         for (FutureExpense futureExpense : futureExpenses) {
             if (futureExpense.getDueDate().isBefore(endDate)) { // change
-                System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " +
+                System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " + futureExpense + " " +
                         checkSufficientBalance(futureExpense));
                 count++;
                 totalAmountDue += futureExpense.getAmount();
@@ -237,6 +238,35 @@ public class ExpenseManager {
             System.out.println("Great! You have sufficient balance to pay for all upcoming expenses!");
         }
         Ui.printHorizontalLine();
+    }
+
+    public void startupDueDateCheck() {
+        LocalDate today = LocalDate.now();
+        int count = 0;
+        int totalAmountDue = 0;
+        for (FutureExpense futureExpense : futureExpenses) {
+            if (futureExpense.getDueDate().isBefore(today)) { // change
+                System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " + futureExpense + " " +
+                        checkSufficientBalance(futureExpense));
+                count++;
+                totalAmountDue += futureExpense.getAmount();
+            }
+        }
+        if (count > 0) {
+            Ui.printHorizontalLine();
+            System.out.println("Warning! The above " + count + " future expense(s) are overdue!");
+            System.out.println("Total amount due: " + totalAmountDue);
+            System.out.println("Total balance: " + getTotalBalance());
+            Ui.printHorizontalLine();
+            if (totalAmountDue > totalBalance) {
+                System.out.println("Warning: You have insufficient balance to pay for all overdue expenses!");
+            } else {
+                System.out.println("You have sufficient balance to pay for all overdue expenses!");
+            }
+            System.out.println("Use the pay command to pay for a future expense. Use the help command for a list of " +
+                    "commands");
+            Ui.printHorizontalLine();
+        }
     }
 
     public void payFutureExpense(int id) throws DukeException {
