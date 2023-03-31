@@ -5,8 +5,10 @@
 + [Acknowledgements](#acknowledgements)
 + [Design](#design)
     * [Architecture](#architecture)
+    * [Parser Component](#parser-component)
     * [UI Component](#ui-component)
     * [Storage Component](#storage-component)
+    * [ExpenseManager Component](#expensemanager-component)
 + [Implementation](#implementation)
 + [Product Scope](#product-scope)
     * [Target User Profile](#target-user-profile)
@@ -92,20 +94,23 @@ create and track their budgets to prevent overspending and adjusting their expen
 
 ## User Stories
 
-| Version | As a ...         | I want to ...                                       | So that I can ...                                                                     |
-|---------|------------------|-----------------------------------------------------|---------------------------------------------------------------------------------------|
-| v1.0    | budgeted student | set a budget limit from which expenses are deducted | track my expenses and avoid overrunning my budget                                     |
-| v1.0    | new user         | add expenses                                        | plan my my expenditure based on the remaining budget                                  |
-| v1.0    | forgetful user   | view my expenses                                    | remove incorrect or outdated entries from my transaction history                      |
-| v1.0    | careless user    | edit my expenses                                    | modify or correct the entries in my transaction history                               |
-| v1.0    | careless user    | delete my expenses                                  | remove incorrect or outdated entries from my transaction history                      |
-| v1.0    | responsible user | sort my expenses by date, name or amount            | have a clear timeline of how my budget has changed from the past to now               |
-| v1.0    | responsible user | add future payments                                 | budget accordingly based on expenses that will happen later on                        |
-| v1.0    | careless user    | edit future payments                                | modify or correct the entries of my upcoming expenses                                 |
-| v1.0    | careless user    | delete future payments                              | remove incorrect entries from my upcoming expenses                                    |
-| v1.0    | responsible user | view upcoming expenses within a period              | stay informed of the upcoming expenses within that time period and budget accordingly |
-| v1.0    | responsible user | pay future payments                                 | complete future payments and add the expenses to transaction history                  |
-| v1.0    | responsible user | remain informed of the remaining budget             | complete my future payments by managing other expenses                                |
+| Version | As a ...              | I want to ...                                       | So that I can ...                                                                      |
+|---------|-----------------------|-----------------------------------------------------|----------------------------------------------------------------------------------------|
+| v1.0    | budgeted student      | set a budget limit from which expenses are deducted | track my expenses and avoid overrunning my budget                                      |
+| v1.0    | new user              | add expenses                                        | plan my my expenditure based on the remaining budget                                   |
+| v1.0    | forgetful user        | view my expenses                                    | remove incorrect or outdated entries from my transaction history                       |
+| v1.0    | careless user         | edit my expenses                                    | modify or correct the entries in my transaction history                                |
+| v1.0    | careless user         | delete my expenses                                  | remove incorrect or outdated entries from my transaction history                       |
+| v1.0    | responsible user      | sort my expenses by date, name or amount            | have a clear timeline of how my budget has changed from the past to now                |
+| v1.0    | responsible user      | add future payments                                 | budget accordingly based on expenses that will happen later on                         |
+| v1.0    | careless user         | edit future payments                                | modify or correct the entries of my upcoming expenses                                  |
+| v1.0    | careless user         | delete future payments                              | remove incorrect entries from my upcoming expenses                                     |
+| v1.0    | responsible user      | view upcoming expenses within a period              | stay informed of the upcoming expenses within that time period and budget accordingly  |
+| v1.0    | responsible user      | pay future payments                                 | complete future payments and add the expenses to transaction history                   |
+| v1.0    | responsible user      | remain informed of the remaining budget             | complete my future payments by managing other expenses                                 |
+| v2.0    | responsible user      | view my expenditure across different categories     | see which category is taking up the most budget                                        |
+| v2.0    | international student | use the app in my home currency                     | conveniently make calculations                                                         |
+| v2.0    | responsible user      | filter expenses by price                            | easily check which expenses cost more than $X amount, which can help with my budgeting |
 
 ## Non-Functional Requirements
 
@@ -273,6 +278,46 @@ insufficient.
 2. Test case:
    `pay 1`\
    Expected: Terminal shows successful message. The paid future expense is added to list of past expenses.
+
+### Currency
+
+#### Set currency
+
+1. Prerequisites:
+    - Ensure that a valid currency symbol is entered
+2. Test case:
+   `set currency USD`\
+   Expected: Terminal shows successful message. 
+
+#### Get currency
+
+Test case:
+`get currency`\
+Expected: Terminal shows the currently set currency.
+
+### List expenditure by category
+
+Test case:
+`list expenditure by category`\
+Expected: Terminal displays the total expenditure across all categories.
+
+### Filter expenses
+
+#### Expenses above an amount
+1. Prerequisites:
+    - Ensure all fields are entered
+
+2. Test case:
+   `expenses above $/150`\
+   Expected: Terminal displays all expenses of amount greater than the entered amount.
+
+#### Expenses below an amount
+1. Prerequisites:
+    - Ensure all fields are entered
+
+2. Test case:
+   `expenses below $/2000`\
+   Expected: Terminal displays all expenses of amount lower than the entered amount.
 
 ### Shutdown
 

@@ -13,8 +13,9 @@ public class Ui {
         System.out.println("delete expense +  id/\"expense id\" to delete an expense");
         System.out.println("set balance +  $/\"amount\" to set your balance");
         System.out.println("list expenses to list all past expenses");
+        System.out.println("list expenditure by category to list total expenditure on each category");
         System.out.println("expenses above + $/\"amount\" to see all expenses above amount");
-        System.out.println("expenses above + $/\"amount\" to see all expenses below amount");
+        System.out.println("expenses below + $/\"amount\" to see all expenses below amount");
         System.out.println("check balance to check the remaining balance");
         System.out.println("set currency {CURRENCY_SYMBOL} to set the app to your desired currency");
         System.out.println("get currency to get the currently set currency");
@@ -25,7 +26,6 @@ public class Ui {
         System.out.println("list future expenses to list all future expenses");
         System.out.println("check upcoming expenses to list all future expenses within an upcoming time period");
         System.out.println("pay \"id\" to pay for a future expense and move it to the list of past expenses");
-        System.out.println("list expenditure by category to list total expenditure on each category");
         System.out.println("bye to exit the program");
     }
 
