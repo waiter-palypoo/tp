@@ -14,6 +14,7 @@ LIST OF ALL COMMANDS:
 add expense + name + $/"amount" + d/"yyyymmdd" to add an expense
 edit expense +  id/"expense id" + in/"amount/date/category" to edit an expense
 delete expense +  id/"expense id" to delete an expense
+clear expenses to clear all current expenses
 set balance +  $/"amount" to set your balance
 list expenses to list all past expenses
 check balance to check the remaining balance
@@ -22,6 +23,7 @@ get currency to get the currently set currency
 add future expense + name + $/"amount" + d/"yyyymmdd" to add a future expense
 edit future expense + id/"expense id" + in/"amount/date/category" to edit a future expense
 delete future expense + id/"expense id" to delete a future expense
+clear future expenses to clear all future expenses
 list future expenses to list all future expenses
 check upcoming expenses to list all future expenses within an upcoming time period
 pay "id" to pay for a future expense and move it to the list of past expenses

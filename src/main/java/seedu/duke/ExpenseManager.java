@@ -313,4 +313,12 @@ public class ExpenseManager {
     public int getFutureSize() {
         return futureExpenses.size();
     }
+
+    public void removeAllExpenses() {
+        expenses.removeAll(expenses);
+    }
+
+    public void removeAllFutureExpenses() {
+        futureExpenses.removeAll(futureExpenses);
+    }
 }
