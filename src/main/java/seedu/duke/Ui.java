@@ -11,6 +11,7 @@ public class Ui {
         System.out.println("add expense + name + $/\"amount\" + d/\"yyyymmdd\" to add an expense");
         System.out.println("edit expense +  id/\"expense id\" + in/\"amount/date/category\" to edit an expense");
         System.out.println("delete expense +  id/\"expense id\" to delete an expense");
+        System.out.println("clear expenses to clear all current expenses");
         System.out.println("set balance +  $/\"amount\" to set your balance");
         System.out.println("list expenses to list all past expenses");
         System.out.println("list expenditure by category to list total expenditure on each category");
@@ -23,6 +24,7 @@ public class Ui {
         System.out.println("edit future expense + id/\"expense id\" + in/\"amount/date/category\" "
                 + "to edit a future expense");
         System.out.println("delete future expense + id/\"expense id\" to delete a future expense");
+        System.out.println("clear future expenses to clear all future expenses");
         System.out.println("list future expenses to list all future expenses");
         System.out.println("check upcoming expenses to list all future expenses within an upcoming time period");
         System.out.println("pay \"id\" to pay for a future expense and move it to the list of past expenses");
