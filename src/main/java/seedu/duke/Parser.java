@@ -25,7 +25,7 @@ public class Parser {
                 executeSetBudget(expenseManager, userCmd);
             } else if (userCmd.startsWith("get currency")) {
                 Ui.printLines(String.format("Your currency is currently set to: %s", expenseManager.getCurrency()));
-            } else if (userCmd.startsWith("list expenses")) {
+            } else if (userCmd.startsWith("list expenses") || userCmd.startsWith("list expense")) {
                 expenseManager.printExpense();
             } else if (userCmd.startsWith("check balance")) {
                 Ui.printHorizontalLine();
@@ -52,7 +52,7 @@ public class Parser {
                 }
             } else if (userCmd.startsWith("delete future expense")) {
                 executeDeleteFutureExpense(expenseManager, userCmd);
-            } else if (userCmd.startsWith("list future expenses")) {
+            } else if (userCmd.startsWith("list future expenses") || userCmd.startsWith("list future expense")) {
                 expenseManager.printFutureExpenses();
             } else if (userCmd.startsWith("check upcoming expenses")) {
                 executeCheckUpcomingExpenses(expenseManager);
@@ -133,7 +133,7 @@ public class Parser {
         }
     }
 
-    private static LocalDate extractDate(String input) throws DukeException {
+    private static LocalDate extractDate(String input) {
         int startIndex = input.indexOf("d/");
         String dateString = input.substring(startIndex + 2);
         int year = Integer.parseInt(dateString.substring(0, 4));
