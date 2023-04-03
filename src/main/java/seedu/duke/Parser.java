@@ -82,6 +82,9 @@ public class Parser {
     public static void executeAddExpense(String userCmd, ExpenseManager expenseManager, int choice)
             throws DukeException {
         double amount = extractAmount(userCmd);
+        if (amount < 0) {
+            throw new DukeException("Expense price cannot be negative");
+        }
         LocalDate date = extractDate(userCmd);
         String name = extractName(userCmd);
         String category = getCategory(choice);
