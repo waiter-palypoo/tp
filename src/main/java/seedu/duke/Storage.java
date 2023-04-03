@@ -90,7 +90,7 @@ public class Storage {
         ArrayList<Expense> expenses = new ArrayList<>();
         ArrayList<FutureExpense> futureExpenses = new ArrayList<>();
         String data;
-        Double balance = 0.0;
+        double balance = 0.0;
         String currency = "SGD";
         try {
             data = Files.readString(this.dataFilePath);

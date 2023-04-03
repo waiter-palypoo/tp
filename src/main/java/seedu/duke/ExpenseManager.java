@@ -2,6 +2,7 @@ package seedu.duke;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -23,6 +24,7 @@ public class ExpenseManager {
         this.totalBalance = totalBalance;
         this.expenses = expenses;
         this.futureExpenses = futureExpenses;
+        this.expenseByCategory = new HashMap<>();
     }
 
     public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses,
@@ -71,7 +73,7 @@ public class ExpenseManager {
         Ui.printLines("Roger, the following expense has been added!", toAdd.toString());
         expenses.add(toAdd);
         totalBalance -= amount;
-        expenseByCategory.put(category.strip(), expenseByCategory.get(category.strip()) + amount);
+        expenseByCategory.put(category.strip(), expenseByCategory.getOrDefault(category.strip(), 0.0) + amount);
     }
 
     public void addFutureExpense(String name, double amount, LocalDate dueDate, String category) {
@@ -105,8 +107,9 @@ public class ExpenseManager {
 
     public ArrayList<Expense> getExpensesAbove(double amount) { // return an ArrayList of expenses above a threshold
         ArrayList<Expense> sortedExpenses = new ArrayList<>();
+        double convertedAmount = amount / this.getRate();
         for (Expense expense : this.expenses) {
-            if (expense.getAmount() >= amount) {
+            if (expense.getAmount() >= convertedAmount) {
                 sortedExpenses.add(expense);
             }
         }
@@ -115,8 +118,9 @@ public class ExpenseManager {
 
     public ArrayList<Expense> getExpensesBelow(double amount) { // return an ArrayList of expenses below a threshold
         ArrayList<Expense> sortedExpenses = new ArrayList<>();
+        double convertedAmount = amount / this.getRate();
         for (Expense expense : this.expenses) {
-            if (expense.getAmount() <= amount) {
+            if (expense.getAmount() <= convertedAmount) {
                 sortedExpenses.add(expense);
             }
         }
