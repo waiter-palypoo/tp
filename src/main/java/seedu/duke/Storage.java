@@ -73,7 +73,6 @@ public class Storage {
             }
         };
         for (Expense expense : expenses) {
-            // adding saved data to calculation
             String category = expense.getCategory();
             Double amount = expense.getAmount();
             expenseByCategory.put(category, expenseByCategory.get(category.strip()) + amount);
@@ -95,7 +94,7 @@ public class Storage {
         try {
             data = Files.readString(this.dataFilePath);
             if (data.isBlank()) {
-                return new ExpenseManager(balance, expenses, futureExpenses, currency); // changed
+                return new ExpenseManager(balance, expenses, futureExpenses, currency);
             }
             for (String line : data.lines().toArray(String[] ::new)) {
                 if (line.startsWith("currency")) {

@@ -29,8 +29,8 @@ public class Parser {
             } else if (userCmd.startsWith("check balance")) {
                 Ui.printHorizontalLine();
                 System.out.println(String.format("Your current balance is: %.2f %s",
-                                                 expenseManager.getTotalBalance() * expenseManager.getRate(),
-                                                 expenseManager.getCurrency()));
+                        expenseManager.getTotalBalance() * expenseManager.getRate(),
+                        expenseManager.getCurrency()));
                 Ui.printHorizontalLine();
             } else if (userCmd.startsWith("add future expense")) {
                 Ui.printChoice();
@@ -213,15 +213,23 @@ public class Parser {
         if (startIndex < 0) {
             throw new DukeException("Expense id cannot be empty.");
         } else {
-            int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3));
-            if (id > expenseManager.getSize()) {
-                throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
-            } else {
+            try {
+                int id = Integer.parseInt(userCmd.substring(startIndex + 3));
+                if (id > expenseManager.getSize() || id <= 0) {
+                    throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
+                } else {
+                    Ui.printHorizontalLine();
+                    Expense deletedExpense = expenseManager.get(id - 1);
+                    Double updatedBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount();
+                    expenseManager.setTotalBalance(updatedBalance);
+                    expenseManager.remove(id - 1);
+                    System.out.println("Noted. I've removed this expense:");
+                    System.out.println(deletedExpense);
+                    Ui.printHorizontalLine();
+                }
+            } catch (NumberFormatException nfe) {
                 Ui.printHorizontalLine();
-                Expense deletedExpense = expenseManager.get(id - 1);
-                expenseManager.remove(id - 1);
-                System.out.println("Noted. I've removed this expense:");
-                System.out.println(deletedExpense);
+                System.out.println("Please enter a valid expense id.");
                 Ui.printHorizontalLine();
             }
         }
@@ -311,98 +319,107 @@ public class Parser {
         if (startIndex < 0) {
             throw new DukeException("Expense id cannot be empty.");
         } else {
-            int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3));
-            if (id > expenseManager.getFutureSize()) {
-                throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
-            } else {
-                Ui.printHorizontalLine();
-                Expense deletedExpense = expenseManager.getFutureExpense(id - 1);
-                expenseManager.removeFutureExpense(id - 1);
-                System.out.println("Noted. I've removed this expense:");
-                System.out.println(deletedExpense);
-                Ui.printHorizontalLine();
-            }
-        }
-    }
-
-    public static void executeClearFutureExpenses(ExpenseManager expenseManager) throws DukeException {
-        if (1 > expenseManager.getFutureSize()) {
-            throw new DukeException("You have no future expenses to clear.");
-        } else {
-            Ui.printHorizontalLine();
-            System.out.println("Are you sure you would like to remove all future expenses? 'Y' or 'N'");
-            Scanner in = new Scanner(System.in);
-            Ui.printHorizontalLine();
-            String confirmationClear = in.nextLine();
-            Ui.printHorizontalLine();
-            if (confirmationClear.toUpperCase(Locale.ROOT).equals("Y")) {
-                expenseManager.removeAllFutureExpenses();
-                System.out.println("You have cleared all your future expenses.");
-            } else if (confirmationClear.equals("N")) {
-                System.out.println("Okay! Your future expenses will not be cleared.");
-            } else {
-                System.out.println("Invalid confirmation");
-            }
-            Ui.printHorizontalLine();
-        }
-    }
-
-    public static void executeCheckUpcomingExpenses(ExpenseManager expenseManager) {
-        System.out.println("Choose a period to show upcoming expenses within (type the number): ");
-        System.out.println("1. 1 week");
-        System.out.println("2. 1 month");
-        System.out.println("3. 3 months");
-        Scanner in = new Scanner(System.in);
-        try {
-            int period = Integer.parseInt(in.nextLine());
-            while (period < 1 || period > 3) {
-                System.out.println("Please choose a number from 1 to 3!");
-                period = Integer.parseInt(in.nextLine());
-            }
-            expenseManager.checkUpcomingExpenses(period);
-        } catch (NumberFormatException e) {
-            System.out.println("Please input a valid number!");
-        }
-    }
-
-    public static void executePayFutureExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
-        if (userCmd.split(" ").length == 2) {
-            String idString = userCmd.split(" ")[1].trim();
-            if (idString == null) {
-                throw new DukeException("Please input a valid number!");
-            }
             try {
-                int id = Integer.parseInt(idString);
-                expenseManager.payFutureExpense(id - 1);
+                int id = Integer.parseInt(userCmd.substring(startIndex + 3));
+                if (id > expenseManager.getSize() || id <= 0) {
+                    throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
+                } else {
+                    Ui.printHorizontalLine();
+                    Expense deletedExpense = expenseManager.getFutureExpense(id - 1);
+                    expenseManager.removeFutureExpense(id - 1);
+                    System.out.println("Noted. I've removed this expense:");
+                    System.out.println(deletedExpense);
+                    Ui.printHorizontalLine();
+                }
+            } catch (NumberFormatException nfe) {
+                Ui.printHorizontalLine();
+                System.out.println("Please enter a valid expense id.");
+                Ui.printHorizontalLine();
+            }
+        }
+    }
+
+        public static void executeClearFutureExpenses (ExpenseManager expenseManager) throws DukeException {
+            if (1 > expenseManager.getFutureSize()) {
+                throw new DukeException("You have no future expenses to clear.");
+            } else {
+                Ui.printHorizontalLine();
+                System.out.println("Are you sure you would like to remove all future expenses? 'Y' or 'N'");
+                Scanner in = new Scanner(System.in);
+                Ui.printHorizontalLine();
+                String confirmationClear = in.nextLine();
+                Ui.printHorizontalLine();
+                if (confirmationClear.toUpperCase(Locale.ROOT).equals("Y")) {
+                    expenseManager.removeAllFutureExpenses();
+                    System.out.println("You have cleared all your future expenses.");
+                } else if (confirmationClear.equals("N")) {
+                    System.out.println("Okay! Your future expenses will not be cleared.");
+                } else {
+                    System.out.println("Invalid confirmation");
+                }
+                Ui.printHorizontalLine();
+            }
+        }
+
+        public static void executeCheckUpcomingExpenses (ExpenseManager expenseManager){
+            System.out.println("Choose a period to show upcoming expenses within (type the number): ");
+            System.out.println("1. 1 week");
+            System.out.println("2. 1 month");
+            System.out.println("3. 3 months");
+            Scanner in = new Scanner(System.in);
+            try {
+                int period = Integer.parseInt(in.nextLine());
+                while (period < 1 || period > 3) {
+                    System.out.println("Please choose a number from 1 to 3!");
+                    period = Integer.parseInt(in.nextLine());
+                }
+                expenseManager.checkUpcomingExpenses(period);
             } catch (NumberFormatException e) {
                 System.out.println("Please input a valid number!");
             }
-        } else {
-            System.out.println("Please input a valid number!");
         }
-    }
 
-    private static void executeGetExpenseAbove(double amount, ExpenseManager expenseManager) throws DukeException {
-        System.out.println(amount);
-        ArrayList<Expense> sortedExpenses = new ArrayList<>();
-        sortedExpenses = expenseManager.getExpensesAbove(amount);
-        if (sortedExpenses.isEmpty()) {
-            System.out.println("There is no expense matching your request !");
-            Ui.printHorizontalLine();
-        } else {
-            Ui.printLines(Ui.getFormattedList(sortedExpenses));
+        public static void executePayFutureExpense (ExpenseManager expenseManager, String userCmd) throws DukeException
+        {
+            if (userCmd.split(" ").length == 2) {
+                String idString = userCmd.split(" ")[1].trim();
+                if (idString == null) {
+                    throw new DukeException("Please input a valid number!");
+                }
+                try {
+                    int id = Integer.parseInt(idString);
+                    expenseManager.payFutureExpense(id - 1);
+                } catch (NumberFormatException e) {
+                    System.out.println("Please input a valid number!");
+                }
+            } else {
+                System.out.println("Please input a valid number!");
+            }
         }
-    }
 
-    private static void executeGetExpenseBelow(double amount, ExpenseManager expenseManager) throws DukeException {
-        System.out.println(amount);
-        ArrayList<Expense> sortedExpenses = new ArrayList<>();
-        sortedExpenses = expenseManager.getExpensesBelow(amount);
-        if (sortedExpenses.isEmpty()) {
-            System.out.println("There is no expense matching your request !");
-            Ui.printHorizontalLine();
-        } else {
-            Ui.printLines(Ui.getFormattedList(sortedExpenses));
+        private static void executeGetExpenseAbove ( double amount, ExpenseManager expenseManager) throws DukeException
+        {
+            System.out.println(amount);
+            ArrayList<Expense> sortedExpenses = new ArrayList<>();
+            sortedExpenses = expenseManager.getExpensesAbove(amount);
+            if (sortedExpenses.isEmpty()) {
+                System.out.println("There is no expense matching your request !");
+                Ui.printHorizontalLine();
+            } else {
+                Ui.printLines(Ui.getFormattedList(sortedExpenses));
+            }
+        }
+
+        private static void executeGetExpenseBelow ( double amount, ExpenseManager expenseManager) throws DukeException
+        {
+            System.out.println(amount);
+            ArrayList<Expense> sortedExpenses = new ArrayList<>();
+            sortedExpenses = expenseManager.getExpensesBelow(amount);
+            if (sortedExpenses.isEmpty()) {
+                System.out.println("There is no expense matching your request !");
+                Ui.printHorizontalLine();
+            } else {
+                Ui.printLines(Ui.getFormattedList(sortedExpenses));
+            }
         }
     }
-}
