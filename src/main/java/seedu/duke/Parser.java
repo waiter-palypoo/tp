@@ -17,7 +17,6 @@ public class Parser {
                 int choiceNum = Integer.parseInt(choice);
                 executeAddExpense(userCmd, expenseManager, choiceNum);
             } else if (userCmd.startsWith("edit expense")) {
-                System.out.println(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
                 executeEditExpense(expenseManager, userCmd, expenses);
             } else if (userCmd.startsWith("delete expense")) {
                 executeDeleteExpense(expenseManager, userCmd);
@@ -30,8 +29,8 @@ public class Parser {
             } else if (userCmd.startsWith("check balance")) {
                 Ui.printHorizontalLine();
                 System.out.println(String.format("Your current balance is: %.2f %s",
-                        expenseManager.getTotalBalance() * expenseManager.getRate(),
-                        expenseManager.getCurrency()));
+                                                 expenseManager.getTotalBalance() * expenseManager.getRate(),
+                                                 expenseManager.getCurrency()));
                 Ui.printHorizontalLine();
             } else if (userCmd.startsWith("add future expense")) {
                 Ui.printChoice();
@@ -165,7 +164,7 @@ public class Parser {
             Scanner in = new Scanner(System.in);
             switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
             case "amount":
-                editExpenseAmount( expenseManager, id, in);
+                editExpenseAmount(expenseManager, id, in);
                 break;
             case "date":
                 editExpenseDate(expenseManager, id, in);
@@ -182,8 +181,7 @@ public class Parser {
     private static void editExpenseAmount(ExpenseManager expenseManager, int id, Scanner in) {
         System.out.println("Enter a new amount spent! Just enter a number!");
         Double newAmount = Double.parseDouble(in.nextLine());
-        Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount()
-                - newAmount;
+        Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
         expenseManager.get(id - 1).setAmount(newAmount);
         expenseManager.setTotalBalance(newBalance);
         System.out.println("Change in amount successful! Balance has also been recalculated");
@@ -404,5 +402,4 @@ public class Parser {
             Ui.printLines(Ui.getFormattedList(sortedExpenses));
         }
     }
-
 }

@@ -13,6 +13,10 @@ public class Storage {
     public static final String DATA_FILE_NAME = "duke_data.txt";
     private Path dataFilePath;
 
+    /**
+     * Constructor for the `Storage` class, which initializes storage by first checking if the data file already
+     * exists at `${CWD}/data/duke_data.txt`, else it will create the file
+     */
     public Storage() {
         Path dataDirPath = Path.of("").resolve(DATA_DIR_NAME).toAbsolutePath();
         try {
@@ -28,9 +32,35 @@ public class Storage {
         }
     }
 
-    public ExpenseManager loadDataExpenses() {
-        ArrayList<Expense> expenses = new ArrayList<>();
-        ArrayList<FutureExpense> futureExpenses = new ArrayList<>();
+    /**
+     * Parses an expense from the data file
+     *
+     * @param line The line containing information about an expense
+     * @param expenses The list of expenses to add an expense to
+     * @param futureExpenses The list of futureExpenses to add a futureExpense to
+     */
+    private void parseExpenses(String line, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses) {
+        String[] tokens = line.split("\\|");
+        String type = tokens[0];
+        String name = tokens[1];
+        Double amount = Double.parseDouble(tokens[2]);
+        String category = tokens[3];
+        LocalDate date = LocalDate.parse(tokens[4]);
+        if (type.equals("Expense")) {
+            expenses.add(new Expense(name, amount, date, category));
+        } else {
+            LocalDate dueDate = LocalDate.parse(tokens[5]);
+            futureExpenses.add(new FutureExpense(name, amount, dueDate, category));
+        }
+    }
+
+    /**
+     * Gets a map of budget spent on expenses by category
+     *
+     * @param expenses The list of expenses
+     * @return The map of expenses by category
+     */
+    private HashMap<String, Double> getExpensesByCategory(ArrayList<Expense> expenses) {
         HashMap<String, Double> expenseByCategory = new HashMap<String, Double>() {
             {
                 put("Food & Drinks", 0.0);
@@ -42,15 +72,32 @@ public class Storage {
                 put("Others", 0.0);
             }
         };
+        for (Expense expense : expenses) {
+            // adding saved data to calculation
+            String category = expense.getCategory();
+            Double amount = expense.getAmount();
+            expenseByCategory.put(category, expenseByCategory.get(category.strip()) + amount);
+        }
+        return expenseByCategory;
+    }
+
+    /**
+     * Loads an `ExpenseManager` instance from storage
+     *
+     * @return An `ExpenseManager` instance with all the information from local storage
+     */
+    public ExpenseManager loadDataExpenses() {
+        ArrayList<Expense> expenses = new ArrayList<>();
+        ArrayList<FutureExpense> futureExpenses = new ArrayList<>();
         String data;
         Double balance = 0.0;
         String currency = "SGD";
         try {
             data = Files.readString(this.dataFilePath);
             if (data.isBlank()) {
-                return new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory); // changed
+                return new ExpenseManager(balance, expenses, futureExpenses, currency); // changed
             }
-            for (String line : data.lines().toArray(String[]::new)) {
+            for (String line : data.lines().toArray(String[] ::new)) {
                 if (line.startsWith("currency")) {
                     currency = line.split(":")[1];
                     continue;
@@ -59,34 +106,23 @@ public class Storage {
                     balance = Double.parseDouble(line.split(":")[1]);
                     continue;
                 }
-                String[] tokens = line.split("\\|");
-                String type = tokens[0];
-                String name = tokens[1];
-                Double amount = Double.parseDouble(tokens[2]);
-                String category = tokens[3];
-                LocalDate date = LocalDate.parse(tokens[4]);
-                if (type.equals("Expense")) {
-                    expenses.add(new Expense(name, amount, date, category));
-                } else {
-                    LocalDate dueDate = LocalDate.parse(tokens[5]);
-                    futureExpenses.add(new FutureExpense(name, amount, dueDate, category));
-                }
+                parseExpenses(line, expenses, futureExpenses);
             }
-            for (Expense expense : expenses) {
-                // adding saved data to calculation
-                String category = expense.getCategory();
-                Double amount = expense.getAmount();
-                expenseByCategory.put(category, expenseByCategory.get(category.strip()) + amount);
-            }
+            HashMap<String, Double> expenseByCategory = getExpensesByCategory(expenses);
             ExpenseManager manager = new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory, currency);
             manager.setCurrency(currency);
             return manager;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ExpenseManager(balance, expenses, futureExpenses, expenseByCategory);
+        return new ExpenseManager(balance, expenses, futureExpenses, "SGD");
     }
 
+    /**
+     * Writes all the information contained in an ExpenseManager into the data file
+     *
+     * @param manager The expense manager instance
+     */
     public void saveExpenses(ExpenseManager manager) {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("currency:%s\n", manager.getCurrency()));
