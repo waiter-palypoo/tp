@@ -2,6 +2,10 @@
 
 actor User
 
+participant ":Storage" as Storage
+participant ":Duke" as Duke
+participant ":Parser" as Parser
+
 activate Storage
 Duke -> Storage: loadDataExpenses()
 Storage -> Storage: retrieve data from file
@@ -10,11 +14,13 @@ deactivate Storage
 
 loop while userCmd != "bye"
     User -> Duke: userCmd
+    activate Duke
     Duke -> Parser: handleCmd()
     activate Storage
     Duke -> Storage: saveExpenses()
     Storage -> Storage: write data to file
     Storage --> Duke
+    deactivate Duke
     deactivate Storage
 end
 
