@@ -314,10 +314,10 @@ public class ExpenseManager {
     }
 
     public void removeAllExpenses() {
-        expenses.removeAll(expenses);
+        expenses.clear();
     }
 
     public void removeAllFutureExpenses() {
-        futureExpenses.removeAll(futureExpenses);
+        futureExpenses.clear();
     }
 }
