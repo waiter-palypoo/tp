@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.Future;
 
 public class ExpenseManager {
 
@@ -19,7 +18,7 @@ public class ExpenseManager {
     private CurrencyLoader currencyLoader = CurrencyLoader.getCurrencyLoader();
 
     public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses,
-            String currency) {
+                          String currency) {
         this.currency = currency;
         this.totalBalance = totalBalance;
         this.expenses = expenses;
@@ -27,7 +26,7 @@ public class ExpenseManager {
     }
 
     public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses,
-            Map<String, Double> expenseByCategory, String currency) {
+                          Map<String, Double> expenseByCategory, String currency) {
         this.currency = currency;
         this.totalBalance = totalBalance;
         this.expenses = expenses;
@@ -36,7 +35,7 @@ public class ExpenseManager {
     }
 
     public ExpenseManager(double totalBalance, ArrayList<Expense> expenses, ArrayList<FutureExpense> futureExpenses,
-            Map<String, Double> expenseByCategory) {
+                          Map<String, Double> expenseByCategory) {
         this.currency = "SGD";
         this.totalBalance = totalBalance;
         this.expenses = expenses;
@@ -147,7 +146,7 @@ public class ExpenseManager {
             throw new DukeException("Sorry, there are no expenses in the list currently.");
         }
         Ui.printLines("How would you like your expenses to be sorted?", "  1. By date added", "  2. By Name",
-                "  3. By Amount");
+                      "  3. By Amount");
         Scanner sc = new Scanner(System.in);
         int sortBy = sc.nextInt();
         ArrayList<Expense> toList;
@@ -222,7 +221,7 @@ public class ExpenseManager {
         for (FutureExpense futureExpense : futureExpenses) {
             if (futureExpense.getDueDate().isBefore(endDate)) { // change
                 System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " + futureExpense + " " +
-                        checkSufficientBalance(futureExpense));
+                                   checkSufficientBalance(futureExpense));
                 count++;
                 totalAmountDue += futureExpense.getAmount();
             }
@@ -247,7 +246,7 @@ public class ExpenseManager {
         for (FutureExpense futureExpense : futureExpenses) {
             if (futureExpense.getDueDate().isBefore(today)) { // change
                 System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " + futureExpense + " " +
-                        checkSufficientBalance(futureExpense));
+                                   checkSufficientBalance(futureExpense));
                 count++;
                 totalAmountDue += futureExpense.getAmount();
             }
@@ -263,8 +262,8 @@ public class ExpenseManager {
             } else {
                 System.out.println("You have sufficient balance to pay for all overdue expenses!");
             }
-            System.out.println("Use the pay command to pay for a future expense. Use the help command for a list of " +
-                    "commands");
+            System.out.println("Use the pay command to pay for a future expense. Use the help command for a list of "
+                               + "commands");
             Ui.printHorizontalLine();
         }
     }
@@ -289,7 +288,7 @@ public class ExpenseManager {
         Ui.printHorizontalLine();
         for (String i : expenseByCategory.keySet()) {
             System.out.println(i + " - "
-                    + "$" + expenseByCategory.get(i));
+                               + "$" + expenseByCategory.get(i));
         }
         Ui.printHorizontalLine();
     }
