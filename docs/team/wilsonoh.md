@@ -44,5 +44,7 @@ requiring an API key from the user and the latency from fetching the updated lis
 * **Documentation**
   * Developer Guide:
     * Added sequence diagrams and explanations for the `Storage` and `Parser` class
+    * Added implementaion details and sequence diagram for the `set currency` feature
   * User Guide:
     * Added instructions for using the `set/get currency` commands
+    * Added detailed instructions for the `edit currency` command
