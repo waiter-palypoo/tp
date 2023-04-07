@@ -170,7 +170,16 @@ public class Parser {
 
     public static void executeEditExpense(ExpenseManager expenseManager, String userCmd, ArrayList<Expense> expenses)
             throws DukeException {
-        int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
+        if (!userCmd.contains("id/") || !userCmd.contains("in/")) {
+            throw new DukeException(
+                    "Invalid syntax for the edit expense command. Please follow the instructions and try again");
+        }
+        int id;
+        try {
+            id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid digit for the expense id");
+        }
         if (id > expenseManager.getSize() || id < 0) {
             throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
         } else {
