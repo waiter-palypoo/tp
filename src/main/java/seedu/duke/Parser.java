@@ -76,6 +76,10 @@ public class Parser {
             Ui.printHorizontalLine();
             System.out.println(e.getMessage());
             Ui.printHorizontalLine();
+        } catch (NumberFormatException nfe) {
+            Ui.printHorizontalLine();
+            System.out.println("Invalid selection. Please add expense again.");
+            Ui.printHorizontalLine();
         }
     }
 
@@ -89,33 +93,39 @@ public class Parser {
         String name = extractName(userCmd);
         String category = getCategory(choice);
         if (category.equals("wrong input")) {
-            Ui.printFalseInput();
+            Ui.printHorizontalLine();
+            System.out.println("Invalid selection. Please add expense again.");
+            Ui.printHorizontalLine();
         } else {
             expenseManager.addExpense(name, amount, date, category);
         }
     }
 
     private static String getCategory(int choice) {
-        switch (choice) {
-        case 1:
-            return "Food & Drinks";
-        case 2:
-            return "Shopping";
-        case 3:
-            return "Transportation";
-        case 4:
-            return "Life & Entertainment";
-        case 5:
-            return "Investments";
-        case 6:
-            return "Communication & Technology";
-        case 7:
-            return "Others";
-        default:
-            Ui.printFalseInput();
+        try {
+            switch (choice) {
+            case 1:
+                return "Food & Drinks";
+            case 2:
+                return "Shopping";
+            case 3:
+                return "Transportation";
+            case 4:
+                return "Life & Entertainment";
+            case 5:
+                return "Investments";
+            case 6:
+                return "Communication & Technology";
+            case 7:
+                return "Others";
+            default:
+                return "wrong input";
+            }
+        } catch (NumberFormatException nfe) {
             return "wrong input";
         }
     }
+
 
     private static String extractName(String userCmd) {
         int endIndex = userCmd.indexOf("$/");
