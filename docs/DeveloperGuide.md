@@ -32,8 +32,8 @@ The `Parser` class handles the parsing of user input, executing the appropriate 
 or throwing relevant errors.
 * `Parser` first receives user input from `Duke` through `Parser::handleCmd`
 * Depending on the command given, `Parser` will then execute the command on the `ExpenseManager`instance, or throw a `DukeException`, which will be caught by `Duke`
-### **Sequence Diagram**
-<img alt="parser sequence diagram" src="diagrams/parser.png" width="280" />
+#### **Sequence Diagram**
+<img alt="parser sequence diagram" src="diagrams/parser.png" />
 
 ### UI Component
 
@@ -47,16 +47,16 @@ Types of messages displayed:
 + Category Choice: Displays category choices of expense to the user. \
   The class also prints text such as lines and the formatted list.
 
-<img alt="ui class diagram" src="diagrams/UiComponentClassDiagram.png" width="280" />
+<img alt="ui class diagram" src="diagrams/UiComponentClassDiagram.png" />
 
 ### Storage Component
 
-<img alt="storage sequence diagram" src="diagrams/storage.png" width="280" />
+<img alt="storage sequence diagram" src="diagrams/storage.png" />
 
 The `Storage` class handles the validation and creation of the `duke_data.txt` file, which contains all the necessary
 data regarding the user's budget and expenses.
 
-### Sequence Explanation
+#### Sequence Explanation
 
 * Upon creation of the `Storage` object, the constructor first checks whether the directory and file
   `${CWD}/data/duke_data.txt` exists, and creates them otherwise.
@@ -74,7 +74,7 @@ data regarding the user's budget and expenses.
 The `ExpenseManager` class keeps track of the list of the class `Expense` and `FutureExpense` as well as
 the `TotalBudget`. The class also contains methods that involve the creating, editing, listing of these items.
 
-<img alt="ExpenseManager class diagram" src="diagrams/ExpenseManagerClassDiagram.png" width="700" />
+<img alt="ExpenseManager class diagram" src="diagrams/ExpenseManagerClassDiagram.png" />
 
 
 ## Implementation
@@ -93,7 +93,7 @@ The implementation of `delete future expense` is similar to `delete expense` com
 
 The sequence diagram below illustrates this delete mechanism: 
 
-<img alt="delete sequence diagram" src="diagrams/delete.png" width="280" />
+<img alt="delete sequence diagram" src="diagrams/delete.png" />
 
 ## Product scope
 
