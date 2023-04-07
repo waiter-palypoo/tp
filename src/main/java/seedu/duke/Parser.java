@@ -216,9 +216,14 @@ public class Parser {
         Ui.printChoice();
         int choice = Integer.parseInt(in.nextLine());
         String newCategory = getCategory(choice);
-        expenseManager.get(id - 1).setCategory(newCategory);
-        System.out.println("Change in category successful!");
-        Ui.printHorizontalLine();
+        if (newCategory.equals("wrong input")) {
+            System.out.println("Wrong category choice. Please enter edit command again");
+            Ui.printHorizontalLine();
+        } else {
+            expenseManager.get(id - 1).setCategory(newCategory);
+            System.out.println("Change in category successful!");
+            Ui.printHorizontalLine();
+        }
     }
 
     public static void executeDeleteExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
@@ -282,7 +287,9 @@ public class Parser {
             String name = userCmd.substring(19, userCmd.indexOf("$/") - 1);
             String category = getCategory(choice);
             if (category.equals("wrong input")) {
-                Ui.printFalseInput();
+                Ui.printHorizontalLine();
+                System.out.println("Invalid selection. Please add expense again.");
+                Ui.printHorizontalLine();
             } else {
                 expenseManager.addFutureExpense(name, amount, dueDate, category);
             }
@@ -336,9 +343,14 @@ public class Parser {
         Ui.printChoice();
         int choice = Integer.parseInt(in.nextLine());
         String newCategory = getCategory(choice);
-        expenseManager.getFutureExpense(id - 1).setCategory(newCategory);
-        System.out.println("Change in category successful!");
-        Ui.printHorizontalLine();
+        if (newCategory.equals("wrong input")) {
+            System.out.println("Wrong category choice. Please enter edit command again");
+            Ui.printHorizontalLine();
+        } else {
+            expenseManager.getFutureExpense(id - 1).setCategory(newCategory);
+            System.out.println("Change in category successful!");
+            Ui.printHorizontalLine();
+        }
     }
 
     public static void executeDeleteFutureExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
@@ -409,7 +421,7 @@ public class Parser {
     public static void executePayFutureExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
         if (userCmd.split(" ").length == 2) {
             String idString = userCmd.split(" ")[1].trim();
-            if (idString == null) {
+            if (idString == null || Integer.parseInt(idString) <= 0 || Integer.parseInt(idString) > expenseManager.getSize()) {
                 throw new DukeException("Please input a valid number!");
             }
             try {
