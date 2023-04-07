@@ -56,13 +56,6 @@ Types of messages displayed:
 The `Storage` class handles the validation and creation of the `duke_data.txt` file, which contains all the necessary
 data regarding the user's budget and expenses.
 
-### ExpenseManager Component
-
-The `ExpenseManager` class keeps track of the list of the class `Expense` and `FutureExpense` as well as
-the `TotalBudget`. The class also contains methods that involve the creating, editing, listing of these items.
-
-<img alt="ExpenseManager class diagram" src="diagrams/ExpenseManagerClassDiagram.png" width="700" />
-
 ### Sequence Explanation
 
 * Upon creation of the `Storage` object, the constructor first checks whether the directory and file
@@ -76,7 +69,31 @@ the `TotalBudget`. The class also contains methods that involve the creating, ed
   the `ExpenseManager` and writes the serialized data into `duke_data.txt`, making sure that the latest state of the app
   is always saved.
 
+### ExpenseManager Component
+
+The `ExpenseManager` class keeps track of the list of the class `Expense` and `FutureExpense` as well as
+the `TotalBudget`. The class also contains methods that involve the creating, editing, listing of these items.
+
+<img alt="ExpenseManager class diagram" src="diagrams/ExpenseManagerClassDiagram.png" width="700" />
+
+
 ## Implementation
+
+### Delete Expenses
+Delete past and future expenses feature is facilitated by the `Parser`, `ExpenseManager` and `Expense` and `FutureExpense` classes.\
+The delete command is used to delete the past and future expenses from the ArrayList `expense` and `future expense` respectively and updates the total balance accordingly.\
+The sequence in which the `Parser` class handles the `delete expense` command is as follows:
+1. Assume the user has already added an expense and wants to delete that expense with expense_id 1 using the command: "delete expense id/1"
+2. The user input is sent to the `Parser` class which calls the `executeDeleteExpense` method based on the user command.
+3. The method then extracts the necessary fields from the user command and removes a expense object using the method `remove` from the `ExpenseManager` class if the expense id is a valid expense id in the list.
+4. The total balance is also updated using `setTotalBalance` method in `Expense Manager` class.
+5. If the deletion was a success, a message will be printed through `executeDeleteExpense` in `Parser` class to notify the user that the expense object has been deleted.\
+
+The implementation of `delete future expense` is similar to `delete expense` command as described above.
+
+The sequence diagram below illustrates this delete mechanism: 
+
+<img alt="delete sequence diagram" src="diagrams/delete.png" width="280" />
 
 ## Product scope
 

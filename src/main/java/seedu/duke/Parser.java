@@ -238,7 +238,7 @@ public class Parser {
                 } else {
                     Ui.printHorizontalLine();
                     Expense deletedExpense = expenseManager.get(id - 1);
-                    Double updatedBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount();
+                    Double updatedBalance = expenseManager.getTotalBalance() + deletedExpense.getAmount();
                     expenseManager.setTotalBalance(updatedBalance);
                     expenseManager.remove(id - 1);
                     System.out.println("Noted. I've removed this expense:");
