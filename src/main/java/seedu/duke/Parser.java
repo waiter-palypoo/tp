@@ -78,7 +78,7 @@ public class Parser {
             Ui.printHorizontalLine();
         } catch (NumberFormatException nfe) {
             Ui.printHorizontalLine();
-            System.out.println("Invalid selection. Please add expense again.");
+            System.out.println("Invalid input. Please enter command again.");
             Ui.printHorizontalLine();
         }
     }
