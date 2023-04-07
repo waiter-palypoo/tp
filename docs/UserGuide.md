@@ -54,6 +54,26 @@ Set/get the currency used by the app
 set currency {USD/MYR/CAD etc.}
 ```
 ---
+### Edit Expense: `edit expense`
+#### Usage:
+```
+edit expense id/ID in/(amount|date|category)
+```
+Upon entering the command, a prompt will be given for the user to enter the new value
+#### Examples:
+```
+edit expense id/2 in/amount
+edit expense id/3 in/category
+```
+#### Expected Output
+```
+edit expense id/1 in/amount
+Enter a new amount spent! Just enter a number!
+200
+Change in amount successful! Balance has also been recalculated
+```
+
+---
 ### Delete Expense: `delete expense`
 Deletes an expense from the current list of expenses.
 
