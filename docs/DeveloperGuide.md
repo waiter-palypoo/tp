@@ -95,6 +95,31 @@ The sequence diagram below illustrates this delete mechanism:
 
 <img alt="delete sequence diagram" src="diagrams/delete.png" />
 
+---
+
+### Set Currency
+#### Description
+The `set currency` feature allows users to set the currency used by the app in various operations such as `list expenses`,
+`add expense`, `check balance` etc.
+#### CurrencyLoader
+The list of exchange rates for the currencies **_against SGD_** are stored in a text file at `${PROJECT_ROOT}/src/main/resources/exchange_rates.txt`.
+The list is hardcoded for the current version of the app in order to reduce complexity of the implementation, but  it should serve the users well enough
+bar a drastic change in the exchange rates.
+The currencies are loaded into the app through a _singleton_ class `CurrencyLoader`. Upon initialization of a `CurrencyLoader`
+instance, the `exchange_rates.txt` file is read and then stored in the form of a `HashMap<String, Double>`, where the key is
+"SGD", "USD", "MYR" etc. A singleton class is chosen for this feature in order to limit the reading of the `exchange_rates.txt`
+file to only once as the file is static.
+
+#### Getting the converted prices
+Each class in the project (`Parser`, `ExpenseManager`, `Expense` etc.) will have access to the `CurrencyLoader` instance,
+from which they can call `CurrencyLoader::getRate($CURRENCY)` in order to get the exchange rate for a currency. Then when
+the user calls `set currency`, the `ExpenseManager` will call `Expense::setCurrency` for all its `Expense`s. Then when the
+user calls `list expenses` or something, the price listed out will be `Expense.amount * CurrencyLoader.getRate(Expense.currency)`.
+This way, all the prices for the expenses are kept (and normalized) to SGD, while its string representation is takes into account
+the currency set. The same goes for `FutureExpenses` and `balance` as well.
+
+<img alt="set currency sequence diagram" src="diagrams/setCurrency.png" />
+
 ## Product scope
 
 ### Target user profile

@@ -1,0 +1,22 @@
+@startuml
+
+participant ":ExpenseManager" as ExpenseManager
+participant ":CurrencyLoader" as CurrencyLoader
+participant ":Expense" as Expense
+
+
+
+create CurrencyLoader
+ExpenseManager -> CurrencyLoader: getCurrencyLoader()
+activate CurrencyLoader
+return currencyLoaderInstance
+
+ExpenseManager -> ExpenseManager: setCurrency("USD")
+activate ExpenseManager
+loop for all expenses
+ExpenseManager -> Expense: setCurrency("USD")
+end
+return
+
+
+@enduml
