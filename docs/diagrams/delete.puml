@@ -1,0 +1,36 @@
+@startuml
+
+actor User
+
+participant ":Duke" as Duke
+participant ":Parser" as Parser
+participant ":ExpenseManager" as ExpenseManager
+participant ":Expense" as Expense
+
+activate Duke
+Duke -> Parser: handleCmd()
+activate Parser
+Parser -> Parser: executeDeleteExpense
+activate Parser
+Parser -> ExpenseManager: get(id:int)
+activate ExpenseManager
+ExpenseManager --> Parser: deletedExpense: Expense
+Parser -> Expense: getAmount()
+activate Expense
+Expense --> Parser: amount: double
+deactivate Expense
+destroy Expense
+Parser -> ExpenseManager: setTotalBalance(updatedBalance:double)
+ExpenseManager --> Parser
+Parser -> ExpenseManager: remove(id:int)
+ExpenseManager --> Parser
+deactivate ExpenseManager
+destroy ExpenseManager
+
+Parser --> Parser
+deactivate Parser
+Parser --> Duke
+deactivate Parser
+destroy Parser
+
+@enduml
