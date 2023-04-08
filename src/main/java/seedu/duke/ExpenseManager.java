@@ -171,9 +171,7 @@ public class ExpenseManager {
                 Ui.printHorizontalLine();
             }
         } catch(NumberFormatException | InputMismatchException excep) {
-            Ui.printHorizontalLine();
-            System.out.println("Invalid input");
-            Ui.printHorizontalLine();
+            throw new DukeException("Invalid input");
         }
     }
 
