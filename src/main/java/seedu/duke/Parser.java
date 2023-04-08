@@ -77,12 +77,14 @@ public class Parser {
             } else {
                 Ui.printFalseInput();
             }
+        } catch (NumberFormatException nfe) {
+            Ui.printHorizontalLine();
+            System.out.println("Invalid input. Please enter command again.");
+            Ui.printHorizontalLine();
         } catch (DukeException e) {
             Ui.printHorizontalLine();
             System.out.println(e.getMessage());
             Ui.printHorizontalLine();
-        } catch (NumberFormatException nfe) {
-            throw new DukeException("Invalid input. Please enter command again.");
         }
     }
 
@@ -105,6 +107,8 @@ public class Parser {
             }
         } catch (DateTimeException dte) {
             throw new DukeException("Please enter a valid date (YYYYMMDD)");
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException("Invalid syntax for add expense command. Please follow the instructions and try again");
         }
     }
 
@@ -315,6 +319,8 @@ public class Parser {
             }
         } catch (DateTimeException dte) {
             throw new DukeException("Please enter a valid date (YYYYMMDD)");
+        } catch (StringIndexOutOfBoundsException exc) {
+            throw new DukeException("Invalid syntax for add future expense command. Please follow the instructions and try again");
         }
     }
 
