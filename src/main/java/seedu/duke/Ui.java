@@ -3,36 +3,46 @@ package seedu.duke;
 import java.util.ArrayList;
 
 public class Ui {
-    /**
-     * Print the Input guidelines for the reader
-     */
-    public static void printInstructions() {
-        System.out.println("LIST OF ALL COMMANDS:");
-        System.out.println("add expense + name + $/\"amount\" + d/\"yyyymmdd\" to add an expense");
-        System.out.println("edit expense +  id/\"expense id\" + in/\"amount/date/category\" to edit an expense");
-        System.out.println("delete expense +  id/\"expense id\" to delete an expense");
-        System.out.println("clear expenses to clear all current expenses");
-        System.out.println("set balance +  $/\"amount\" to set your balance");
-        System.out.println("list expenses to list all past expenses");
-        System.out.println("list expenditure by category to list total expenditure on each category");
-        System.out.println("expenses above + $/\"amount\" to see all expenses above amount");
-        System.out.println("expenses below + $/\"amount\" to see all expenses below amount");
-        System.out.println("check balance to check the remaining balance");
-        System.out.println("set currency {CURRENCY_SYMBOL} to set the app to your desired currency");
-        System.out.println("get currency to get the currently set currency");
-        System.out.println("add future expense + name + $/\"amount\" + d/\"yyyymmdd\" to add a future expense");
-        System.out.println("edit future expense + id/\"expense id\" + in/\"amount/date/category\" "
-                + "to edit a future expense");
-        System.out.println("delete future expense + id/\"expense id\" to delete a future expense");
-        System.out.println("clear future expenses to clear all future expenses");
-        System.out.println("list future expenses to list all future expenses");
-        System.out.println("check upcoming expenses to list all future expenses within an upcoming time period");
-        System.out.println("pay \"id\" to pay for a future expense and move it to the list of past expenses");
-        System.out.println("bye to exit the program");
-    }
+
+    private static final String LOGO =  "___  ___                      ___  ___          _\n"
+            + "|  \\/  |                      |  \\/  |         | |\n"
+            + "| .  . | ___  _ __   ___ _   _| .  . | __ _ ___| |_ ___ _ __\n"
+            + "| |\\/| |/ _ \\| '_ \\ / _ \\ | | | |\\/| |/ _` / __| __/ _ \\ '__|\n"
+            + "| |  | | (_) | | | |  __/ |_| | |  | | (_| \\__ \\ ||  __/ |\n"
+            + "\\_|  |_/\\___/|_| |_|\\___|\\__, \\_|  |_/\\__,_|___/\\__\\___|_|\n"
+            + "                         __/ |\n"
+            + "                        |___/";
+    private static final String ERROR_MESSAGE = "Sorry Duke could not understand your input :> please follow the instructions";
+    private static final String WELCOME_MESSAGE = "Hello! I'm Duke \n" + "What can I do for you ?";
+    private static final String EXIT_MESSAGE = "Thanks for using MoneyMaster! See ya! \n"
+            + " /\\_/\\  \n" + "( o.o ) \n" + " > ^ <  ";
+    private static final String CATEGORY_CHOICE = "Which of the following category is this expense? Input a single number!\n"
+            + "1. Food & Drinks\n" + "2. Shopping\n" + "3. Transportation\n" + "4. Life & Entertainment\n" + "5. Investments\n"
+            + "6. Communication & Technology\n" + "7. Others";
+    private static final String COMMAND_LIST = "LIST OF ALL COMMANDS:\n"
+            + "add expense + name + $/\"amount\" + d/\"yyyymmdd\" to add an expense\n"
+            + "edit expense +  id/\"expense id\" + in/\"amount/date/category\" to edit an expense\n"
+            + "delete expense +  id/\"expense id\" to delete an expense\n"
+            + "clear expenses to clear all current expenses\n"
+            + "set balance +  $/\"amount\" to set your balance\n"
+            + "list expenses to list all past expenses\n"
+            + "list expenditure by category to list total expenditure on each category\n"
+            + "expenses above + $/\"amount\" to see all expenses above amount\n"
+            + "expenses below + $/\"amount\" to see all expenses below amount\n"
+            + "check balance to check the remaining balance\n"
+            + "set currency {CURRENCY_SYMBOL} to set the app to your desired currency\n"
+            + "get currency to get the currently set currency\n"
+            + "add future expense + name + $/\"amount\" + d/\"yyyymmdd\" to add a future expense\n"
+            + "edit future expense + id/\"expense id\" + in/\"amount/date/category\" to edit a future expense\n"
+            + "delete future expense + id/\"expense id\" to delete a future expense\n"
+            + "clear future expenses to clear all future expenses\n"
+            + "list future expenses to list all future expenses\n"
+            + "check upcoming expenses to list all future expenses within an upcoming time period\n"
+            + "pay \"id\" to pay for a future expense and move it to the list of past expenses\n"
+            + "bye to exit the program";
 
     /**
-     * Print the Horizontal Line that seperates between different user Inputs
+     * Print the Horizontal Line that separates between different user Inputs
      */
     public static void printHorizontalLine() {
         System.out.println("-".repeat(80));
@@ -60,9 +70,9 @@ public class Ui {
      */
     public static void printFalseInput() {
         printHorizontalLine();
-        System.out.println("Sorry Duke could not understand your input :> please follow the instructions");
+        System.out.println(ERROR_MESSAGE);
         System.out.println();
-        printInstructions();
+        System.out.println(COMMAND_LIST);
         printHorizontalLine();
     }
 
@@ -70,19 +80,10 @@ public class Ui {
      * Print the Greeting when Duke is started
      */
     public static void printGreeting() {
-        String logo = "___  ___                      ___  ___          _\n"
-                + "|  \\/  |                      |  \\/  |         | |\n"
-                + "| .  . | ___  _ __   ___ _   _| .  . | __ _ ___| |_ ___ _ __\n"
-                + "| |\\/| |/ _ \\| '_ \\ / _ \\ | | | |\\/| |/ _` / __| __/ _ \\ '__|\n"
-                + "| |  | | (_) | | | |  __/ |_| | |  | | (_| \\__ \\ ||  __/ |\n"
-                + "\\_|  |_/\\___/|_| |_|\\___|\\__, \\_|  |_/\\__,_|___/\\__\\___|_|\n"
-                + "                         __/ |\n"
-                + "                        |___/";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you ?");
+        System.out.println("Hello from\n" + LOGO);
+        System.out.println(WELCOME_MESSAGE);
         printHorizontalLine();
-        printInstructions();
+        System.out.println(COMMAND_LIST);
         printHorizontalLine();
     }
 
@@ -91,23 +92,13 @@ public class Ui {
      */
     public static void printGoodbye() {
         printHorizontalLine();
-        System.out.println("Thanks for using MoneyMaster! See ya!");
-        System.out.println(" /\\_/\\  ");
-        System.out.println("( o.o ) ");
-        System.out.println(" > ^ <  ");
+        System.out.println(EXIT_MESSAGE);
         printHorizontalLine();
     }
 
     public static void printChoice() {
         printHorizontalLine();
-        System.out.println("Which of the following category is this expense? Input a single number!");
-        System.out.println("1. Food & Drinks");
-        System.out.println("2. Shopping");
-        System.out.println("3. Transportation");
-        System.out.println("4. Life & Entertainment");
-        System.out.println("5. Investments");
-        System.out.println("6. Communication & Technology");
-        System.out.println("7. Others");
+        System.out.println(CATEGORY_CHOICE);
         printHorizontalLine();
     }
 }
