@@ -146,7 +146,7 @@ public class ExpenseManager {
         if (expenses.size() == 0) {
             throw new DukeException("Sorry, there are no expenses in the list currently.");
         }
-        Ui.printLines("How would you like your expenses to be sorted?", "  1. By date added", "  2. By Name",
+        Ui.printLines("How would you like your expenses to be sorted?", "  1. By date added / Expense ID", "  2. By Name",
                       "  3. By Amount");
         Scanner sc = new Scanner(System.in);
         try {
