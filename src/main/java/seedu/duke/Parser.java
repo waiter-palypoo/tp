@@ -52,9 +52,7 @@ public class Parser {
                         Ui.printLines(String.format("Your currency has been successfully set to: %s", currency));
                     }
                 } catch (ArrayIndexOutOfBoundsException exc) {
-                    Ui.printHorizontalLine();
-                    System.out.println("Currency symbol cannot be empty.");
-                    Ui.printHorizontalLine();
+                    throw new DukeException("Currency symbol cannot be empty.");
                 }
             } else if (userCmd.startsWith("delete future expense")) {
                 executeDeleteFutureExpense(expenseManager, userCmd);
@@ -84,9 +82,7 @@ public class Parser {
             System.out.println(e.getMessage());
             Ui.printHorizontalLine();
         } catch (NumberFormatException nfe) {
-            Ui.printHorizontalLine();
-            System.out.println("Invalid input. Please enter command again.");
-            Ui.printHorizontalLine();
+            throw new DukeException("Invalid input. Please enter command again.");
         }
     }
 
@@ -102,15 +98,13 @@ public class Parser {
             String category = getCategory(choice);
             if (category.equals("wrong input")) {
                 Ui.printHorizontalLine();
-                System.out.println("Invalid selection. Please add expense again.");
+                System.out.println("Invalid selection. Please follow the instructions and try again.");
                 Ui.printHorizontalLine();
             } else {
                 expenseManager.addExpense(name, amount, date, category);
             }
         } catch (DateTimeException dte) {
-            Ui.printHorizontalLine();
-            System.out.println("Please enter a valid date (YYYYMMDD)");
-            Ui.printHorizontalLine();
+            throw new DukeException("Please enter a valid date (YYYYMMDD)");
         }
     }
 
@@ -223,7 +217,7 @@ public class Parser {
         Ui.printHorizontalLine();
     }
 
-    private static void editExpenseDate(ExpenseManager expenseManager, int id, Scanner in) {
+    private static void editExpenseDate(ExpenseManager expenseManager, int id, Scanner in) throws DukeException {
         System.out.println("Enter a new date in the form of YYYYMMDD!");
         String newDate = in.nextLine();
         int year = Integer.parseInt(newDate.substring(0, 4));
@@ -234,9 +228,7 @@ public class Parser {
             System.out.println("Change in date successful!");
             Ui.printHorizontalLine();
         } catch (DateTimeException dte) {
-            Ui.printHorizontalLine();
-            System.out.println("Invalid date");
-            Ui.printHorizontalLine();
+            throw new DukeException("Invalid date");
         }
     }
 
@@ -274,9 +266,7 @@ public class Parser {
                     Ui.printHorizontalLine();
                 }
             } catch (NumberFormatException nfe) {
-                Ui.printHorizontalLine();
-                System.out.println("Please enter a valid expense id.");
-                Ui.printHorizontalLine();
+                throw new DukeException("Please enter a valid expense id.");
             }
         }
     }
@@ -324,28 +314,39 @@ public class Parser {
                 }
             }
         } catch (DateTimeException dte) {
-            Ui.printHorizontalLine();
-            System.out.println("Please enter a valid date (YYYYMMDD)");
-            Ui.printHorizontalLine();
+            throw new DukeException("Please enter a valid date (YYYYMMDD)");
         }
     }
 
     public static void executeEditFutureExpense(ExpenseManager expenseManager, String userCmd,
                                                 ArrayList<FutureExpense> futureExpenses) throws DukeException {
-        int id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
-        Scanner in = new Scanner(System.in);
-        switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
-        case "amount":
-            editFutureExpenseAmount(expenseManager, id, in);
-            break;
-        case "date":
-            editFutureExpenseDate(expenseManager, id, in);
-            break;
-        case "category":
-            editFutureExpenseCategory(expenseManager, id, in);
-            break;
-        default:
-            Ui.printFalseInput();
+        if (!userCmd.contains("id/") || !userCmd.contains("in/")) {
+            throw new DukeException(
+                    "Invalid syntax for the edit future expense command. Please follow the instructions and try again");
+        }
+        int id;
+        try {
+            id = Integer.parseInt(userCmd.substring(userCmd.indexOf("id/") + 3, userCmd.indexOf("in/") - 1));
+        } catch (NumberFormatException nfe) {
+            throw new DukeException("Please enter a valid digit for the expense id.");
+        }
+        if(id > expenseManager.getFutureSize() || id < 0) {
+            throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
+        } else {
+            Scanner in = new Scanner(System.in);
+            switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
+            case "amount":
+                editFutureExpenseAmount(expenseManager, id, in);
+                break;
+            case "date":
+                editFutureExpenseDate(expenseManager, id, in);
+                break;
+            case "category":
+                editFutureExpenseCategory(expenseManager, id, in);
+                break;
+            default:
+                Ui.printFalseInput();
+            }
         }
     }
 
@@ -357,7 +358,7 @@ public class Parser {
         Ui.printHorizontalLine();
     }
 
-    private static void editFutureExpenseDate(ExpenseManager expenseManager, int id, Scanner in) {
+    private static void editFutureExpenseDate(ExpenseManager expenseManager, int id, Scanner in) throws DukeException {
         System.out.println("Enter a new date in the form of YYYYMMDD!");
         String newDate = in.nextLine();
         int year = Integer.parseInt(newDate.substring(0, 4));
@@ -373,9 +374,7 @@ public class Parser {
                 Ui.printHorizontalLine();
             }
         } catch (DateTimeException dte) {
-            Ui.printHorizontalLine();
-            System.out.println("Invalid date");
-            Ui.printHorizontalLine();
+            throw new DukeException("Invalid date");
         }
     }
 
@@ -394,6 +393,9 @@ public class Parser {
     }
 
     public static void executeDeleteFutureExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
+        if(!userCmd.contains("/id")) {
+            throw new DukeException("Invalid syntax for the delete future expense command. Please follow the instructions and try again");
+        }
         int startIndex = userCmd.indexOf("id/");
         if (startIndex < 0) {
             throw new DukeException("Expense id cannot be empty.");
@@ -411,9 +413,7 @@ public class Parser {
                     Ui.printHorizontalLine();
                 }
             } catch (NumberFormatException nfe) {
-                Ui.printHorizontalLine();
-                System.out.println("Please enter a valid expense id.");
-                Ui.printHorizontalLine();
+                throw new DukeException("Please enter a valid expense id.");
             }
         }
     }
@@ -440,7 +440,7 @@ public class Parser {
         }
     }
 
-    public static void executeCheckUpcomingExpenses(ExpenseManager expenseManager) {
+    public static void executeCheckUpcomingExpenses(ExpenseManager expenseManager) throws DukeException {
         System.out.println("Choose a period to show upcoming expenses within (type the number): ");
         System.out.println("1. 1 week");
         System.out.println("2. 1 month");
@@ -454,7 +454,7 @@ public class Parser {
             }
             expenseManager.checkUpcomingExpenses(period);
         } catch (NumberFormatException e) {
-            System.out.println("Please input a valid number!");
+            throw new DukeException("Please input a valid number!");
         }
     }
 
@@ -468,10 +468,10 @@ public class Parser {
                 int id = Integer.parseInt(idString);
                 expenseManager.payFutureExpense(id - 1);
             } catch (NumberFormatException e) {
-                System.out.println("Please input a valid number!");
+                throw new DukeException("Please input a valid number!");
             }
         } else {
-            System.out.println("Please input a valid number!");
+            throw new DukeException("Invalid syntax for pay future expense command. Please follow the instructions and try again");
         }
     }
 
