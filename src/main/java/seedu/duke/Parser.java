@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -89,15 +90,21 @@ public class Parser {
         if (amount < 0) {
             throw new DukeException("Expense price cannot be negative");
         }
-        LocalDate date = extractDate(userCmd);
-        String name = extractName(userCmd);
-        String category = getCategory(choice);
-        if (category.equals("wrong input")) {
+        try {
+            LocalDate date = extractDate(userCmd);
+            String name = extractName(userCmd);
+            String category = getCategory(choice);
+            if (category.equals("wrong input")) {
+                Ui.printHorizontalLine();
+                System.out.println("Invalid selection. Please add expense again.");
+                Ui.printHorizontalLine();
+            } else {
+                expenseManager.addExpense(name, amount, date, category);
+            }
+        } catch (DateTimeException dte) {
             Ui.printHorizontalLine();
-            System.out.println("Invalid selection. Please add expense again.");
+            System.out.println("Please enter a valid date.");
             Ui.printHorizontalLine();
-        } else {
-            expenseManager.addExpense(name, amount, date, category);
         }
     }
 
@@ -216,9 +223,15 @@ public class Parser {
         int year = Integer.parseInt(newDate.substring(0, 4));
         int month = Integer.parseInt(newDate.substring(4, 6));
         int day = Integer.parseInt(newDate.substring(6));
-        expenseManager.get(id - 1).setDate(LocalDate.of(year, month, day));
-        System.out.println("Change in date successful!");
-        Ui.printHorizontalLine();
+        try {
+            expenseManager.get(id - 1).setDate(LocalDate.of(year, month, day));
+            System.out.println("Change in date successful!");
+            Ui.printHorizontalLine();
+        } catch (DateTimeException dte) {
+            Ui.printHorizontalLine();
+            System.out.println("Invalid date");
+            Ui.printHorizontalLine();
+        }
     }
 
     private static void editExpenseCategory(ExpenseManager expenseManager, int id, Scanner in) {
@@ -287,21 +300,27 @@ public class Parser {
     public static void executeAddFutureExpense(String userCmd, ExpenseManager expenseManager, int choice)
             throws DukeException {
         double amount = extractAmount(userCmd);
-        LocalDate dueDate = extractDate(userCmd);
-        if (dueDate.isBefore(LocalDate.now())) {
-            Ui.printHorizontalLine();
-            System.out.println("Please enter a future date");
-            Ui.printHorizontalLine();
-        } else {
-            String name = userCmd.substring(19, userCmd.indexOf("$/") - 1);
-            String category = getCategory(choice);
-            if (category.equals("wrong input")) {
+        try {
+            LocalDate dueDate = extractDate(userCmd);
+            if (dueDate.isBefore(LocalDate.now())) {
                 Ui.printHorizontalLine();
-                System.out.println("Invalid selection. Please add expense again.");
+                System.out.println("Please enter a future date");
                 Ui.printHorizontalLine();
             } else {
-                expenseManager.addFutureExpense(name, amount, dueDate, category);
+                String name = userCmd.substring(19, userCmd.indexOf("$/") - 1);
+                String category = getCategory(choice);
+                if (category.equals("wrong input")) {
+                    Ui.printHorizontalLine();
+                    System.out.println("Invalid selection. Please add expense again.");
+                    Ui.printHorizontalLine();
+                } else {
+                    expenseManager.addFutureExpense(name, amount, dueDate, category);
+                }
             }
+        } catch (DateTimeException dte) {
+            Ui.printHorizontalLine();
+            System.out.println("Please enter a valid date.");
+            Ui.printHorizontalLine();
         }
     }
 
@@ -338,12 +357,18 @@ public class Parser {
         int year = Integer.parseInt(newDate.substring(0, 4));
         int month = Integer.parseInt(newDate.substring(4, 6));
         int day = Integer.parseInt(newDate.substring(6));
-        LocalDate editDate = LocalDate.of(year, month, day);
-        if (editDate.isBefore(LocalDate.now())) {
-            System.out.println("Date entered is not a future date. Please enter the edit command again with correct date");
-        } else {
-            expenseManager.getFutureExpense(id - 1).setDueDate(editDate);
-            System.out.println("Change in date successful!");
+        try {
+            LocalDate editDate = LocalDate.of(year, month, day);
+            if (editDate.isBefore(LocalDate.now())) {
+                System.out.println("Date entered is not a future date. Please enter the edit command again with correct date");
+            } else {
+                expenseManager.getFutureExpense(id - 1).setDueDate(editDate);
+                System.out.println("Change in date successful!");
+                Ui.printHorizontalLine();
+            }
+        } catch (DateTimeException dte) {
+            Ui.printHorizontalLine();
+            System.out.println("Invalid date");
             Ui.printHorizontalLine();
         }
     }
