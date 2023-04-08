@@ -86,7 +86,7 @@ The sequence in which the `Parser` class handles the `delete expense` command is
 1. Assume the user has already added an expense and wants to delete that expense with expense_id 1 using the command: "delete expense id/1"
 2. The user input is sent to the `Parser` class which calls the `executeDeleteExpense` method based on the user command.
 3. The method then extracts the necessary fields from the user command and removes a expense object using the method `remove` from the `ExpenseManager` class if the expense id is a valid expense id in the list.
-4. The total balance is also updated using `setTotalBalance` method in `Expense Manager` class.
+4. The total balance is also updated using `setTotalBalance` method in `ExpenseManager` class.
 5. If the deletion was a success, a message will be printed through `executeDeleteExpense` in `Parser` class to notify the user that the expense object has been deleted.\
 
 The implementation of `delete future expense` is similar to `delete expense` command as described above.
@@ -96,6 +96,20 @@ The sequence diagram below illustrates this delete mechanism:
 <img alt="delete sequence diagram" src="diagrams/delete.png" />
 
 ---
+
+### Pay Future Expenses
+#### Description
+The pay future expenses feature is accessed by the `pay` command which is handled by the `Parser` class which calls a 
+method in the`ExpenseManager` class and allows the user to set a `FutureExpense` as paid, thereby removing it from the
+`futureExpenses` list and adding it to the `expenses` list.
+The sequence in which the `pay` command is handled and processed is as follows.
+1. The user input is sent to the `Parser` class which determines the index of the `futureExpense` in `futureExpenses` to
+be paid for.
+2. The `Parser` class calls the `payFutureExpense` method in the `ExpenseManager` class and passes the index into it.
+3. The `payFutureExpense` method extracts the `name`, `amt`, and `category` attributes from the `futureExpense` then
+constructs a new `expense` with identical attributes and adds it to the `expenses` list.
+4. The selected `futureExpense` is removed from the `futureExpenses` list.
+
 
 ### Set Currency
 #### Description
