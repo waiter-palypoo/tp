@@ -1,10 +1,7 @@
 package seedu.duke;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class ExpenseManager {
 
@@ -152,22 +149,32 @@ public class ExpenseManager {
         Ui.printLines("How would you like your expenses to be sorted?", "  1. By date added", "  2. By Name",
                       "  3. By Amount");
         Scanner sc = new Scanner(System.in);
-        int sortBy = sc.nextInt();
-        ArrayList<Expense> toList;
-        switch (sortBy) {
-        case 1:
-            toList = this.expenses;
-            break;
-        case 2:
-            toList = getSortedExpenses(SORT_BY_NAME);
-            break;
-        case 3:
-            toList = getSortedExpenses(SORT_BY_PRICE);
-            break;
-        default:
-            toList = this.expenses;
+        try {
+            int sortBy = sc.nextInt();
+            ArrayList<Expense> toList;
+            switch (sortBy) {
+            case 1:
+                toList = this.expenses;
+                Ui.printLines(Ui.getFormattedList(toList));
+                break;
+            case 2:
+                toList = getSortedExpenses(SORT_BY_NAME);
+                Ui.printLines(Ui.getFormattedList(toList));
+                break;
+            case 3:
+                toList = getSortedExpenses(SORT_BY_PRICE);
+                Ui.printLines(Ui.getFormattedList(toList));
+                break;
+            default:
+                Ui.printHorizontalLine();
+                System.out.println("Invalid choice");
+                Ui.printHorizontalLine();
+            }
+        } catch(NumberFormatException | InputMismatchException excep) {
+            Ui.printHorizontalLine();
+            System.out.println("Invalid input");
+            Ui.printHorizontalLine();
         }
-        Ui.printLines(Ui.getFormattedList(toList));
     }
 
     private String checkSufficientBalance(FutureExpense futureExpense) {
