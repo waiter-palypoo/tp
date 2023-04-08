@@ -42,13 +42,19 @@ public class Parser {
             } else if (userCmd.startsWith("edit future expense")) {
                 executeEditFutureExpense(expenseManager, userCmd, futureExpenses);
             } else if (userCmd.startsWith("set currency")) {
-                String currency = userCmd.split(" ")[2];
-                if (!CurrencyLoader.getCurrencyLoader().currencyExists(currency)) {
-                    Ui.printLines(String.format(
-                            "The currency %s is not valid. Please try again with a valid currency symbol", currency));
-                } else {
-                    expenseManager.setCurrency(currency);
-                    Ui.printLines(String.format("Your currency has been successfully set to: %s", currency));
+                try {
+                    String currency = userCmd.split(" ")[2];
+                    if (!CurrencyLoader.getCurrencyLoader().currencyExists(currency)) {
+                        Ui.printLines(String.format(
+                                "The currency %s is not valid. Please try again with a valid currency symbol", currency));
+                    } else {
+                        expenseManager.setCurrency(currency);
+                        Ui.printLines(String.format("Your currency has been successfully set to: %s", currency));
+                    }
+                } catch (ArrayIndexOutOfBoundsException exc) {
+                    Ui.printHorizontalLine();
+                    System.out.println("Currency symbol cannot be empty.");
+                    Ui.printHorizontalLine();
                 }
             } else if (userCmd.startsWith("delete future expense")) {
                 executeDeleteFutureExpense(expenseManager, userCmd);
@@ -103,7 +109,7 @@ public class Parser {
             }
         } catch (DateTimeException dte) {
             Ui.printHorizontalLine();
-            System.out.println("Please enter a valid date.");
+            System.out.println("Please enter a valid date (YYYYMMDD)");
             Ui.printHorizontalLine();
         }
     }
@@ -319,7 +325,7 @@ public class Parser {
             }
         } catch (DateTimeException dte) {
             Ui.printHorizontalLine();
-            System.out.println("Please enter a valid date.");
+            System.out.println("Please enter a valid date (YYYYMMDD)");
             Ui.printHorizontalLine();
         }
     }
