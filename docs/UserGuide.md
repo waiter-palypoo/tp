@@ -6,18 +6,18 @@ Money Master is a Command Line Interface (CLI) based desktop application which w
 
 + [Quick Start](#quick-start)
 + [Features](#features)
-    + [Add Expense](#add-expense--add-expense--add-future-expense)
-    + [List Expenses](#list-expenses--list-expenses)
-    + [List Future Expenses](#list-future-expenses--list-future-expenses)
-    + [Currency](#currency--set-currency--get-currency)
-    + [Edit Expense](#edit-expense--edit-expense--edit-future-expense)
-    + [Delete Expense](#delete-expense--delete-expense--delete-future-expense)
-    + [List Expenditure by Category](#list-expenditure-by-category--list-expenditure-by-category)
+    + [Add Expense](#add-expense-add-expense--add-future-expense)
+    + [List Expenses](#list-expenses-list-expenses)
+    + [List Future Expenses](#list-future-expenses-list-future-expenses)
+    + [Currency](#currency-set-currency--get-currency)
+    + [Edit Expense](#edit-expense-edit-expense--edit-future-expense)
+    + [Delete Expense](#delete-expense-delete-expense--delete-future-expense)
+    + [List Expenditure by Category](#list-expenditure-by-category-list-expenditure-by-category)
     + [Set Balance](#set-balance-set-balance)
     + [Check Balance](#check-balance-check-balance)
-    + [Check Upcoming Expenses](#check-upcoming-expenses--check-upcoming-expenses)
-    + [Pay Future Expenses](#pay-future-expenses--pay)
-    + [Exit the Application](#exit-application--bye)
+    + [Check Upcoming Expenses](#check-upcoming-expenses-check-upcoming-expenses)
+    + [Pay Future Expenses](#pay-future-expenses-pay)
+    + [Exit the Application](#exit-the-application-bye)
 + [FAQ](#faq)
 + [Command Summary](#command-summary)
 
@@ -37,7 +37,17 @@ java -jar tp.jar
 ## Features
 
 ### Add Expense: `add expense` / `add future expense`
-
+#### Usage:
+```
+add expense (EXPENSE_NAME) $/(EXPENSE_PRICE) d/(DATE in YYYYMMDD)
+add future expense (EXPENSE_NAME) $/(EXPENSE_PRICE) d/(FUTURE_DATE in YYYYMMDD)
+```
+After entering the command, the user will be prompted to choose a category for the expense
+#### Example:
+```
+add expense lunch $/5.50 d/20230409
+add future expense school fees $/500 d/20230502
+```
 ---
 
 
@@ -46,7 +56,8 @@ Run the command followed by choosing what to sort the expenses by
 #### Sort the listed expenses:
 * By Date Added / Expense ID
 * By Name
-* By Price
+* By Price in Asecending Order
+* By Price in Descending Order
 
 **Example:**
 ```
@@ -55,7 +66,8 @@ list expenses
 How would you like your expenses to be sorted?
   1. By date added / Expense ID
   2. By Name
-  3. By Amount
+  3. By Amount in Ascending Order
+  4. By Amount in Descending Order
 --------------------------------------------------------------------------------
 1
 --------------------------------------------------------------------------------
@@ -209,6 +221,70 @@ Your current balance is: 1000.00 SGD
 --------------------------------------------------------------------------------
 ```
 ---
+### Check Upcoming Expenses `check upcoming expenses`
+#### Usage:
+```
+check upcoming expenses
+```
+After entering the command, the user will be prompted the choose the period to show upcoming expenses within
+#### Expected Output:
+```
+check upcoming expenses
+Choose a period to show upcoming expenses within (type the number):
+1. 1 week
+2. 1 month
+3. 3 months
+2
+--------------------------------------------------------------------------------
+1. Upcoming payment rent in the Others category due on 2023-05-05. Warning: Insufficient Balance!
+--------------------------------------------------------------------------------
+There are 1 upcoming payments in this time period.
+Total amount due: 386
+Total balance: -2557.840154
+--------------------------------------------------------------------------------
+Warning: You have insufficient balance to pay for all upcoming expenses!
+--------------------------------------------------------------------------------
+```
+---
+### Pay future expenses `pay`
+#### Usage:
+```
+pay (FUTURE_EXPENSE_ID)
+```
+#### Example:
+```
+pay 1
+```
+#### Expected Output:
+```
+pay 1
+--------------------------------------------------------------------------------
+This future expense has been paid for:
+Upcoming payment rent in the Others category due on 2023-05-05.
+You may now find it in your expenses list.
+--------------------------------------------------------------------------------
+Roger, the following expense has been added!
+Spent 386.10 CNY on rent in the Others category on 2023-04-09
+--------------------------------------------------------------------------------
+```
+---
+### Exit the application `bye`
+#### Usage:
+```
+bye
+```
+#### Expected Output:
+```
+bye
+--------------------------------------------------------------------------------
+Thanks for using MoneyMaster! See ya!
+ /\_/\
+( o.o )
+ > ^ <
+--------------------------------------------------------------------------------
+```
+---
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
