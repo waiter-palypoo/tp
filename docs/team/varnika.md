@@ -30,10 +30,16 @@ Given below are my contributions to the project.
 
 * **Documentation**:
     * User Guide:
-        * Added documentation for the features `delete` and `list expenditure by category` commands. [#38](https://github.com/AY2223S2-CS2113-W13-4/tp/pull/38)
+        * Added documentation for the features `delete` and `list expenditure by category` [#38](https://github.com/AY2223S2-CS2113-W13-4/tp/pull/38)
+        * Added expected outcome for `add expense`
+        * Added example and expected outcome for `list expenses`
+        * Added documentation for the features `list future expenses`, `set balance`, `check balance`
+        * Added command summary
+    
     * Developer Guide:
         * Added class diagram and explanation of Ui component. [#32](https://github.com/AY2223S2-CS2113-W13-4/tp/pull/32)
         * Added Product Scope, User Stories, Non-Functional Requirements & Instructions for Manual Testing. [#38](https://github.com/AY2223S2-CS2113-W13-4/tp/pull/38)
+        * Added implementation details and sequence diagram for the `delete expense` feature
 
 
 * **Community**:
