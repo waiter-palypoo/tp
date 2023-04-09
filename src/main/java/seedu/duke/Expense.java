@@ -26,6 +26,10 @@ public class Expense {
         this.currency = "SGD";
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setAmount(double amount) {
         this.amount = amount;
     }

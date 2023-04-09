@@ -10,10 +10,10 @@ public class Parser {
     public static void handleCmd(String userCmd, ExpenseManager expenseManager) throws DukeException {
         ArrayList<Expense> expenses = expenseManager.getExpenses();
         ArrayList<FutureExpense> futureExpenses = expenseManager.getFutureExpenses();
+        Scanner in = new Scanner(System.in);
         try {
             if (userCmd.startsWith("add expense")) {
                 Ui.printChoice();
-                Scanner in = new Scanner(System.in);
                 String choice = in.nextLine();
                 int choiceNum = Integer.parseInt(choice);
                 executeAddExpense(userCmd, expenseManager, choiceNum);
@@ -35,7 +35,6 @@ public class Parser {
                 Ui.printHorizontalLine();
             } else if (userCmd.startsWith("add future expense")) {
                 Ui.printChoice();
-                Scanner in = new Scanner(System.in);
                 String choice = in.nextLine();
                 int choiceNum = Integer.parseInt(choice);
                 executeAddFutureExpense(userCmd, expenseManager, choiceNum);
@@ -97,6 +96,9 @@ public class Parser {
         try {
             LocalDate date = extractDate(userCmd);
             String name = extractName(userCmd);
+            if (name.isBlank()) {
+                throw new DukeException("Expense must have a name");
+            }
             String category = getCategory(choice);
             if (category.equals("wrong input")) {
                 Ui.printHorizontalLine();
@@ -194,6 +196,7 @@ public class Parser {
         if (id > expenseManager.getSize() || id < 0) {
             throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
         } else {
+            Ui.printHorizontalLine();
             Scanner in = new Scanner(System.in);
             switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
             case "amount":
@@ -205,32 +208,52 @@ public class Parser {
             case "category":
                 editExpenseCategory(expenseManager, id, in);
                 break;
+            case "name":
+                editExpenseName(expenseManager, id, in);
+                break;
             default:
                 Ui.printFalseInput();
             }
+            Ui.printHorizontalLine();
+        }
+    }
+
+    private static void editExpenseName(ExpenseManager expenseManager, int id, Scanner in) {
+        System.out.println("Enter a new name for this expense!");
+        Ui.printHorizontalLine();
+        String newName = in.nextLine();
+        if (newName.isBlank()) {
+            System.out.println("Expense name cannot be blank!");
+        } else {
+            String oldName = expenseManager.get(id - 1).getName();
+            expenseManager.get(id - 1).setName(newName);
+            Ui.printHorizontalLine();
+            System.out.println("Successfully changed expense name from '" + oldName + "' to '" + newName + "'");
         }
     }
 
     private static void editExpenseAmount(ExpenseManager expenseManager, int id, Scanner in) {
         System.out.println("Enter a new amount spent! Just enter a number!");
+        Ui.printHorizontalLine();
         Double newAmount = Double.parseDouble(in.nextLine());
         Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
         expenseManager.get(id - 1).setAmount(newAmount);
         expenseManager.setTotalBalance(newBalance);
-        System.out.println("Change in amount successful! Balance has also been recalculated");
         Ui.printHorizontalLine();
+        System.out.println("Change in amount successful! Balance has also been recalculated");
     }
 
     private static void editExpenseDate(ExpenseManager expenseManager, int id, Scanner in) throws DukeException {
         System.out.println("Enter a new date in the form of YYYYMMDD!");
+        Ui.printHorizontalLine();
         String newDate = in.nextLine();
         int year = Integer.parseInt(newDate.substring(0, 4));
         int month = Integer.parseInt(newDate.substring(4, 6));
         int day = Integer.parseInt(newDate.substring(6));
         try {
             expenseManager.get(id - 1).setDate(LocalDate.of(year, month, day));
-            System.out.println("Change in date successful!");
             Ui.printHorizontalLine();
+            System.out.println("Change in date successful!");
         } catch (DateTimeException dte) {
             throw new DukeException("Invalid date");
         }
@@ -245,8 +268,8 @@ public class Parser {
             Ui.printHorizontalLine();
         } else {
             expenseManager.get(id - 1).setCategory(newCategory);
-            System.out.println("Change in category successful!");
             Ui.printHorizontalLine();
+            System.out.println("Change in category successful!");
         }
     }
 
@@ -313,6 +336,8 @@ public class Parser {
                     Ui.printHorizontalLine();
                     System.out.println("Invalid selection. Please add expense again.");
                     Ui.printHorizontalLine();
+                } else if (name.isBlank()) {
+                    throw new DukeException("Future expense must have a name");
                 } else {
                     expenseManager.addFutureExpense(name, amount, dueDate, category);
                 }
@@ -339,6 +364,7 @@ public class Parser {
         if(id > expenseManager.getFutureSize() || id < 0) {
             throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
         } else {
+            Ui.printHorizontalLine();
             Scanner in = new Scanner(System.in);
             switch (userCmd.substring(userCmd.indexOf("in/") + 3)) {
             case "amount":
@@ -350,14 +376,33 @@ public class Parser {
             case "category":
                 editFutureExpenseCategory(expenseManager, id, in);
                 break;
+            case "name":
+                editFutureExpenseName(expenseManager, id, in);
+                break;
             default:
                 Ui.printFalseInput();
             }
+            Ui.printHorizontalLine();
+        }
+    }
+
+    private static void editFutureExpenseName(ExpenseManager expenseManager, int id, Scanner in) {
+        System.out.println("Enter a new name for this future expense!");
+        Ui.printHorizontalLine();
+        String newName = in.nextLine();
+        if (newName.isBlank()) {
+            System.out.println("Future expense name cannot be blank!");
+        } else {
+            String oldName = expenseManager.getFutureExpense(id - 1).getName();
+            expenseManager.getFutureExpense(id - 1).setName(newName);
+            Ui.printHorizontalLine();
+            System.out.println("Successfully changed future expense name from '" + oldName + "' to '" + newName + "'");
         }
     }
 
     private static void editFutureExpenseAmount(ExpenseManager expenseManager, int id, Scanner in) {
         System.out.println("Enter a new amount spent! Just enter a number!");
+        Ui.printHorizontalLine();
         Double newAmount = Double.parseDouble(in.nextLine());
         expenseManager.getFutureExpense(id - 1).setAmount(newAmount);
         System.out.println("Change in amount successful!");
@@ -366,6 +411,7 @@ public class Parser {
 
     private static void editFutureExpenseDate(ExpenseManager expenseManager, int id, Scanner in) throws DukeException {
         System.out.println("Enter a new date in the form of YYYYMMDD!");
+        Ui.printHorizontalLine();
         String newDate = in.nextLine();
         int year = Integer.parseInt(newDate.substring(0, 4));
         int month = Integer.parseInt(newDate.substring(4, 6));

@@ -21,7 +21,7 @@ public class Ui {
             + "6. Communication & Technology\n" + "7. Others";
     private static final String COMMAND_LIST = "LIST OF ALL COMMANDS:\n"
             + "add expense + name + $/\"amount\" + d/\"yyyymmdd\" to add an expense\n"
-            + "edit expense +  id/\"expense id\" + in/\"amount/date/category\" to edit an expense\n"
+            + "edit expense +  id/\"expense id\" + in/\"amount/date/category/name\" to edit an expense\n"
             + "delete expense +  id/\"expense id\" to delete an expense\n"
             + "clear expenses to clear all current expenses\n"
             + "set balance +  $/\"amount\" to set your balance\n"
@@ -33,7 +33,7 @@ public class Ui {
             + "set currency {CURRENCY_SYMBOL} to set the app to your desired currency\n"
             + "get currency to get the currently set currency\n"
             + "add future expense + name + $/\"amount\" + d/\"yyyymmdd\" to add a future expense\n"
-            + "edit future expense + id/\"expense id\" + in/\"amount/date/category\" to edit a future expense\n"
+            + "edit future expense + id/\"expense id\" + in/\"amount/date/category/name\" to edit a future expense\n"
             + "delete future expense + id/\"expense id\" to delete a future expense\n"
             + "clear future expenses to clear all future expenses\n"
             + "list future expenses to list all future expenses\n"
