@@ -59,7 +59,7 @@ public class ExpenseManagerTest {
     public void sortExpensesByPrice_successful() {
         ArrayList<Expense> controlExpense = new ArrayList<>(this.testExpenses);
         controlExpense.sort((e1, e2) -> Double.compare(e1.getAmount(), e2.getAmount()));
-        ArrayList<Expense> testingExpense = this.testManager.getSortedExpenses(ExpenseManager.SORT_BY_PRICE);
+        ArrayList<Expense> testingExpense = this.testManager.getSortedExpenses(ExpenseManager.SORT_BY_PRICE_ASC);
         assertEquals(controlExpense, testingExpense, "Expenses are sorted by price correctly");
     }
 }
