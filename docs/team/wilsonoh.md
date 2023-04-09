@@ -48,3 +48,4 @@ requiring an API key from the user and the latency from fetching the updated lis
   * User Guide:
     * Added instructions for using the `set/get currency` commands
     * Added detailed instructions for the `edit currency` command
+    * Added examples and expected output for `check upcoming expenses`, `pay future expense` and `bye`
