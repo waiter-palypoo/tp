@@ -6,22 +6,18 @@ Money Master is a Command Line Interface (CLI) based desktop application which w
 
 + [Quick Start](#quick-start)
 + [Features](#features)
-    + [Add Expense: `add expense`](#add-expense--add-expense)
-    + [Edit Expense: `edit expense`](#edit-expense--edit-expense)
-    + [Delete Expense: `delete expense`](#delete-expense--delete-expense)
-    + [Set Balance: `set balance`](#set-balance--set-balance)
-    + [List Expenses: `list expenses`](#list-expenses--list-expenses)
-    + [List Expenditure by Category: `list expenditure by category`](#list-expenditure-by-category--list-expenditure-by-category)
-    + [Filter Expenses `expenses above` / `expenses below`](#)
-    + [Check Balance: `check balance`](#check-balance--check-balance)
-    + [Currency: `set currency` / `get currency`](#currency--set-currency--get-currency)
-    + [Add Future Expense: `add future expense`](#add-expense--add-future-expense)
-    + [Edit Future Expense: `edit future expense`](#edit-expense--edit-future-expense)
-    + [Delete Future Expense: `delete future expense`](#delete-future-expense--delete-future-expense)
-    + [List Future Expenses `list future expenses`](#list-expenses--list-future-expenses)
-    + [Check Upcoming Expenses: `check upcoming expenses`](#check-upcoming-expenses--check-upcoming-expenses)
-    + [Pay Future Expenses: `pay`](#pay-future-expenses--pay)
-    + [Exit the Application: `bye`](#exit-application--bye)
+    + [Add Expense](#add-expense--add-expense--add-future-expense)
+    + [List Expenses](#list-expenses--list-expenses)
+    + [List Future Expenses](#list-future-expenses--list-future-expenses)
+    + [Currency](#currency--set-currency--get-currency)
+    + [Edit Expense](#edit-expense--edit-expense--edit-future-expense)
+    + [Delete Expense](#delete-expense--delete-expense--delete-future-expense)
+    + [List Expenditure by Category](#list-expenditure-by-category--list-expenditure-by-category)
+    + [Set Balance](#set-balance-set-balance)
+    + [Check Balance](#check-balance-check-balance)
+    + [Check Upcoming Expenses](#check-upcoming-expenses--check-upcoming-expenses)
+    + [Pay Future Expenses](#pay-future-expenses--pay)
+    + [Exit the Application](#exit-application--bye)
 + [FAQ](#faq)
 + [Command Summary](#command-summary)
 
@@ -40,12 +36,64 @@ java -jar tp.jar
 
 ## Features
 
+### Add Expense: `add expense` / `add future expense`
+
+---
+
+
 ### List Expenses: `list expenses`
 Run the command followed by choosing what to sort the expenses by
 #### Sort the listed expenses:
-* By Date Added
+* By Date Added / Expense ID
 * By Name
 * By Price
+
+**Example:**
+```
+list expenses
+--------------------------------------------------------------------------------
+How would you like your expenses to be sorted?
+  1. By date added / Expense ID
+  2. By Name
+  3. By Amount
+--------------------------------------------------------------------------------
+1
+--------------------------------------------------------------------------------
+```
+
+**Expected outcome:**
+```
+--------------------------------------------------------------------------------
+Here are the list of your expenses !
+
+1. Spent 21.00 SGD on test in the Communication & Technology category on 2021-02-02
+2. Spent 22.00 SGD on test2 in the Life & Entertainment category on 2021-01-01
+--------------------------------------------------------------------------------
+
+```
+---
+### List Future Expenses: `list future expenses`
+Lists all the upcoming expenses and displays total amount due with total balance.\
+Displays a warning if the balance is insufficient.
+
+**Example:**
+
+`list future expenses`
+
+**Expected outcome:**
+```
+--------------------------------------------------------------------------------
+Here is the list of your future expenses: 
+1. Upcoming payment test in the Shopping category due on 2025-01-01. Warning: Insufficient Balance!
+2. Upcoming payment test2 in the Life & Entertainment category due on 2026-01-01. Warning: Insufficient Balance!
+--------------------------------------------------------------------------------
+You have 2 future expenses in total.
+Total amount due: 300.00 SGD
+Total balance: -43.00 SGD
+--------------------------------------------------------------------------------
+Warning: You have insufficient balance to pay for all future expenses!
+--------------------------------------------------------------------------------
+```
 ---
 ### Currency: `set currency` / `get currency`
 Set/get the currency used by the app
@@ -54,10 +102,11 @@ Set/get the currency used by the app
 set currency {USD/MYR/CAD etc.}
 ```
 ---
-### Edit Expense: `edit expense`
+### Edit Expense: `edit expense` / `edit future expense`
 #### Usage:
 ```
 edit expense id/ID in/(amount|date|category)
+edit future expense id/ID in/(amount|date|category)
 ```
 Upon entering the command, a prompt will be given for the user to enter the new value
 #### Examples:
@@ -72,12 +121,11 @@ Enter a new amount spent! Just enter a number!
 200
 Change in amount successful! Balance has also been recalculated
 ```
-
 ---
-### Delete Expense: `delete expense`
-Deletes an expense from the current list of expenses.
+### Delete Expense: `delete expense` / `delete future expense`
+Deletes an expense from the current list of past expenses or future expenses based on the command entered.
 
-**Format:** `delete expense id/EXPENSE_ID`
+**Format:** `delete expense id/EXPENSE_ID` / `delete future expense id/EXPENSE_ID`
 
 * Deletes the expense according to its id in the expense list.
 * 'EXPENSE_ID' must be an integer starting from 1.
@@ -94,6 +142,19 @@ Noted. I've removed this expense:
 Spent $150.0 on book in the Others category on 2023-02-01
 --------------------------------------------------------------------------------
 ```
+**Example:**
+
+`delete future expense id/1`
+
+**Expected outcome:**
+```
+--------------------------------------------------------------------------------
+Noted. I've removed this expense:
+Upcoming payment book in the wrong input category due on 2023-06-06.
+--------------------------------------------------------------------------------
+```
+
+---
 ### List Expenditure by Category: `list expenditure by category`
 Lists the total expenditure across different categories.
 
@@ -115,7 +176,39 @@ Shopping - $0.0
 Life & Entertainment - $0.0
 --------------------------------------------------------------------------------
 ```
+---
+### Set balance `set balance`
+Sets the total budget to the entered amount.
 
+**Format:** `set balance $/AMOUNT`
+
+**Example:**
+
+`set balance $/1000`
+
+**Expected outcome:**
+```
+--------------------------------------------------------------------------------
+Your budget has been set to 1000.00 SGD
+--------------------------------------------------------------------------------
+```
+---
+### Check balance `check balance`
+Displays the current balance.
+
+**Format:** `check balance`
+
+**Example:**
+
+`check balance`
+
+**Expected outcome:**
+```
+--------------------------------------------------------------------------------
+Your current balance is: 1000.00 SGD
+--------------------------------------------------------------------------------
+```
+---
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
