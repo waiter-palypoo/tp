@@ -236,7 +236,7 @@ public class Parser {
     private static void editExpenseAmount(ExpenseManager expenseManager, int id, Scanner in) {
         System.out.println("Enter a new amount spent! Just enter a number!");
         Ui.printHorizontalLine();
-        Double newAmount = Double.parseDouble(in.nextLine());
+        Double newAmount = Double.parseDouble(in.nextLine()) / expenseManager.getRate();
         Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
         expenseManager.get(id - 1).setAmount(newAmount);
         expenseManager.setTotalBalance(newBalance);
@@ -405,7 +405,7 @@ public class Parser {
     private static void editFutureExpenseAmount(ExpenseManager expenseManager, int id, Scanner in) {
         System.out.println("Enter a new amount spent! Just enter a number!");
         Ui.printHorizontalLine();
-        Double newAmount = Double.parseDouble(in.nextLine());
+        Double newAmount = Double.parseDouble(in.nextLine()) / expenseManager.getRate();
         expenseManager.getFutureExpense(id - 1).setAmount(newAmount);
         System.out.println("Change in amount successful!");
         Ui.printHorizontalLine();
