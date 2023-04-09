@@ -75,7 +75,8 @@ public class ExpenseManager {
         Ui.printLines("Roger, the following expense has been added!", toAdd.toString());
         expenses.add(toAdd);
         totalBalance -= amount;
-        expenseByCategory.put(category.strip(), expenseByCategory.getOrDefault(category.strip(), 0.0) + amount);
+        expenseByCategory.put(category.strip(),
+                              expenseByCategory.getOrDefault(category.strip(), 0.0) + normalizedAmount);
     }
 
     public void addFutureExpense(String name, double amount, LocalDate dueDate, String category) {
@@ -309,8 +310,7 @@ public class ExpenseManager {
     public void printExpenditureByCategory() {
         Ui.printHorizontalLine();
         for (String i : expenseByCategory.keySet()) {
-            System.out.println(i + " - "
-                               + "$" + expenseByCategory.get(i));
+            System.out.println(i + " - " + expenseByCategory.get(i) * this.getRate() + " " + this.currency);
         }
         Ui.printHorizontalLine();
     }
