@@ -1,12 +1,17 @@
 package seedu.duke;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.Map;
+import java.util.Scanner;
 
 public class ExpenseManager {
 
     public static final int SORT_BY_NAME = 0;
-    public static final int SORT_BY_PRICE = 1;
+    public static final int SORT_BY_PRICE_ASC = 1;
+    public static final int SORT_BY_PRICE_DESC = 2;
 
     private ArrayList<Expense> expenses;
     private ArrayList<FutureExpense> futureExpenses;
@@ -96,9 +101,13 @@ public class ExpenseManager {
         return this.currencyLoader.getRate(currency);
     }
 
-    private ArrayList<Expense> getSortedExpensesByAmount() {
+    private ArrayList<Expense> getSortedExpensesByAmount(boolean isDesc) {
         ArrayList<Expense> sortedExpenses = new ArrayList<>(this.expenses);
-        sortedExpenses.sort((e1, e2) -> Double.compare(e1.getAmount(), e2.getAmount()));
+        if (isDesc) {
+            sortedExpenses.sort((e1, e2) -> Double.compare(e2.getAmount(), e1.getAmount()));
+        } else {
+            sortedExpenses.sort((e1, e2) -> Double.compare(e1.getAmount(), e2.getAmount()));
+        }
         return sortedExpenses;
     }
 
@@ -131,14 +140,17 @@ public class ExpenseManager {
     }
 
     public ArrayList<Expense> getSortedExpenses(final int sortBy) {
-        assert sortBy == SORT_BY_NAME || sortBy == SORT_BY_PRICE : "Expenses can either be sort by named or price";
+        assert sortBy == SORT_BY_NAME || sortBy == SORT_BY_PRICE_ASC ||
+                sortBy == SORT_BY_PRICE_DESC : "Expenses can either be sort by name or price in asc/desc order";
         switch (sortBy) {
         case SORT_BY_NAME:
             return getSortedExpensesByName();
-        case SORT_BY_PRICE:
-            return getSortedExpensesByAmount();
+        case SORT_BY_PRICE_ASC:
+            return getSortedExpensesByAmount(false);
+        case SORT_BY_PRICE_DESC:
+            return getSortedExpensesByAmount(true);
         default:
-            return getSortedExpensesByName();
+            return this.expenses;
         }
     }
 
@@ -146,31 +158,32 @@ public class ExpenseManager {
         if (expenses.size() == 0) {
             throw new DukeException("Sorry, there are no expenses in the list currently.");
         }
-        Ui.printLines("How would you like your expenses to be sorted?", "  1. By date added / Expense ID", "  2. By Name",
-                      "  3. By Amount");
+        Ui.printLines("How would you like your expenses to be sorted?", "  1. By date added / Expense ID",
+                      "  2. By Name", "  3. By Amount in Ascending Order", "  4. By Amount in Descending Order");
         Scanner sc = new Scanner(System.in);
         try {
             int sortBy = sc.nextInt();
             ArrayList<Expense> toList;
             switch (sortBy) {
             case 1:
-                toList = this.expenses;
-                Ui.printLines(Ui.getFormattedList(toList));
+                Ui.printLines(Ui.getFormattedList(this.expenses));
                 break;
             case 2:
                 toList = getSortedExpenses(SORT_BY_NAME);
                 Ui.printLines(Ui.getFormattedList(toList));
                 break;
             case 3:
-                toList = getSortedExpenses(SORT_BY_PRICE);
+                toList = getSortedExpenses(SORT_BY_PRICE_ASC);
+                Ui.printLines(Ui.getFormattedList(toList));
+                break;
+            case 4:
+                toList = getSortedExpenses(SORT_BY_PRICE_DESC);
                 Ui.printLines(Ui.getFormattedList(toList));
                 break;
             default:
-                Ui.printHorizontalLine();
-                System.out.println("Invalid choice");
-                Ui.printHorizontalLine();
+                Ui.printLines("Invalid choice");
             }
-        } catch(NumberFormatException | InputMismatchException excep) {
+        } catch (NumberFormatException | InputMismatchException excep) {
             throw new DukeException("Invalid input");
         }
     }

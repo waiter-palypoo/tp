@@ -30,8 +30,8 @@ public class Parser {
             } else if (userCmd.startsWith("check balance")) {
                 Ui.printHorizontalLine();
                 System.out.println(String.format("Your current balance is: %.2f %s",
-                        expenseManager.getTotalBalance() * expenseManager.getRate(),
-                        expenseManager.getCurrency()));
+                                                 expenseManager.getTotalBalance() * expenseManager.getRate(),
+                                                 expenseManager.getCurrency()));
                 Ui.printHorizontalLine();
             } else if (userCmd.startsWith("add future expense")) {
                 Ui.printChoice();
@@ -45,7 +45,8 @@ public class Parser {
                     String currency = userCmd.split(" ")[2];
                     if (!CurrencyLoader.getCurrencyLoader().currencyExists(currency)) {
                         Ui.printLines(String.format(
-                                "The currency %s is not valid. Please try again with a valid currency symbol", currency));
+                                "The currency %s is not valid. Please try again with a valid currency symbol",
+                                currency));
                     } else {
                         expenseManager.setCurrency(currency);
                         Ui.printLines(String.format("Your currency has been successfully set to: %s", currency));
@@ -110,7 +111,8 @@ public class Parser {
         } catch (DateTimeException dte) {
             throw new DukeException("Please enter a valid date (YYYYMMDD)");
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("Invalid syntax for add expense command. Please follow the instructions and try again");
+            throw new DukeException(
+                    "Invalid syntax for add expense command. Please follow the instructions and try again");
         }
     }
 
@@ -138,7 +140,6 @@ public class Parser {
             return "wrong input";
         }
     }
-
 
     private static String extractName(String userCmd) {
         int endIndex = userCmd.indexOf("$/");
@@ -345,7 +346,8 @@ public class Parser {
         } catch (DateTimeException dte) {
             throw new DukeException("Please enter a valid date (YYYYMMDD)");
         } catch (StringIndexOutOfBoundsException exc) {
-            throw new DukeException("Invalid syntax for add future expense command. Please follow the instructions and try again");
+            throw new DukeException(
+                    "Invalid syntax for add future expense command. Please follow the instructions and try again");
         }
     }
 
@@ -361,7 +363,7 @@ public class Parser {
         } catch (NumberFormatException nfe) {
             throw new DukeException("Please enter a valid digit for the expense id.");
         }
-        if(id > expenseManager.getFutureSize() || id < 0) {
+        if (id > expenseManager.getFutureSize() || id < 0) {
             throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
         } else {
             Ui.printHorizontalLine();
@@ -419,7 +421,8 @@ public class Parser {
         try {
             LocalDate editDate = LocalDate.of(year, month, day);
             if (editDate.isBefore(LocalDate.now())) {
-                System.out.println("Date entered is not a future date. Please enter the edit command again with correct date");
+                System.out.println(
+                        "Date entered is not a future date. Please enter the edit command again with correct date");
             } else {
                 expenseManager.getFutureExpense(id - 1).setDueDate(editDate);
                 System.out.println("Change in date successful!");
@@ -445,8 +448,9 @@ public class Parser {
     }
 
     public static void executeDeleteFutureExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
-        if(!userCmd.contains("id/")) {
-            throw new DukeException("Invalid syntax for the delete future expense command. Please follow the instructions and try again");
+        if (!userCmd.contains("id/")) {
+            throw new DukeException("Invalid syntax for the delete future expense command. "
+                                    + "Please follow the instructions and try again");
         }
         int startIndex = userCmd.indexOf("id/");
         if (startIndex < 0) {
@@ -513,7 +517,8 @@ public class Parser {
     public static void executePayFutureExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
         if (userCmd.split(" ").length == 2) {
             String idString = userCmd.split(" ")[1].trim();
-            if (idString == null || Integer.parseInt(idString) <= 0 || Integer.parseInt(idString) > expenseManager.getSize()) {
+            if (idString == null || Integer.parseInt(idString) <= 0 ||
+                Integer.parseInt(idString) > expenseManager.getSize()) {
                 throw new DukeException("Please input a valid number!");
             }
             try {
@@ -523,7 +528,8 @@ public class Parser {
                 throw new DukeException("Please input a valid number!");
             }
         } else {
-            throw new DukeException("Invalid syntax for pay future expense command. Please follow the instructions and try again");
+            throw new DukeException(
+                    "Invalid syntax for pay future expense command. Please follow the instructions and try again");
         }
     }
 

@@ -4,22 +4,33 @@ import java.util.ArrayList;
 
 public class Ui {
 
-    private static final String LOGO =  "___  ___                      ___  ___          _\n"
-            + "|  \\/  |                      |  \\/  |         | |\n"
-            + "| .  . | ___  _ __   ___ _   _| .  . | __ _ ___| |_ ___ _ __\n"
-            + "| |\\/| |/ _ \\| '_ \\ / _ \\ | | | |\\/| |/ _` / __| __/ _ \\ '__|\n"
-            + "| |  | | (_) | | | |  __/ |_| | |  | | (_| \\__ \\ ||  __/ |\n"
-            + "\\_|  |_/\\___/|_| |_|\\___|\\__, \\_|  |_/\\__,_|___/\\__\\___|_|\n"
-            + "                         __/ |\n"
-            + "                        |___/";
-    private static final String ERROR_MESSAGE = "Sorry Duke could not understand your input :> please follow the instructions";
-    private static final String WELCOME_MESSAGE = "Hello! I'm Duke \n" + "What can I do for you ?";
+    private static final String LOGO = "___  ___                      ___  ___          _\n"
+                                       + "|  \\/  |                      |  \\/  |         | |\n"
+                                       + "| .  . | ___  _ __   ___ _   _| .  . | __ _ ___| |_ ___ _ __\n"
+                                       + "| |\\/| |/ _ \\| '_ \\ / _ \\ | | | |\\/| |/ _` / __| __/ _ \\ '__|\n"
+                                       + "| |  | | (_) | | | |  __/ |_| | |  | | (_| \\__ \\ ||  __/ |\n"
+                                       + "\\_|  |_/\\___/|_| |_|\\___|\\__, \\_|  |_/\\__,_|___/\\__\\___|_|\n"
+                                       + "                         __/ |\n"
+                                       + "                        |___/";
+    private static final String ERROR_MESSAGE =
+            "Sorry Duke could not understand your input :> please follow the instructions";
+    private static final String WELCOME_MESSAGE = "Hello! I'm Duke \n"
+                                                  + "What can I do for you ?";
     private static final String EXIT_MESSAGE = "Thanks for using MoneyMaster! See ya! \n"
-            + " /\\_/\\  \n" + "( o.o ) \n" + " > ^ <  ";
-    private static final String CATEGORY_CHOICE = "Which of the following category is this expense? Input a single number!\n"
-            + "1. Food & Drinks\n" + "2. Shopping\n" + "3. Transportation\n" + "4. Life & Entertainment\n" + "5. Investments\n"
-            + "6. Communication & Technology\n" + "7. Others";
-    private static final String COMMAND_LIST = "LIST OF ALL COMMANDS:\n"
+                                               + " /\\_/\\  \n"
+                                               + "( o.o ) \n"
+                                               + " > ^ <  ";
+    private static final String CATEGORY_CHOICE =
+            "Which of the following category is this expense? Input a single number!\n"
+            + "1. Food & Drinks\n"
+            + "2. Shopping\n"
+            + "3. Transportation\n"
+            + "4. Life & Entertainment\n"
+            + "5. Investments\n"
+            + "6. Communication & Technology\n"
+            + "7. Others";
+    private static final String COMMAND_LIST =
+            "LIST OF ALL COMMANDS:\n"
             + "add expense + name + $/\"amount\" + d/\"yyyymmdd\" to add an expense\n"
             + "edit expense +  id/\"expense id\" + in/\"amount/date/category/name\" to edit an expense\n"
             + "delete expense +  id/\"expense id\" to delete an expense\n"
