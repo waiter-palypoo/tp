@@ -159,14 +159,15 @@ Your currency is currently set to: JPY
 ### Edit Expense: `edit expense` / `edit future expense`
 #### Usage:
 ```
-edit expense id/ID in/(amount|date|category)
-edit future expense id/ID in/(amount|date|category)
+edit expense id/ID in/(amount|date|category|name)
+edit future expense id/ID in/(amount|date|category|name)
 ```
 Upon entering the command, a prompt will be given for the user to enter the new value
 #### Examples:
 ```
 edit expense id/2 in/amount
 edit expense id/3 in/category
+edit expense id/2 in/name
 ```
 #### Expected Output
 ```
@@ -174,6 +175,10 @@ edit expense id/1 in/amount
 Enter a new amount spent! Just enter a number!
 200
 Change in amount successful! Balance has also been recalculated
+edit expense id/1 in/name
+Enter a new name for this expense!
+new name
+Successfully changed expense name from 'old name' to 'new name'
 ```
 ---
 ### Delete Expense: `delete expense` / `delete future expense`
@@ -336,7 +341,7 @@ Thanks for using MoneyMaster! See ya!
 ## Command Summary
 
 * Add expense `add expense NAME $/AMOUNT d/DATE`
-* Edit expense `edit expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY"`
+* Edit expense `edit expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY/NAME"`
 * Delete expense `delete expense id/EXPENSE_ID`
 * Clear expenses `clear expenses`
 * Set balance `set balance $/AMOUNT`
@@ -347,7 +352,7 @@ Thanks for using MoneyMaster! See ya!
 * Set currency `set currency CURRENCY_SYMBOL`
 * Get currency `get currency`
 * Add future expense `add future expense NAME $/AMOUNT d/DATE`
-* Edit future expense `edit future expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY"`
+* Edit future expense `edit future expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY/NAME"`
 * Delete future expense `delete future expense id/EXPENSE_ID`
 * Clear future expenses `clear future expenses`
 * List future expenses `list future expenses`
