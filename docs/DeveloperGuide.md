@@ -103,13 +103,18 @@ The pay future expenses feature is accessed by the `pay` command which is handle
 method in the`ExpenseManager` class and allows the user to set a `FutureExpense` as paid, thereby removing it from the
 `futureExpenses` list and adding it to the `expenses` list.
 The sequence in which the `pay` command is handled and processed is as follows.
-1. The user input is sent to the `Parser` class which determines the index of the `futureExpense` in `futureExpenses` to
+1. The user input is sent to the `Parser` class which determines the index of the `FutureExpense` in `futureExpenses` to
 be paid for.
 2. The `Parser` class calls the `payFutureExpense` method in the `ExpenseManager` class and passes the index into it.
-3. The `payFutureExpense` method extracts the `name`, `amt`, and `category` attributes from the `futureExpense` then
-constructs a new `expense` with identical attributes and adds it to the `expenses` list.
-4. The selected `futureExpense` is removed from the `futureExpenses` list.
+3. The `payFutureExpense` method extracts the `name`, `amt`, and `category` attributes from the `FutureExpense` then
+constructs a new `Expense` with identical attributes and adds it to the `expenses` list.
+4. The selected `FutureExpense` is removed from the `futureExpenses` list.
 
+The sequence diagram below illustrates the pay mechanism: 
+
+<img alt="pay sequence diagram" src="diagrams/pay.png" />
+
+---
 
 ### Set Currency
 #### Description
