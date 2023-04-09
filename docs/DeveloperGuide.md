@@ -10,6 +10,9 @@
     * [Storage Component](#storage-component)
     * [ExpenseManager Component](#expensemanager-component)
 + [Implementation](#implementation)
+   * [Delete Expenses](#delete-expenses)
+   * [Pay Future Expenses](#pay-future-expenses)
+   * [Set Currency](#set-currency)
 + [Product Scope](#product-scope)
     * [Target User Profile](#target-user-profile)
     * [Value Proposition](#value-proposition)
@@ -155,23 +158,25 @@ create and track their budgets to prevent overspending and adjusting their expen
 
 ## User Stories
 
-| Version | As a ...              | I want to ...                                       | So that I can ...                                                                      |
-|---------|-----------------------|-----------------------------------------------------|----------------------------------------------------------------------------------------|
-| v1.0    | budgeted student      | set a budget limit from which expenses are deducted | track my expenses and avoid overrunning my budget                                      |
-| v1.0    | new user              | add expenses                                        | plan my my expenditure based on the remaining budget                                   |
-| v1.0    | forgetful user        | view my expenses                                    | remove incorrect or outdated entries from my transaction history                       |
-| v1.0    | careless user         | edit my expenses                                    | modify or correct the entries in my transaction history                                |
-| v1.0    | careless user         | delete my expenses                                  | remove incorrect or outdated entries from my transaction history                       |
-| v1.0    | responsible user      | sort my expenses by date, name or amount            | have a clear timeline of how my budget has changed from the past to now                |
-| v1.0    | responsible user      | add future payments                                 | budget accordingly based on expenses that will happen later on                         |
-| v1.0    | careless user         | edit future payments                                | modify or correct the entries of my upcoming expenses                                  |
-| v1.0    | careless user         | delete future payments                              | remove incorrect entries from my upcoming expenses                                     |
-| v1.0    | responsible user      | view upcoming expenses within a period              | stay informed of the upcoming expenses within that time period and budget accordingly  |
-| v1.0    | responsible user      | pay future payments                                 | complete future payments and add the expenses to transaction history                   |
-| v1.0    | responsible user      | remain informed of the remaining budget             | complete my future payments by managing other expenses                                 |
-| v2.0    | responsible user      | view my expenditure across different categories     | see which category is taking up the most budget                                        |
-| v2.0    | international student | use the app in my home currency                     | conveniently make calculations                                                         |
-| v2.0    | responsible user      | filter expenses by price                            | easily check which expenses cost more than $X amount, which can help with my budgeting |
+| Version | As a ...              | I want to ...                                           | So that I can ...                                                                      |
+|---------|-----------------------|---------------------------------------------------------|----------------------------------------------------------------------------------------|
+| v1.0    | budgeted student      | set a budget limit from which expenses are deducted     | track my expenses and avoid overrunning my budget                                      |
+| v1.0    | new user              | add expenses                                            | plan my my expenditure based on the remaining budget                                   |
+| v1.0    | forgetful user        | view my expenses                                        | remove incorrect or outdated entries from my transaction history                       |
+| v1.0    | careless user         | edit my expenses                                        | modify or correct the entries in my transaction history                                |
+| v1.0    | careless user         | delete my expenses                                      | remove incorrect or outdated entries from my transaction history                       |
+| v1.0    | responsible user      | sort my expenses by date, name or amount                | have a clear timeline of how my budget has changed from the past to now                |
+| v1.0    | responsible user      | add future payments                                     | budget accordingly based on expenses that will happen later on                         |
+| v1.0    | careless user         | edit future payments                                    | modify or correct the entries of my upcoming expenses                                  |
+| v1.0    | careless user         | delete future payments                                  | remove incorrect entries from my upcoming expenses                                     |
+| v1.0    | responsible user      | view upcoming expenses within a period                  | stay informed of the upcoming expenses within that time period and budget accordingly  |
+| v1.0    | responsible user      | pay future payments                                     | complete future payments and add the expenses to transaction history                   |
+| v1.0    | responsible user      | remain informed of the remaining budget                 | complete my future payments by managing other expenses                                 |
+| v2.0    | responsible user      | view my expenditure across different categories         | see which category is taking up the most budget                                        |
+| v2.0    | international student | use the app in my home currency                         | conveniently make calculations                                                         |
+| v2.0    | responsible user      | filter expenses by price                                | easily check which expenses cost more than $X amount, which can help with my budgeting |
+| v2.0    | responsible user      | alerted when my future expenses are past their due date | quickly take action and resolve the future expenses if needed                          |
+| v2.1    | responsible user      | clear all my expense data                               | start on a clean slate if needed                                                       |
 
 ## Non-Functional Requirements
 
@@ -379,6 +384,13 @@ Expected: Terminal displays the total expenditure across all categories.
 2. Test case:
    `expenses below $/2000`\
    Expected: Terminal displays all expenses of amount lower than the entered amount.
+
+### Clear expenses 
+
+#### Clear expenses / Clear future expenses
+Test case:
+`clear expenses` / `clear future expenses` \
+Expected: Terminal shows message to choose Y or N to remove all expenses. Based on the user input, the terminal displays the message. If there are no expenses in the list, the required message will be displayed.
 
 ### Shutdown
 

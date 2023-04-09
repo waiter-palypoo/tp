@@ -445,7 +445,7 @@ public class Parser {
     }
 
     public static void executeDeleteFutureExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
-        if(!userCmd.contains("/id")) {
+        if(!userCmd.contains("id/")) {
             throw new DukeException("Invalid syntax for the delete future expense command. Please follow the instructions and try again");
         }
         int startIndex = userCmd.indexOf("id/");
