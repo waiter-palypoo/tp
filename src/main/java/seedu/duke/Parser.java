@@ -194,7 +194,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid digit for the expense id");
         }
-        if (id > expenseManager.getSize() || id < 0) {
+        if (id > expenseManager.getExpensesSize() || id < 0) {
             throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
         } else {
             Ui.printHorizontalLine();
@@ -281,7 +281,7 @@ public class Parser {
         } else {
             try {
                 int id = Integer.parseInt(userCmd.substring(startIndex + 3));
-                if (id > expenseManager.getSize() || id <= 0) {
+                if (id > expenseManager.getExpensesSize() || id <= 0) {
                     throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
                 } else {
                     Ui.printHorizontalLine();
@@ -300,7 +300,7 @@ public class Parser {
     }
 
     public static void executeClearExpenses(ExpenseManager expenseManager) throws DukeException {
-        if (1 > expenseManager.getSize()) {
+        if (1 > expenseManager.getExpensesSize()) {
             throw new DukeException("You have no expenses to clear.");
         } else {
             Ui.printHorizontalLine();
@@ -458,8 +458,9 @@ public class Parser {
         } else {
             try {
                 int id = Integer.parseInt(userCmd.substring(startIndex + 3));
-                if (id > expenseManager.getSize() || id <= 0) {
-                    throw new DukeException("This expense id does not exist. Please provide a valid expense id.");
+                if (id > expenseManager.getFutureSize() || id <= 0) {
+                    throw new DukeException("This expense id does not exist. Please provide a valid expense id. " +
+                                            expenseManager.getExpensesSize());
                 } else {
                     Ui.printHorizontalLine();
                     Expense deletedExpense = expenseManager.getFutureExpense(id - 1);
@@ -518,7 +519,7 @@ public class Parser {
         if (userCmd.split(" ").length == 2) {
             String idString = userCmd.split(" ")[1].trim();
             if (idString == null || Integer.parseInt(idString) <= 0 ||
-                Integer.parseInt(idString) > expenseManager.getSize()) {
+                Integer.parseInt(idString) > expenseManager.getExpensesSize()) {
                 throw new DukeException("Please input a valid number!");
             }
             try {

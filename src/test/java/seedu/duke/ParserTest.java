@@ -60,7 +60,7 @@ class ParserTest {
         Parser.executeAddExpense("add expense Movie $/200 d/20220101", expenseManager, 4);
         testExpenses.remove(0);
         Parser.executeDeleteExpense(expenseManager, "delete expense id/1");
-        assertEquals(testExpenses.size(), expenseManager.getSize());
+        assertEquals(testExpenses.size(), expenseManager.getExpensesSize());
     }
 
     @Test
@@ -118,7 +118,7 @@ class ParserTest {
         ExpenseManager expenseManager = new ExpenseManager(0, testExpenses, testFutureExpenses, expenseByCategory);
         Parser.executeAddExpense("add expense Movie $/200 d/20220101", expenseManager, 4);
         Parser.executeAddExpense("add expense Chicken $/10 d/20220101", expenseManager, 1);
-        assertEquals(testExpenses.size(), expenseManager.getSize());
+        assertEquals(testExpenses.size(), expenseManager.getExpensesSize());
     }
 
     @Test
@@ -174,14 +174,14 @@ class ParserTest {
         ArrayList<Expense> testExpenses = new ArrayList<Expense>();
         ArrayList<FutureExpense> testFutureExpenses = new ArrayList<FutureExpense>();
         Map<String, Double> expenseByCategory = new HashMap<String, Double>();
-        LocalDate date = LocalDate.of(2022, 01, 01);
+        LocalDate date = LocalDate.of(2024, 01, 01);
         FutureExpense toAdd = new FutureExpense("Movie", 200, date, "Life & Entertainment");
         testFutureExpenses.add(toAdd);
-        ExpenseManager expenseManager = new ExpenseManager(0, testExpenses, testFutureExpenses, expenseByCategory);
-        Parser.executeAddFutureExpense("add future expense Movie $/200 d/20220101", expenseManager, 4);
-        testFutureExpenses.remove(0);
+        ExpenseManager expenseManager =
+                new ExpenseManager(0, testExpenses, new ArrayList<>(testFutureExpenses), expenseByCategory);
+        Parser.executeAddFutureExpense("add future expense Movie $/200 d/20240101", expenseManager, 4);
         Parser.executeDeleteFutureExpense(expenseManager, "delete future expense id/1");
-        assertEquals(testFutureExpenses.size(), expenseManager.getSize());
+        assertEquals(testFutureExpenses.size(), expenseManager.getFutureSize());
     }
 
     @Test
@@ -189,10 +189,10 @@ class ParserTest {
         ArrayList<Expense> testExpenses = new ArrayList<Expense>();
         ArrayList<FutureExpense> testFutureExpenses = new ArrayList<FutureExpense>();
         Map<String, Double> expenseByCategory = new HashMap<String, Double>();
-        LocalDate date = LocalDate.of(2022, 01, 01);
+        LocalDate date = LocalDate.of(2024, 01, 01);
         FutureExpense toAdd = new FutureExpense("Movie", 200, date, "Life & Entertainment");
         ExpenseManager expenseManager = new ExpenseManager(0, testExpenses, testFutureExpenses, expenseByCategory);
-        Parser.executeAddFutureExpense("add future expense Movie $/200 d/20220101", expenseManager, 4);
+        Parser.executeAddFutureExpense("add future expense Movie $/200 d/20240101", expenseManager, 4);
         InputStream sysInBackup = System.in;
         ByteArrayInputStream in = new ByteArrayInputStream("50".getBytes());
         System.setIn(in);
