@@ -327,7 +327,7 @@ public class ExpenseManager {
         futureExpenses.remove(id);
     }
 
-    public int getSize() {
+    public int getExpensesSize() {
         return expenses.size();
     }
 
