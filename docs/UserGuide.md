@@ -30,7 +30,7 @@ Money Master is a Command Line Interface (CLI) based desktop application which w
 ```
 cd [PATH_TO_JAR_DIRECTORY]
 ```
-5. Run Money Master Applicatiom
+5. Run MoneyMaster Application
 ```
 java -jar tp.jar
 ```
@@ -49,6 +49,20 @@ After entering the command, the user will be prompted to choose a category for t
 add expense lunch $/5.50 d/20230409
 add future expense school fees $/500 d/20230502
 ```
+#### Expected output: 
+On choosing the categories for both commands as 1 (Food & Drinks) and 7 (Others), the following message is displayed:
+```
+--------------------------------------------------------------------------------
+Roger, the following expense has been added!
+Spent 5.50 SGD on lunch in the Food & Drinks category on 2023-04-09
+--------------------------------------------------------------------------------
+```
+```
+--------------------------------------------------------------------------------
+Roger, the following expense has been added!
+Upcoming payment school fees in the Others category due on 2023-05-02.
+--------------------------------------------------------------------------------
+```
 ---
 
 
@@ -57,7 +71,7 @@ Run the command followed by choosing what to sort the expenses by
 #### Sort the listed expenses:
 * By Date Added / Expense ID
 * By Name
-* By Price in Asecending Order
+* By Price in Ascending Order
 * By Price in Descending Order
 
 **Example:**
@@ -134,7 +148,7 @@ Get the currency being used
 get currency
 ```
 ---
-#### Expected Ouput:
+#### Expected Output:
 ```
 get currency
 --------------------------------------------------------------------------------
@@ -317,13 +331,14 @@ Thanks for using MoneyMaster! See ya!
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: {your answer here}
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MoneyMaster home folder.
 
 ## Command Summary
 
 * Add expense `add expense NAME $/AMOUNT d/DATE`
 * Edit expense `edit expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY"`
 * Delete expense `delete expense id/EXPENSE_ID`
+* Clear expenses `clear expenses`
 * Set balance `set balance $/AMOUNT`
 * List expenses `list expenses`
 * List expenditure across categories `list expenditure by category`
@@ -334,6 +349,7 @@ Thanks for using MoneyMaster! See ya!
 * Add future expense `add future expense NAME $/AMOUNT d/DATE`
 * Edit future expense `edit future expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY"`
 * Delete future expense `delete future expense id/EXPENSE_ID`
+* Clear future expenses `clear future expenses`
 * List future expenses `list future expenses`
 * Check upcoming expenses `check upcoming expenses`
 * Pay future expense `pay EXPENSE_ID`
