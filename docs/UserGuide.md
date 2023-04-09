@@ -9,7 +9,8 @@ Money Master is a Command Line Interface (CLI) based desktop application which w
     + [Add Expense](#add-expense-add-expense--add-future-expense)
     + [List Expenses](#list-expenses-list-expenses)
     + [List Future Expenses](#list-future-expenses-list-future-expenses)
-    + [Currency](#currency-set-currency--get-currency)
+    + [Set Currency](#set-currency-set-currency)  
+    + [Get Currency](#get-currency-get-currency)
     + [Edit Expense](#edit-expense-edit-expense--edit-future-expense)
     + [Delete Expense](#delete-expense-delete-expense--delete-future-expense)
     + [List Expenditure by Category](#list-expenditure-by-category-list-expenditure-by-category)
@@ -107,13 +108,40 @@ Warning: You have insufficient balance to pay for all future expenses!
 --------------------------------------------------------------------------------
 ```
 ---
-### Currency: `set currency` / `get currency`
+### Set currency: `set currency`
 Set/get the currency used by the app
 #### Usage:
 ```
 set currency {USD/MYR/CAD etc.}
 ```
 ---
+> **Note**
+<br> The currency symbol must be input in all capital letters<br>
+List of supported currencies can be found [here](https://www.exchangerate-api.com/docs/supported-currencies)
+
+### Expected Output:
+```
+set currency JPY
+--------------------------------------------------------------------------------
+Your currency has been successfully set to: JPY
+--------------------------------------------------------------------------------
+```
+---
+### Get currency `get currency`
+Get the currency being used
+#### Usage:
+```
+get currency
+```
+---
+#### Expected Ouput:
+```
+get currency
+--------------------------------------------------------------------------------
+Your currency is currently set to: JPY
+--------------------------------------------------------------------------------
+```
+
 ### Edit Expense: `edit expense` / `edit future expense`
 #### Usage:
 ```
