@@ -34,13 +34,8 @@ expenses quickly and effectively.
 ```
 cd [PATH_TO_JAR_DIRECTORY]
 ```
-<<<<<<< HEAD
-
 5. Run Money Master Applicatiom
 
-=======
-5. Run MoneyMaster Application
->>>>>>> d962a04cf30b62a7f3c25228a73f97dfa313a707
 ```
 java -jar tp.jar
 ```
@@ -48,7 +43,6 @@ java -jar tp.jar
 ## Features
 
 ### Add Expense: `add expense` / `add future expense`
-<<<<<<< HEAD
 
 Input `add expense`/`add future expense` followed by the name of the expenses, the amount and the date. The program will
 then ask you for the category of the expense.
@@ -82,7 +76,7 @@ Spent 3.50 SGD on Tuition in the Food & Drinks category on 2023-03-04
 **Note:**
 If there are more than one input for the same parameters (multiple $/ or d/), the program will accept the first one
 specified.
-=======
+
 #### Usage:
 ```
 add expense (EXPENSE_NAME) $/(EXPENSE_PRICE) d/(DATE in YYYYMMDD)
@@ -108,7 +102,6 @@ Roger, the following expense has been added!
 Upcoming payment school fees in the Others category due on 2023-05-02.
 --------------------------------------------------------------------------------
 ```
->>>>>>> d962a04cf30b62a7f3c25228a73f97dfa313a707
 ---
 
 ### List Expenses: `list expenses`
@@ -177,13 +170,10 @@ Warning: You have insufficient balance to pay for all future expenses!
 ```
 
 ---
-<<<<<<< HEAD
 
 ### Currency: `set currency` / `get currency`
 
-=======
 ### Set currency: `set currency`
->>>>>>> d962a04cf30b62a7f3c25228a73f97dfa313a707
 Set/get the currency used by the app
 
 #### Usage:
@@ -193,8 +183,6 @@ set currency {USD/MYR/CAD etc.}
 ```
 
 ---
-<<<<<<< HEAD
-=======
 > **Note**
 <br> The currency symbol must be input in all capital letters<br>
 List of supported currencies can be found [here](https://www.exchangerate-api.com/docs/supported-currencies)
@@ -221,7 +209,6 @@ get currency
 Your currency is currently set to: JPY
 --------------------------------------------------------------------------------
 ```
->>>>>>> d962a04cf30b62a7f3c25228a73f97dfa313a707
 
 ### Edit Expense: `edit expense` / `edit future expense`
 
@@ -402,8 +389,7 @@ Your current balance is: 1000.00 SGD
 ```
 
 ---
-<<<<<<< HEAD
-=======
+
 ### Check Upcoming Expenses `check upcoming expenses`
 #### Usage:
 ```
@@ -467,7 +453,6 @@ Thanks for using MoneyMaster! See ya!
 --------------------------------------------------------------------------------
 ```
 ---
->>>>>>> d962a04cf30b62a7f3c25228a73f97dfa313a707
 
 ## FAQ
 
