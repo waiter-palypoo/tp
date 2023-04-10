@@ -59,6 +59,11 @@ public class ExpenseManager {
         return this.currency;
     }
 
+    /**
+     * Sets the currency of all the expenses to the currency chosen by the user.
+     *
+     * @param currency Stores the currency chosen by the user
+     */
     public void setCurrency(String currency) {
         this.currency = currency;
         for (Expense expense : expenses) {
@@ -69,6 +74,16 @@ public class ExpenseManager {
         }
     }
 
+    /**
+     * Adds the expense to the list of expenses.
+     * Updates the total balance based on amount of expenses.
+     * Displays a success message to the user with the expense details.
+     *
+     * @param name Stores the expense name
+     * @param amount Stores the expense amount
+     * @param date Stores the expense date
+     * @param category Stores the expense category
+     */
     public void addExpense(String name, double amount, LocalDate date, String category) {
         double normalizedAmount = amount / currencyLoader.getRate(this.currency);
         Expense toAdd = new Expense(name.strip(), normalizedAmount, date, category.strip(), this.currency);
@@ -79,6 +94,15 @@ public class ExpenseManager {
                               expenseByCategory.getOrDefault(category.strip(), 0.0) + normalizedAmount);
     }
 
+    /**
+     * Adds the future expense to the list of future expenses.
+     * Displays a success message to the user with the expense details.
+     *
+     * @param name Stores the expense name
+     * @param amount Stores the expense amount
+     * @param dueDate Stores the due date of expense
+     * @param category Stores the expense category
+     */
     public void addFutureExpense(String name, double amount, LocalDate dueDate, String category) {
         double normalizedAmount = amount / currencyLoader.getRate(this.currency);
         FutureExpense toAdd = new FutureExpense(name.strip(), normalizedAmount, dueDate, category, this.currency);
@@ -102,6 +126,14 @@ public class ExpenseManager {
         return this.currencyLoader.getRate(currency);
     }
 
+    /**
+     * Sorts the expense list by the expense amount in either ascending or
+     * descending order.
+     *
+     * @param isDesc Stores true if expenses are to be sorted in descending
+     * order and false if expenses are to be sorted in ascending order
+     * @returns list of expenses sorted by name
+     */
     private ArrayList<Expense> getSortedExpensesByAmount(boolean isDesc) {
         ArrayList<Expense> sortedExpenses = new ArrayList<>(this.expenses);
         if (isDesc) {
@@ -112,7 +144,13 @@ public class ExpenseManager {
         return sortedExpenses;
     }
 
-    public ArrayList<Expense> getExpensesAbove(double amount) { // return an ArrayList of expenses above a threshold
+    /**
+     * Stores the expenses above a threshold to be displayed in an arraylist.
+     *
+     * @param amount Stores the amount
+     * @returns list of expenses above a threshold
+     */
+    public ArrayList<Expense> getExpensesAbove(double amount) {
         ArrayList<Expense> sortedExpenses = new ArrayList<>();
         double convertedAmount = amount / this.getRate();
         for (Expense expense : this.expenses) {
@@ -123,7 +161,13 @@ public class ExpenseManager {
         return sortedExpenses;
     }
 
-    public ArrayList<Expense> getExpensesBelow(double amount) { // return an ArrayList of expenses below a threshold
+    /**
+     * Stores the expenses below a threshold to be displayed in an arraylist.
+     *
+     * @param amount Stores the amount
+     * @returns list of expenses below a threshold
+     */
+    public ArrayList<Expense> getExpensesBelow(double amount) {
         ArrayList<Expense> sortedExpenses = new ArrayList<>();
         double convertedAmount = amount / this.getRate();
         for (Expense expense : this.expenses) {
@@ -134,12 +178,23 @@ public class ExpenseManager {
         return sortedExpenses;
     }
 
+    /**
+     * Sorts the expense list by the expense name.
+     *
+     * @returns list of expenses sorted by name
+     */
     private ArrayList<Expense> getSortedExpensesByName() {
         ArrayList<Expense> sortedExpenses = new ArrayList<>(this.expenses);
         sortedExpenses.sort((e1, e2) -> e1.getName().compareTo(e2.getName()));
         return sortedExpenses;
     }
 
+    /**
+     * Sorts the expenses by name or amount in ascending or descending order.
+     *
+     * @param sortBy Stores the sorting choice entered by the user
+     * @returns list of expenses above a threshold
+     */
     public ArrayList<Expense> getSortedExpenses(final int sortBy) {
         assert sortBy == SORT_BY_NAME || sortBy == SORT_BY_PRICE_ASC ||
                 sortBy == SORT_BY_PRICE_DESC : "Expenses can either be sort by name or price in asc/desc order";
@@ -158,6 +213,7 @@ public class ExpenseManager {
     /**
      * Prints a list of all <code>Expense</code>s in <code>expenses</code>, sorted by date added, name,
      * or amount paid, according to the user's choice.
+     *
      * @throws DukeException if the <code>expenses</code> list is empty.
      */
     public void printExpense() throws DukeException {

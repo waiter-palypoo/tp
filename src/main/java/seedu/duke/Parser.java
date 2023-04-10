@@ -7,6 +7,13 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Parser {
+    /**
+     * Parses the user input and executes the command
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param userCmd Stores the User input.
+     * @throws DukeException to handle any exceptions found in user input
+     */
     public static void handleCmd(String userCmd, ExpenseManager expenseManager) throws DukeException {
         ArrayList<Expense> expenses = expenseManager.getExpenses();
         ArrayList<FutureExpense> futureExpenses = expenseManager.getFutureExpenses();
@@ -88,6 +95,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Executes the add expense command by extracting necessary information from user
+     * input.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param userCmd Stores the User input
+     * @param choice Stores the category choice
+     * @throws DukeException to handle any exception found in user input
+     */
     public static void executeAddExpense(String userCmd, ExpenseManager expenseManager, int choice)
             throws DukeException {
         double amount = extractAmount(userCmd);
@@ -122,6 +138,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Translates the number entered by the user to the corresponding category
+     * it represents.
+     *
+     * @param choice Stores the category choice
+     * @return the chosen category
+     */
     private static String getCategory(int choice) {
         try {
             switch (choice) {
@@ -147,11 +170,24 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts name of the expense from the user input.
+     *
+     * @param userCmd Stores the User input
+     * @return the name of the expense
+     */
     private static String extractName(String userCmd) {
         int endIndex = userCmd.indexOf("$/");
         return userCmd.substring(12, endIndex);
     }
 
+    /**
+     * Extracts amount of the expense from the user input.
+     *
+     * @param userCmd Stores the User input
+     * @return the amount of the expense
+     * @throws DukeException if expense amount or date is empty
+     */
     private static double extractAmount(String userCmd) throws DukeException {
         int startIndex = userCmd.indexOf("$/");
         int endIndex = userCmd.indexOf(" ", startIndex);
@@ -165,6 +201,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts date of the expense from the user input.
+     *
+     * @param input Stores the User input
+     * @return the date of the expense
+     */
     private static LocalDate extractDate(String input) {
         int startIndex = input.indexOf("d/");
         String dateString = input.substring(startIndex + 2);
@@ -174,6 +216,13 @@ public class Parser {
         return LocalDate.of(year, month, day);
     }
 
+    /**
+     * Executes the set budget command by extracting the amount from user
+     * input and sets the total balance to that amount.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @throws DukeException if budget amount is empty
+     */
     public static void executeSetBudget(ExpenseManager expenseManager, String userCmd) throws DukeException {
         int startIndex = userCmd.indexOf("$/");
         if (startIndex < 0) {
@@ -188,6 +237,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Executes the edit expense command by extracting the id and field of the expense to be edited
+     * from the user input and calls the required method to edit that field.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param userCmd Stores the User input
+     * @param expenses ArrayList used to store the expenses
+     * @throws DukeException if expense id is invalid or incorrect syntax is used
+     */
     public static void executeEditExpense(ExpenseManager expenseManager, String userCmd, ArrayList<Expense> expenses)
             throws DukeException {
         if (!userCmd.contains("id/") || !userCmd.contains("in/")) {
@@ -225,6 +283,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Edits the name of the particular expense .
+     *
+     * @param id Stores the expense id
+     * @param expenseManager instance of expenseManager to execute the command
+     */
     private static void editExpenseName(ExpenseManager expenseManager, int id, Scanner in) {
         System.out.println("Enter a new name for this expense!");
         Ui.printHorizontalLine();
@@ -239,6 +303,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Edits the amount of the particular expense .
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param id Stores the expense id
+     * @throws DukeException if amount is negative
+     */
     private static void editExpenseAmount(ExpenseManager expenseManager, int id, Scanner in) throws DukeException {
         System.out.println("Enter a new amount spent! Just enter a number!");
         Ui.printHorizontalLine();
@@ -254,6 +325,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Edits the date of the particular expense .
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param id Stores the expense id
+     * @throws DukeException if date is invalid
+     */
     private static void editExpenseDate(ExpenseManager expenseManager, int id, Scanner in) throws DukeException {
         System.out.println("Enter a new date in the form of YYYYMMDD!");
         Ui.printHorizontalLine();
@@ -270,6 +348,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Edits the category of the particular expense .
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param id Stores the expense id
+     */
     private static void editExpenseCategory(ExpenseManager expenseManager, int id, Scanner in) {
         Ui.printChoice();
         int choice = Integer.parseInt(in.nextLine());
@@ -291,7 +375,7 @@ public class Parser {
      *
      * @param expenseManager instance of expenseManager to execute the command
      * @param userCmd Stores the User input.
-     * @throws DukeException if the expense id is not entered or is invalid. .
+     * @throws DukeException if the expense id is not entered or is invalid.
      */
     public static void executeDeleteExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
         int startIndex = userCmd.indexOf("id/");
@@ -318,6 +402,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Clears list of expenses upon confirmation from the user and sets the
+     * total balance to 0.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @throws DukeException if the expense list is empty
+     */
     public static void executeClearExpenses(ExpenseManager expenseManager) throws DukeException {
         if (1 > expenseManager.getExpensesSize()) {
             throw new DukeException("You have no expenses to clear.");
@@ -341,6 +432,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Executes the add future expense command by extracting necessary information from
+     * user input.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param userCmd Stores the User input
+     * @param choice Stores the category choice
+     * @throws DukeException to handle any exception found in user input
+     */
     public static void executeAddFutureExpense(String userCmd, ExpenseManager expenseManager, int choice)
             throws DukeException {
         double amount = extractAmount(userCmd);
@@ -380,6 +480,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Executes the edit future expense command by extracting the id and field of the future expense to be
+     * edited from the user input and calls the required method to edit that field.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param userCmd Stores the User input
+     * @param futureExpenses ArrayList used to store the future expenses
+     * @throws DukeException if expense id is invalid or incorrect syntax is used
+     */
     public static void executeEditFutureExpense(ExpenseManager expenseManager, String userCmd,
                                                 ArrayList<FutureExpense> futureExpenses) throws DukeException {
         if (!userCmd.contains("id/") || !userCmd.contains("in/")) {
@@ -417,6 +526,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Edits the name of the particular future expense .
+     *
+     * @param id Stores the expense id
+     * @param expenseManager instance of expenseManager to execute the command
+     */
     private static void editFutureExpenseName(ExpenseManager expenseManager, int id, Scanner in) {
         System.out.println("Enter a new name for this future expense!");
         Ui.printHorizontalLine();
@@ -431,6 +546,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Edits the amount of the particular future expense .
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param id Stores the expense id
+     * @throws DukeException if amount is negative
+     */
     private static void editFutureExpenseAmount(ExpenseManager expenseManager, int id, Scanner in) throws DukeException {
         System.out.println("Enter a new amount spent! Just enter a number!");
         Ui.printHorizontalLine();
@@ -443,6 +565,13 @@ public class Parser {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Edits the date of the particular future expense .
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param id Stores the expense id
+     * @throws DukeException if date is invalid
+     */
     private static void editFutureExpenseDate(ExpenseManager expenseManager, int id, Scanner in) throws DukeException {
         System.out.println("Enter a new date in the form of YYYYMMDD!");
         Ui.printHorizontalLine();
@@ -465,6 +594,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Edits the category of the particular future expense .
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param id Stores the expense id
+     */
     private static void editFutureExpenseCategory(ExpenseManager expenseManager, int id, Scanner in) {
         Ui.printChoice();
         int choice = Integer.parseInt(in.nextLine());
@@ -479,6 +614,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes an expense from the list of future expenses based on the expense id.
+     * Prints the details of the deleted expense.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param userCmd Stores the User input.
+     * @throws DukeException if the expense id is not entered or is invalid.
+     */
     public static void executeDeleteFutureExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
         if (!userCmd.contains("id/")) {
             throw new DukeException("Invalid syntax for the delete future expense command. "
@@ -507,6 +650,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Clears list of future expenses upon confirmation from the user.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @throws DukeException if the future expense list is empty
+     */
     public static void executeClearFutureExpenses(ExpenseManager expenseManager) throws DukeException {
         if (1 > expenseManager.getFutureSize()) {
             throw new DukeException("You have no future expenses to clear.");
@@ -529,6 +678,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Executes the command to display the upcoming expenses for a period of time specified by the user.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @throws DukeException if an invalid number is entered.
+     */
     public static void executeCheckUpcomingExpenses(ExpenseManager expenseManager) throws DukeException {
         System.out.println("Choose a period to show upcoming expenses within (type the number): ");
         System.out.println("1. 1 week");
@@ -547,6 +702,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Executes the command to pay a particular future expense by extracting the id of the
+     * expense from the user input and passing it to the required method.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param userCmd Stores the User input.
+     * @throws DukeException if an invalid number is entered.
+     */
     public static void executePayFutureExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
         if (userCmd.split(" ").length == 2) {
             String idString = userCmd.split(" ")[1].trim();
@@ -566,6 +729,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Display the expenses above a certain amount specified by the user.
+     * Prints the amount entered by the user.
+     * If no such expenses exist, displays the required message.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param amount Stores the amount.
+     * @throws DukeException to handle any exception encountered
+     */
     private static void executeGetExpenseAbove(double amount, ExpenseManager expenseManager) throws DukeException {
         System.out.println(amount);
         ArrayList<Expense> sortedExpenses = new ArrayList<>();
@@ -578,6 +750,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Displays the expenses below a certain amount specified by the user.
+     * Prints the amount entered by the user.
+     * If no such expenses exist, displays the required message.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param amount Stores the amount.
+     * @throws DukeException to handle any exception encountered
+     */
     private static void executeGetExpenseBelow(double amount, ExpenseManager expenseManager) throws DukeException {
         System.out.println(amount);
         ArrayList<Expense> sortedExpenses = new ArrayList<>();

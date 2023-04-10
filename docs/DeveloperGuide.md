@@ -27,6 +27,9 @@ The organisation and documentation of our project follows the recommended format
 ## Design
 
 ### Architecture
+Below is the high-level architecture diagram of the application.
+
+<img alt="architecture diagram" src="diagrams/architecture.png" />
 
 ### Parser Component
 The `Parser` class handles the parsing of user input, executing the appropriate tasks
