@@ -233,15 +233,19 @@ public class Parser {
         }
     }
 
-    private static void editExpenseAmount(ExpenseManager expenseManager, int id, Scanner in) {
+    private static void editExpenseAmount(ExpenseManager expenseManager, int id, Scanner in) throws DukeException {
         System.out.println("Enter a new amount spent! Just enter a number!");
         Ui.printHorizontalLine();
         Double newAmount = Double.parseDouble(in.nextLine()) / expenseManager.getRate();
-        Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
-        expenseManager.get(id - 1).setAmount(newAmount);
-        expenseManager.setTotalBalance(newBalance);
-        Ui.printHorizontalLine();
-        System.out.println("Change in amount successful! Balance has also been recalculated");
+        if (newAmount < 0) {
+            throw new DukeException("Expense price cannot be negative");
+        } else {
+            Double newBalance = expenseManager.getTotalBalance() + expenseManager.get(id - 1).getAmount() - newAmount;
+            expenseManager.get(id - 1).setAmount(newAmount);
+            expenseManager.setTotalBalance(newBalance);
+            Ui.printHorizontalLine();
+            System.out.println("Change in amount successful! Balance has also been recalculated");
+        }
     }
 
     private static void editExpenseDate(ExpenseManager expenseManager, int id, Scanner in) throws DukeException {
@@ -325,6 +329,9 @@ public class Parser {
     public static void executeAddFutureExpense(String userCmd, ExpenseManager expenseManager, int choice)
             throws DukeException {
         double amount = extractAmount(userCmd);
+        if (amount < 0) {
+            throw new DukeException("Expense price cannot be negative");
+        }
         try {
             LocalDate dueDate = extractDate(userCmd);
             if (dueDate.isBefore(LocalDate.now())) {
@@ -403,10 +410,13 @@ public class Parser {
         }
     }
 
-    private static void editFutureExpenseAmount(ExpenseManager expenseManager, int id, Scanner in) {
+    private static void editFutureExpenseAmount(ExpenseManager expenseManager, int id, Scanner in) throws DukeException {
         System.out.println("Enter a new amount spent! Just enter a number!");
         Ui.printHorizontalLine();
         Double newAmount = Double.parseDouble(in.nextLine()) / expenseManager.getRate();
+        if (newAmount < 0) {
+            throw new DukeException("Expense price cannot be negative");
+        }
         expenseManager.getFutureExpense(id - 1).setAmount(newAmount);
         System.out.println("Change in amount successful!");
         Ui.printHorizontalLine();
