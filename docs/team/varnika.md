@@ -7,7 +7,7 @@ their spending and make informed financial decisions.
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability delete expenses.
+* **New Feature**: Added the ability to delete expenses.
     * What it does: Deletes the expenses from the list of expenses based on the expense id entered by the user and updates the balance accordingly.
     * Justification: This feature allows the user to remove any expense entry that are no longer used or added by mistake.
 
@@ -26,7 +26,8 @@ Given below are my contributions to the project.
 
 * **Enhancements to existing features**:
     * Implemented tests for add expense, delete expense and list expense by category.
-  
+    * Handled exceptions and bugs for various features encountered during PE-D. [#31](https://github.com/AY2223S2-CS2113-W13-4/tp/pull/131), [#61](https://github.com/AY2223S2-CS2113-W13-4/tp/issues/61), [#132](https://github.com/AY2223S2-CS2113-W13-4/tp/pull/132), [#133](https://github.com/AY2223S2-CS2113-W13-4/tp/pull/133)
+
 
 * **Documentation**:
     * User Guide:
