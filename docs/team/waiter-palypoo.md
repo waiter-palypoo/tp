@@ -26,4 +26,4 @@ user's past expenditure and expected future payments in order to help the user b
   them are past their due date in system time, the user is alerted.
   * Justification: Serves as a reminder to the user if they have yet to pay (or indicate paid) for a future expense.
 * **Code contributed**: [RepoSense Link](https://nus-cs2113-ay2223s2.github.io/tp-dashboard/?search=waiter-palypoo&breakdown=true)
-* **Contributions to DG**: Added implementation and sequence diagram for pay feature.
+* **Contributions to DG**: Added implementation and sequence diagram for pay feature, added architecture diagram.
