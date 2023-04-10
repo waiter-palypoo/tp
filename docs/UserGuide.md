@@ -295,6 +295,46 @@ Upcoming payment book in the wrong input category due on 2023-06-06.
 
 ---
 
+### Clear Expense: `clear expenses` / `clear future expenses`
+
+Clears all the expenses or future expenses added to your list.
+
+**Format:** `clear expenses` / `clear future expenses`
+
+**Example:**
+
+`clear expenses`
+
+**Expected outcome:**
+
+```
+--------------------------------------------------------------------------------
+Are you sure you would like to remove all expenses? 'Y' or 'N'
+--------------------------------------------------------------------------------
+Y
+--------------------------------------------------------------------------------
+You have cleared all your expenses.
+--------------------------------------------------------------------------------
+```
+
+**Example:**
+
+`clear future expenses`
+
+**Expected outcome:**
+
+```
+--------------------------------------------------------------------------------
+Are you sure you would like to remove all future expenses? 'Y' or 'N'
+--------------------------------------------------------------------------------
+Y
+--------------------------------------------------------------------------------
+You have cleared all your future expenses.
+--------------------------------------------------------------------------------
+```
+
+---
+
 ### List Expenditure by Category: `list expenditure by category`
 
 Lists the total expenditure across different categories.

@@ -200,6 +200,7 @@ create and track their budgets to prevent overspending and adjusting their expen
 #### Add past expense
 
 1. Prerequisites:
+    - Ensure that you enter a name for the expense
     - Ensure that a valid date is entered
     - Date is entered in the format: yyyymmdd
     - Ensure all fields are entered
@@ -211,6 +212,7 @@ create and track their budgets to prevent overspending and adjusting their expen
 #### Add future expense
 
 1. Prerequisites:
+    - Ensure that you enter a name for the future expense
     - Ensure that a valid date is entered
     - Date is entered in the format: yyyymmdd
     - Ensure all fields are entered
@@ -262,7 +264,7 @@ Expected: Terminal shows error message.
     - Ensure all fields are entered
 
 2. Test case:
-   `edit expense id/1 in/"amount/date/category"`\
+   `edit expense id/1 in/"amount/date/category/name"`\
    Enter type of the field to edit in the above format. \
    Expected: Terminal shows message to enter the information for the chosen field to edit. Successful message is shown
    on entering the information.
@@ -276,7 +278,7 @@ Expected: Terminal shows error message.
     - Ensure all fields are entered
 
 2. Test case:
-   `edit future expense id/1 in/"amount/date/category"`\
+   `edit future expense id/1 in/"amount/date/category/name"`\
    Enter type of the field to edit in the above format. \
    Expected: Terminal shows message to enter the information for the chosen field to edit. Successful message is shown
    on entering the information.
@@ -381,10 +383,22 @@ Expected: Terminal displays the total expenditure across all categories.
 
 ### Clear expenses 
 
-#### Clear expenses / Clear future expenses
-Test case:
-`clear expenses` / `clear future expenses` \
-Expected: Terminal shows message to choose Y or N to remove all expenses. Based on the user input, the terminal displays the message. If there are no expenses in the list, the required message will be displayed.
+#### Clear expenses 
+1. Prerequisites:
+    - Ensure you have already added expenses to your list, otherwise there will be nothing to clear
+    
+2. Test case:
+   `clear expenses`\
+    Expected: Terminal shows message to choose Y or N to remove all expenses. Based on the user input, the terminal displays the message. If there are no expenses in the list, the required message will be displayed.
+
+#### Clear future expenses
+1. Prerequisites:
+    - Ensure you have already added future expenses to your list, otherwise there will be nothing to clear
+
+2. Test case:
+   `clear future expenses`\
+   Expected: Terminal shows message to choose Y or N to remove all future expenses. Based on the user input, the terminal displays the message. If there are no future expenses in the list, the required message will be displayed.
+
 
 ### Shutdown
 

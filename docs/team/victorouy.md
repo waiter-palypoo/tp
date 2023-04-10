@@ -26,10 +26,14 @@ Given below are my contributions to the project.
 
 
 * **Enhancements to existing features**:
-    * Implemented tests for add expense, delete expense and list expense by category.
+    * Integrated tests for adding, editing, deleting and listing future expense.
 
 
 * **Documentation**:
     * User Guide:
-
+      * 
+      * Made UML diagram to represent architecture of clear feature
+      
     * Developer Guide
+      * Added the edit name attribute and the prerequisites for it
+      * Included the clear expenses and future expenses instructions with prerequisites
