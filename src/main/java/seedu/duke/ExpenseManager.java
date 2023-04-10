@@ -155,6 +155,11 @@ public class ExpenseManager {
         }
     }
 
+    /**
+     * Prints a list of all <code>Expense</code>s in <code>expenses</code>, sorted by date added, name,
+     * or amount paid, according to the user's choice.
+     * @throws DukeException if the <code>expenses</code> list is empty.
+     */
     public void printExpense() throws DukeException {
         if (expenses.size() == 0) {
             throw new DukeException("Sorry, there are no expenses in the list currently.");
@@ -184,7 +189,7 @@ public class ExpenseManager {
                 default:
                     Ui.printLines("Invalid choice");
             }
-        } catch (NumberFormatException | InputMismatchException excep) {
+        } catch (NumberFormatException | InputMismatchException exception) {
             throw new DukeException("Invalid input");
         }
     }
@@ -196,6 +201,12 @@ public class ExpenseManager {
         return "Warning: Insufficient Balance!";
     }
 
+    /**
+     * Prints a list of all <code>FutureExpense</code>s in <code>futureExpenses</code>, then informs the user if they
+     * have sufficient balance for each future expense, then for all of them in total.
+     *
+     * @throws DukeException if <code>futureExpenses</code> is empty.
+     */
     public void printFutureExpenses() throws DukeException {
         if (futureExpenses.size() == 0) {
             throw new DukeException("Sorry, there are no future expenses.");
@@ -222,6 +233,12 @@ public class ExpenseManager {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Prints a list of <code>FutureExpense</code>s that are due within the time period specified by the user and
+     * informs the user if they have sufficient balance for each future expense, then for all of them in total.
+     *
+     * @param timePeriod Setting for the time period. 1 indicates 1 week, 2 indicates 1 month, 3 indicates 3 months.
+     */
     public void checkUpcomingExpenses(int timePeriod) {
         Ui.printHorizontalLine();
         LocalDate today = LocalDate.now();
@@ -242,7 +259,7 @@ public class ExpenseManager {
         int count = 0;
         int totalAmountDue = 0;
         for (FutureExpense futureExpense : futureExpenses) {
-            if (futureExpense.getDueDate().isBefore(endDate)) { // change
+            if (futureExpense.getDueDate().isBefore(endDate)) {
                 System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " + futureExpense + " " +
                         checkSufficientBalance(futureExpense));
                 count++;
@@ -262,12 +279,16 @@ public class ExpenseManager {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Checks if any of the items in the <code>futureExpenses</code> list are overdue, and if so, prints a warning
+     * to the user.
+     */
     public void startupDueDateCheck() {
         LocalDate today = LocalDate.now();
         int count = 0;
         int totalAmountDue = 0;
         for (FutureExpense futureExpense : futureExpenses) {
-            if (futureExpense.getDueDate().isBefore(today)) { // change
+            if (futureExpense.getDueDate().isBefore(today)) {
                 System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " + futureExpense + " " +
                         checkSufficientBalance(futureExpense));
                 count++;
@@ -291,6 +312,13 @@ public class ExpenseManager {
         }
     }
 
+    /**
+     * Converts a <code>FutureExpense</code> in the <code>futureExpenses</code> list to an <code>Expense</code>, thereby
+     * setting it as paid.
+     *
+     * @param id The index of the <code>FutureExpense</code> in <code>futureExpenses</code>.
+     * @throws DukeException if the index given is greater than the size of <code>futureExpenses</code>.
+     */
     public void payFutureExpense(int id) throws DukeException {
         Ui.printHorizontalLine();
         if (id >= futureExpenses.size()) {
