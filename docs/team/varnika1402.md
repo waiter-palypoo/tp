@@ -15,7 +15,7 @@ Given below are my contributions to the project.
 * **New Feature**: Added the ability to view expenditure by category.
     * What it does: Displays the total amount spent in each category, allowing users to identify which category is utilizing the most budget.
     * Justification: This feature provides users with insight into their spending patterns and helps them prioritize and optimize their budget accordingly.
-
+  
 
 * **Code contributed**: [RepoSense link](https://nus-cs2113-ay2223s2.github.io/tp-dashboard/?search=varnika1402&breakdown=true)
 
