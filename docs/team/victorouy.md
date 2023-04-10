@@ -31,8 +31,8 @@ Given below are my contributions to the project.
 
 * **Documentation**:
     * User Guide:
-      * 
-      * Made UML diagram to represent architecture of clear feature
+      * Added the clear expenses and future expenses guide with examples
+      * Included the edit name in the examples
       
     * Developer Guide
       * Added the edit name attribute and the prerequisites for it
