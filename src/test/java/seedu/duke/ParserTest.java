@@ -202,7 +202,6 @@ class ParserTest {
         testFutureExpenses.add(toAdd);
         String expectedOutput = testFutureExpenses.get(0).toString();
         String actualOutput = expenseManager.getFutureExpense(0).toString();
-
         assertEquals(expectedOutput, actualOutput);
     }
 }
