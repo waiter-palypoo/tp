@@ -83,6 +83,22 @@ the `TotalBudget`. The class also contains methods that involve the creating, ed
 
 ## Implementation
 
+### Add Expenses
+Adding expenses and future expenses feature is facilitated by the `Parser`, `ExpenseManager` and `Expense` and `FutureExpense` classes.\
+The add command is used to add expenses and future expenses from the ArrayList `expense` and `future expense` respectively and updates the total balance accordingly.\
+The sequence in which the `Parser` class handles the `add expense` command is as follows:
+1. Assume the user input to be "add expenses Tuition $/2000 d/20230405"
+2. The user input is sent to the `Parser` class which calls the `executeAddExpense` method based on the user command.
+3. The method then extracts the necessary fields from the user command and add the expense into the `ArrayList<Expense>` all of the fields meet the requirements using the `addExpense` method in the class `ExpenseManager`.
+4. The total balance is also updated using `addExpense` method in `ExpenseManager` class.
+5. If the addition was a success, a message will be printed.
+
+The implementation of `add future expense` is similar to `add expense` command as described above.
+
+The sequence diagram below illustrates this adding mechanism:
+
+<img alt="delete sequence diagram" src="diagrams/add.png" />
+
 ### Delete Expenses
 Delete past and future expenses feature is facilitated by the `Parser`, `ExpenseManager` and `Expense` and `FutureExpense` classes.\
 The delete command is used to delete the past and future expenses from the ArrayList `expense` and `future expense` respectively and updates the total balance accordingly.\
