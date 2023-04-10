@@ -730,8 +730,9 @@ public class Parser {
     }
 
     /**
-     * Executes the command to display expenses above a certain amount specified by the user.
+     * Display the expenses above a certain amount specified by the user.
      * Prints the amount entered by the user.
+     * If no such expenses exist, displays the required message.
      *
      * @param expenseManager instance of expenseManager to execute the command
      * @param amount Stores the amount.
@@ -750,8 +751,9 @@ public class Parser {
     }
 
     /**
-     * Executes the command to display expenses below a certain amount specified by the user.
+     * Displays the expenses below a certain amount specified by the user.
      * Prints the amount entered by the user.
+     * If no such expenses exist, displays the required message.
      *
      * @param expenseManager instance of expenseManager to execute the command
      * @param amount Stores the amount.
