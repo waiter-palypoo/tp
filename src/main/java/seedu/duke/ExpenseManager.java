@@ -144,14 +144,14 @@ public class ExpenseManager {
         assert sortBy == SORT_BY_NAME || sortBy == SORT_BY_PRICE_ASC ||
                 sortBy == SORT_BY_PRICE_DESC : "Expenses can either be sort by name or price in asc/desc order";
         switch (sortBy) {
-        case SORT_BY_NAME:
-            return getSortedExpensesByName();
-        case SORT_BY_PRICE_ASC:
-            return getSortedExpensesByAmount(false);
-        case SORT_BY_PRICE_DESC:
-            return getSortedExpensesByAmount(true);
-        default:
-            return this.expenses;
+            case SORT_BY_NAME:
+                return getSortedExpensesByName();
+            case SORT_BY_PRICE_ASC:
+                return getSortedExpensesByAmount(false);
+            case SORT_BY_PRICE_DESC:
+                return getSortedExpensesByAmount(true);
+            default:
+                return this.expenses;
         }
     }
 
@@ -160,29 +160,29 @@ public class ExpenseManager {
             throw new DukeException("Sorry, there are no expenses in the list currently.");
         }
         Ui.printLines("How would you like your expenses to be sorted?", "  1. By date added / Expense ID",
-                      "  2. By Name", "  3. By Amount in Ascending Order", "  4. By Amount in Descending Order");
+                "  2. By Name", "  3. By Amount in Ascending Order", "  4. By Amount in Descending Order");
         Scanner sc = new Scanner(System.in);
         try {
             int sortBy = sc.nextInt();
             ArrayList<Expense> toList;
             switch (sortBy) {
-            case 1:
-                Ui.printLines(Ui.getFormattedList(this.expenses));
-                break;
-            case 2:
-                toList = getSortedExpenses(SORT_BY_NAME);
-                Ui.printLines(Ui.getFormattedList(toList));
-                break;
-            case 3:
-                toList = getSortedExpenses(SORT_BY_PRICE_ASC);
-                Ui.printLines(Ui.getFormattedList(toList));
-                break;
-            case 4:
-                toList = getSortedExpenses(SORT_BY_PRICE_DESC);
-                Ui.printLines(Ui.getFormattedList(toList));
-                break;
-            default:
-                Ui.printLines("Invalid choice");
+                case 1:
+                    Ui.printLines(Ui.getFormattedList(this.expenses));
+                    break;
+                case 2:
+                    toList = getSortedExpenses(SORT_BY_NAME);
+                    Ui.printLines(Ui.getFormattedList(toList));
+                    break;
+                case 3:
+                    toList = getSortedExpenses(SORT_BY_PRICE_ASC);
+                    Ui.printLines(Ui.getFormattedList(toList));
+                    break;
+                case 4:
+                    toList = getSortedExpenses(SORT_BY_PRICE_DESC);
+                    Ui.printLines(Ui.getFormattedList(toList));
+                    break;
+                default:
+                    Ui.printLines("Invalid choice");
             }
         } catch (NumberFormatException | InputMismatchException excep) {
             throw new DukeException("Invalid input");
@@ -227,24 +227,24 @@ public class ExpenseManager {
         LocalDate today = LocalDate.now();
         LocalDate endDate = null;
         switch (timePeriod) {
-        case 1:
-            endDate = today.plusWeeks(1);
-            break;
-        case 2:
-            endDate = today.plusMonths(1);
-            break;
-        case 3:
-            endDate = today.plusMonths(3);
-            break;
-        default:
-            endDate = today;
+            case 1:
+                endDate = today.plusWeeks(1);
+                break;
+            case 2:
+                endDate = today.plusMonths(1);
+                break;
+            case 3:
+                endDate = today.plusMonths(3);
+                break;
+            default:
+                endDate = today;
         }
         int count = 0;
         int totalAmountDue = 0;
         for (FutureExpense futureExpense : futureExpenses) {
             if (futureExpense.getDueDate().isBefore(endDate)) { // change
                 System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " + futureExpense + " " +
-                                   checkSufficientBalance(futureExpense));
+                        checkSufficientBalance(futureExpense));
                 count++;
                 totalAmountDue += futureExpense.getAmount();
             }
@@ -269,7 +269,7 @@ public class ExpenseManager {
         for (FutureExpense futureExpense : futureExpenses) {
             if (futureExpense.getDueDate().isBefore(today)) { // change
                 System.out.println((futureExpenses.indexOf(futureExpense) + 1) + ". " + futureExpense + " " +
-                                   checkSufficientBalance(futureExpense));
+                        checkSufficientBalance(futureExpense));
                 count++;
                 totalAmountDue += futureExpense.getAmount();
             }
@@ -286,7 +286,7 @@ public class ExpenseManager {
                 System.out.println("You have sufficient balance to pay for all overdue expenses!");
             }
             System.out.println("Use the pay command to pay for a future expense. Use the help command for a list of "
-                               + "commands");
+                    + "commands");
             Ui.printHorizontalLine();
         }
     }
@@ -310,7 +310,8 @@ public class ExpenseManager {
     public void printExpenditureByCategory() {
         Ui.printHorizontalLine();
         for (String i : expenseByCategory.keySet()) {
-            System.out.println(i + " - " + expenseByCategory.get(i) * this.getRate() + " " + this.currency);
+            System.out.println(i + " - "
+                    + "$" + expenseByCategory.get(i));
         }
         Ui.printHorizontalLine();
     }
