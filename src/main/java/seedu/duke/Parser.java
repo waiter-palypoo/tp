@@ -94,6 +94,9 @@ public class Parser {
         if (amount < 0) {
             throw new DukeException("Expense price cannot be negative");
         }
+        if(amount > 1000000000000.0) {
+            throw new DukeException("Expense price is too large");
+        }
         try {
             LocalDate date = extractDate(userCmd);
             String name = extractName(userCmd);
@@ -324,6 +327,12 @@ public class Parser {
     public static void executeAddFutureExpense(String userCmd, ExpenseManager expenseManager, int choice)
             throws DukeException {
         double amount = extractAmount(userCmd);
+        if (amount < 0) {
+            throw new DukeException("Expense price cannot be negative");
+        }
+        if(amount > 1000000000000.0) {
+            throw new DukeException("Expense price is too large");
+        }
         try {
             LocalDate dueDate = extractDate(userCmd);
             if (dueDate.isBefore(LocalDate.now())) {

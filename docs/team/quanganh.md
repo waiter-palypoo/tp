@@ -54,4 +54,6 @@ The following is what I have contributed to the project.
 * **Documentation**
     * Developer Guide:
         * Added class diagram for `ExpenseManager` class.
+    * User Guide:
+        * Added the command `add expense`/`add future expense`
 
