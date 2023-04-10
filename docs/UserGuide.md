@@ -74,7 +74,8 @@ Spent 3.50 SGD on Tuition in the Food & Drinks category on 2023-03-04
 ```
 
 **Note:**
-The amount input must not be over 1000000000000 in value.
+If there are more than one input for the same parameters (multiple $/ or d/), the program will accept the first one
+specified.
 ---
 
 ### List Expenses: `list expenses`

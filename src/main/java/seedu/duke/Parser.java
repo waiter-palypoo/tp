@@ -92,10 +92,13 @@ public class Parser {
             throws DukeException {
         double amount = extractAmount(userCmd);
         if (amount < 0) {
-            throw new DukeException("Expense price cannot be negative");
+            throw new DukeException("Expense price cannot be negative! Adding expense failed");
         }
         if(amount > 1000000000000.0) {
-            throw new DukeException("Expense price is too large");
+            throw new DukeException("Expense price is too large! Adding expense failed");
+        }
+        if (amount < 0.01) {
+            throw new DukeException("Expense price is too small! Adding expense failed");
         }
         try {
             LocalDate date = extractDate(userCmd);
@@ -328,10 +331,13 @@ public class Parser {
             throws DukeException {
         double amount = extractAmount(userCmd);
         if (amount < 0) {
-            throw new DukeException("Expense price cannot be negative");
+            throw new DukeException("Expense price cannot be negative! Adding expense failed");
         }
         if(amount > 1000000000000.0) {
-            throw new DukeException("Expense price is too large");
+            throw new DukeException("Expense price is too large! Adding expense failed");
+        }
+        if (amount < 0.01) {
+            throw new DukeException("Expense price is too small! Adding expense failed");
         }
         try {
             LocalDate dueDate = extractDate(userCmd);
