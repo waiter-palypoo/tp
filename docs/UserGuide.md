@@ -7,18 +7,19 @@ expenses quickly and effectively.
 
 + [Quick Start](#quick-start)
 + [Features](#features)
-    + [Add Expense](#add-expense--add-expense--add-future-expense)
-    + [List Expenses](#list-expenses--list-expenses)
-    + [List Future Expenses](#list-future-expenses--list-future-expenses)
-    + [Currency](#currency--set-currency--get-currency)
-    + [Edit Expense](#edit-expense--edit-expense--edit-future-expense)
-    + [Delete Expense](#delete-expense--delete-expense--delete-future-expense)
-    + [List Expenditure by Category](#list-expenditure-by-category--list-expenditure-by-category)
+    + [Add Expense](#add-expense-add-expense--add-future-expense)
+    + [List Expenses](#list-expenses-list-expenses)
+    + [List Future Expenses](#list-future-expenses-list-future-expenses)
+    + [Set Currency](#set-currency-set-currency)  
+    + [Get Currency](#get-currency-get-currency)
+    + [Edit Expense](#edit-expense-edit-expense--edit-future-expense)
+    + [Delete Expense](#delete-expense-delete-expense--delete-future-expense)
+    + [List Expenditure by Category](#list-expenditure-by-category-list-expenditure-by-category)
     + [Set Balance](#set-balance-set-balance)
     + [Check Balance](#check-balance-check-balance)
-    + [Check Upcoming Expenses](#check-upcoming-expenses--check-upcoming-expenses)
-    + [Pay Future Expenses](#pay-future-expenses--pay)
-    + [Exit the Application](#exit-application--bye)
+    + [Check Upcoming Expenses](#check-upcoming-expenses-check-upcoming-expenses)
+    + [Pay Future Expenses](#pay-future-expenses-pay)
+    + [Exit the Application](#exit-the-application-bye)
 + [FAQ](#faq)
 + [Command Summary](#command-summary)
 
@@ -33,9 +34,13 @@ expenses quickly and effectively.
 ```
 cd [PATH_TO_JAR_DIRECTORY]
 ```
+<<<<<<< HEAD
 
 5. Run Money Master Applicatiom
 
+=======
+5. Run MoneyMaster Application
+>>>>>>> d962a04cf30b62a7f3c25228a73f97dfa313a707
 ```
 java -jar tp.jar
 ```
@@ -43,6 +48,7 @@ java -jar tp.jar
 ## Features
 
 ### Add Expense: `add expense` / `add future expense`
+<<<<<<< HEAD
 
 Input `add expense`/`add future expense` followed by the name of the expenses, the amount and the date. The program will
 then ask you for the category of the expense.
@@ -76,6 +82,33 @@ Spent 3.50 SGD on Tuition in the Food & Drinks category on 2023-03-04
 **Note:**
 If there are more than one input for the same parameters (multiple $/ or d/), the program will accept the first one
 specified.
+=======
+#### Usage:
+```
+add expense (EXPENSE_NAME) $/(EXPENSE_PRICE) d/(DATE in YYYYMMDD)
+add future expense (EXPENSE_NAME) $/(EXPENSE_PRICE) d/(FUTURE_DATE in YYYYMMDD)
+```
+After entering the command, the user will be prompted to choose a category for the expense
+#### Example:
+```
+add expense lunch $/5.50 d/20230409
+add future expense school fees $/500 d/20230502
+```
+#### Expected output: 
+On choosing the categories for both commands as 1 (Food & Drinks) and 7 (Others), the following message is displayed:
+```
+--------------------------------------------------------------------------------
+Roger, the following expense has been added!
+Spent 5.50 SGD on lunch in the Food & Drinks category on 2023-04-09
+--------------------------------------------------------------------------------
+```
+```
+--------------------------------------------------------------------------------
+Roger, the following expense has been added!
+Upcoming payment school fees in the Others category due on 2023-05-02.
+--------------------------------------------------------------------------------
+```
+>>>>>>> d962a04cf30b62a7f3c25228a73f97dfa313a707
 ---
 
 ### List Expenses: `list expenses`
@@ -86,7 +119,8 @@ Run the command followed by choosing what to sort the expenses by
 
 * By Date Added / Expense ID
 * By Name
-* By Price
+* By Price in Ascending Order
+* By Price in Descending Order
 
 **Example:**
 
@@ -96,7 +130,8 @@ list expenses
 How would you like your expenses to be sorted?
   1. By date added / Expense ID
   2. By Name
-  3. By Amount
+  3. By Amount in Ascending Order
+  4. By Amount in Descending Order
 --------------------------------------------------------------------------------
 1
 --------------------------------------------------------------------------------
@@ -142,9 +177,13 @@ Warning: You have insufficient balance to pay for all future expenses!
 ```
 
 ---
+<<<<<<< HEAD
 
 ### Currency: `set currency` / `get currency`
 
+=======
+### Set currency: `set currency`
+>>>>>>> d962a04cf30b62a7f3c25228a73f97dfa313a707
 Set/get the currency used by the app
 
 #### Usage:
@@ -154,14 +193,43 @@ set currency {USD/MYR/CAD etc.}
 ```
 
 ---
+<<<<<<< HEAD
+=======
+> **Note**
+<br> The currency symbol must be input in all capital letters<br>
+List of supported currencies can be found [here](https://www.exchangerate-api.com/docs/supported-currencies)
+
+### Expected Output:
+```
+set currency JPY
+--------------------------------------------------------------------------------
+Your currency has been successfully set to: JPY
+--------------------------------------------------------------------------------
+```
+---
+### Get currency `get currency`
+Get the currency being used
+#### Usage:
+```
+get currency
+```
+---
+#### Expected Output:
+```
+get currency
+--------------------------------------------------------------------------------
+Your currency is currently set to: JPY
+--------------------------------------------------------------------------------
+```
+>>>>>>> d962a04cf30b62a7f3c25228a73f97dfa313a707
 
 ### Edit Expense: `edit expense` / `edit future expense`
 
 #### Usage:
 
 ```
-edit expense id/ID in/(amount|date|category)
-edit future expense id/ID in/(amount|date|category)
+edit expense id/ID in/(amount|date|category|name)
+edit future expense id/ID in/(amount|date|category|name)
 ```
 
 Upon entering the command, a prompt will be given for the user to enter the new value
@@ -171,6 +239,7 @@ Upon entering the command, a prompt will be given for the user to enter the new 
 ```
 edit expense id/2 in/amount
 edit expense id/3 in/category
+edit expense id/2 in/name
 ```
 
 #### Expected Output
@@ -180,6 +249,10 @@ edit expense id/1 in/amount
 Enter a new amount spent! Just enter a number!
 200
 Change in amount successful! Balance has also been recalculated
+edit expense id/1 in/name
+Enter a new name for this expense!
+new name
+Successfully changed expense name from 'old name' to 'new name'
 ```
 
 ---
@@ -289,18 +362,85 @@ Your current balance is: 1000.00 SGD
 ```
 
 ---
+<<<<<<< HEAD
+=======
+### Check Upcoming Expenses `check upcoming expenses`
+#### Usage:
+```
+check upcoming expenses
+```
+After entering the command, the user will be prompted the choose the period to show upcoming expenses within
+#### Expected Output:
+```
+check upcoming expenses
+Choose a period to show upcoming expenses within (type the number):
+1. 1 week
+2. 1 month
+3. 3 months
+2
+--------------------------------------------------------------------------------
+1. Upcoming payment rent in the Others category due on 2023-05-05. Warning: Insufficient Balance!
+--------------------------------------------------------------------------------
+There are 1 upcoming payments in this time period.
+Total amount due: 386
+Total balance: -2557.840154
+--------------------------------------------------------------------------------
+Warning: You have insufficient balance to pay for all upcoming expenses!
+--------------------------------------------------------------------------------
+```
+---
+### Pay future expenses `pay`
+#### Usage:
+```
+pay (FUTURE_EXPENSE_ID)
+```
+#### Example:
+```
+pay 1
+```
+#### Expected Output:
+```
+pay 1
+--------------------------------------------------------------------------------
+This future expense has been paid for:
+Upcoming payment rent in the Others category due on 2023-05-05.
+You may now find it in your expenses list.
+--------------------------------------------------------------------------------
+Roger, the following expense has been added!
+Spent 386.10 CNY on rent in the Others category on 2023-04-09
+--------------------------------------------------------------------------------
+```
+---
+### Exit the application `bye`
+#### Usage:
+```
+bye
+```
+#### Expected Output:
+```
+bye
+--------------------------------------------------------------------------------
+Thanks for using MoneyMaster! See ya!
+ /\_/\
+( o.o )
+ > ^ <
+--------------------------------------------------------------------------------
+```
+---
+>>>>>>> d962a04cf30b62a7f3c25228a73f97dfa313a707
 
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?
 
-**A**: {your answer here}
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MoneyMaster home folder.
 
 ## Command Summary
 
 * Add expense `add expense NAME $/AMOUNT d/DATE`
-* Edit expense `edit expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY"`
+* Edit expense `edit expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY/NAME"`
 * Delete expense `delete expense id/EXPENSE_ID`
+* Clear expenses `clear expenses`
 * Set balance `set balance $/AMOUNT`
 * List expenses `list expenses`
 * List expenditure across categories `list expenditure by category`
@@ -309,8 +449,9 @@ Your current balance is: 1000.00 SGD
 * Set currency `set currency CURRENCY_SYMBOL`
 * Get currency `get currency`
 * Add future expense `add future expense NAME $/AMOUNT d/DATE`
-* Edit future expense `edit future expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY"`
+* Edit future expense `edit future expense id/EXPENSE_ID in/"AMOUNT/DATE/CATEGORY/NAME"`
 * Delete future expense `delete future expense id/EXPENSE_ID`
+* Clear future expenses `clear future expenses`
 * List future expenses `list future expenses`
 * Check upcoming expenses `check upcoming expenses`
 * Pay future expense `pay EXPENSE_ID`
