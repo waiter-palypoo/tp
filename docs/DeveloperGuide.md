@@ -18,13 +18,11 @@
     * [Value Proposition](#value-proposition)
 + [User Stories](#user-stories)
 + [Non-Functional Requirements](#non-functional-requirements)
-+ [Glossary](#glossary)
 + [Instructions for Manual Testing](#instructions-for-manual-testing)
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
-original source as well}
+The organisation and documentation of our project follows the recommended format of [AddressBook Level 3](http://se-education.org/addressbook-level3/DeveloperGuide.html).
 
 ## Design
 
@@ -186,10 +184,6 @@ create and track their budgets to prevent overspending and adjusting their expen
 4. Program data will be saved persistently.
 5. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
    able to accomplish most of the tasks faster using commands than using the mouse.
-
-## Glossary
-
-* *glossary item* - Definition
 
 ## Instructions for Manual Testing
 

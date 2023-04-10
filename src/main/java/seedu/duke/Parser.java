@@ -311,6 +311,7 @@ public class Parser {
             Ui.printHorizontalLine();
             if (confirmationClear.toUpperCase(Locale.ROOT).equals("Y")) {
                 expenseManager.removeAllExpenses();
+                expenseManager.setTotalBalance(0);
                 System.out.println("You have cleared all your expenses.");
             } else if (confirmationClear.equals("N")) {
                 System.out.println("Okay! Expenses will not be cleared.");
