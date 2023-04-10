@@ -74,7 +74,7 @@ public class ExpenseManager {
         Expense toAdd = new Expense(name.strip(), normalizedAmount, date, category.strip(), this.currency);
         Ui.printLines("Roger, the following expense has been added!", toAdd.toString());
         expenses.add(toAdd);
-        totalBalance -= amount;
+        totalBalance -= normalizedAmount;
         expenseByCategory.put(category.strip(),
                               expenseByCategory.getOrDefault(category.strip(), 0.0) + normalizedAmount);
     }
