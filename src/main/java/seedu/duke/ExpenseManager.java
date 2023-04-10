@@ -307,6 +307,11 @@ public class ExpenseManager {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Prints the total expenditure in different categories based on the expenses
+     * entered by the user. If no expense is made in a particular category, the
+     * amount shown is 0 by default.
+     */
     public void printExpenditureByCategory() {
         Ui.printHorizontalLine();
         for (String i : expenseByCategory.keySet()) {

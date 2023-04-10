@@ -284,6 +284,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes an expense from the list of expenses based on the expense id
+     * and adjusts the total balance accordingly.
+     * Prints the details of the deleted expense.
+     *
+     * @param expenseManager instance of expenseManager to execute the command
+     * @param userCmd Stores the User input.
+     * @throws DukeException if the expense id is not entered or is invalid. .
+     */
     public static void executeDeleteExpense(ExpenseManager expenseManager, String userCmd) throws DukeException {
         int startIndex = userCmd.indexOf("id/");
         if (startIndex < 0) {
